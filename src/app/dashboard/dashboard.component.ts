@@ -1,14 +1,18 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import { AuthService } from "@core/services";
-import { Router } from "@angular/router";
-import { firstValueFrom } from "rxjs";
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AuthService } from '@core/services';
+import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
-  selector: "app-dashboard",
+  selector: 'app-dashboard',
   template: `
-    <ui-button colour="warn" (click)="logout()"> Logout </ui-button>
+    <ui-page [centerContent]="true" contentDirection="column">
+      <ui-button colour="warn" (click)="logout()"> Logout </ui-button>
+
+      <ui-text>Dashboard</ui-text>
+    </ui-page>
   `,
-  styleUrls: ["./dashboard.component.scss"],
+  styleUrls: ['./dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit {
@@ -18,6 +22,6 @@ export class DashboardComponent implements OnInit {
 
   async logout() {
     await firstValueFrom(this.auth.logout());
-    await this.router.navigate(["/login"]);
+    await this.router.navigate(['/login']);
   }
 }

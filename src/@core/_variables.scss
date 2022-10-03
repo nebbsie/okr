@@ -5,11 +5,9 @@ $font-weight-medium: 500;
 $font-weight-bold: 700;
 
 /* Font Size */
-$font-title-large: 112px; //4
-$font-title-xmid: 56px; //3
-$font-title-mid: 45px; //2
-$font-title-small: 34px; //1
-
+$font-title-xxxxlarge: 56px; //3
+$font-title-xxxlarge: 45px; //2
+$font-title-xxlarge: 34px; //1
 $font-xlarge: 24px; // headline
 $font-large: 20px; // title
 $font-xmid: 16px; //subheading
@@ -19,18 +17,16 @@ $font-xsmall: 8px;
 $font-input: auto;
 
 /* Line Heights */
-$line-height-title-large: 112px;
-$line-height-title-xmid: 56px;
-$line-height-mid: 48px;
-$line-height-small: 40px;
-
-$line-height-xlarge: 32px;
-$line-height-large: 32px;
-$line-height-xmid: 28px;
-$line-height-mid: 20px;
-$line-height-small: 14px;
-$line-height-xsmall: 8px;
-$line-height-input: 1.125em;
+$line-height-xxxxlarge: $font-title-xxxxlarge;
+$line-height-xxxlarge: $font-title-xxxlarge;
+$line-height-xxlarge: $font-title-xxlarge;
+$line-height-xlarge: $font-xlarge;
+$line-height-large: $font-large;
+$line-height-xmid: $font-xmid;
+$line-height-mid: $font-mid;
+$line-height-small: $font-small;
+$line-height-xsmall: $font-xsmall;
+$line-height-input: $font-input;
 
 /* Spacing */
 $spacing-none: 0;

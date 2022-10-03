@@ -1,10 +1,50 @@
+@import "spacing";
+
 :host {
-  display: block;
-  width: 100%;
+  display: inline-block;
+  position: relative;
+
+  &[data-full-width='true'] {
+    display: block;
+    width: 100%;
+  }
+
+  @include tablet() {
+    &[data-full-width-tablet='true'] {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  @include desktop() {
+    &[data-full-width-desktop='true'] {
+      display: block;
+      width: 100%;
+    }
+  }
 }
 
-.FullWidth {
-  width: 100%;
+.Button {
+  display: inherit;
+
+  &[data-full-width='true'] {
+    display: block;
+    width: 100%;
+  }
+
+  @include tablet() {
+    &[data-full-width-tablet='true'] {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  @include desktop() {
+    &[data-full-width-desktop='true'] {
+      display: block;
+      width: 100%;
+    }
+  }
 }
 
 .DarkStyle {

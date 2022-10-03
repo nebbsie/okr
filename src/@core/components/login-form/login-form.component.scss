@@ -1,23 +1,7 @@
 @import "variables";
 
 :host {
-  display: block;
-}
-
-.LoginForm {
-  width: 350px;
-
-  &-content {
-    display: flex;
-    flex-direction: column;
-    padding: $spacing-large $spacing-large $spacing-small;
-  }
-
-  &-title {
-    text-align: center;
-  }
-}
-
-.Separator {
-
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }

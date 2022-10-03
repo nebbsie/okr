@@ -3,10 +3,9 @@ export type TextType = 'span' | 'paragraph' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5';
 export type TextTransform = 'none' | 'capitalise' | 'lowercase' | 'uppercase';
 
 export type TextSize =
-  | 'title-large'
-  | 'title-xmid'
-  | 'title-mid'
-  | 'title-small'
+  | 'xxxxlarge'
+  | 'xxxlarge'
+  | 'xxlarge'
   | 'xlarge'
   | 'large'
   | 'xmid'

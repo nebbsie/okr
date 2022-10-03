@@ -67,29 +67,24 @@
     $name: '-' + $name;
   }
 
-  #{if(&, "&", "*")}#{'[data-size' + $name + '=title-large]'} {
-    font-size: $font-title-large;
-    line-height: $line-height-title-large;
+  #{if(&, "&", "*")}#{'[data-size' + $name + '=xxxxlarge]'} {
+    font-size: $font-title-xxxxlarge;
+    line-height: $line-height-xxxxlarge;
   }
 
-  #{if(&, "&", "*")}#{'[data-size' + $name + '=title-xmid]'} {
-    font-size: $font-title-xmid;
-    line-height: $line-height-title-xmid;
+  #{if(&, "&", "*")}#{'[data-size' + $name + '=xxxlarge]'} {
+    font-size: $font-title-xxxlarge;
+    line-height: $line-height-xxxlarge;
   }
 
-  #{if(&, "&", "*")}#{'[data-size' + $name + '=title-mid]'} {
-    font-size: $font-title-mid;
-    line-height: $line-height-mid;
-  }
-
-  #{if(&, "&", "*")}#{'[data-size' + $name + '=title-small]'} {
-    font-size: $font-title-small;
-    line-height: $line-height-xsmall;
+  #{if(&, "&", "*")}#{'[data-size' + $name + '=xxlarge]'} {
+    font-size: $font-title-xxlarge;
+    line-height: $line-height-xxlarge;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=xlarge]'} {
     font-size: $font-xlarge;
-    line-height: $line-height-xlarge;
+    line-height: $font-xlarge;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=large]'} {

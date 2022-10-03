@@ -1,16 +1,16 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
   Router,
   RouterStateSnapshot,
   UrlTree,
-} from "@angular/router";
-import { map, Observable } from "rxjs";
-import { AuthService } from "@core/services/auth.service";
+} from '@angular/router';
+import { map, Observable } from 'rxjs';
+import { AuthService } from '@core/services/auth/auth.service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class LoginGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
@@ -27,7 +27,7 @@ export class LoginGuard implements CanActivate {
       .isLoggedIn()
       .pipe(
         map((isLoggedIn) =>
-          isLoggedIn ? this.router.createUrlTree(["/dashboard"]) : true
+          isLoggedIn ? this.router.createUrlTree(['/dashboard']) : true
         )
       );
   }

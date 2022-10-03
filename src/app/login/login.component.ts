@@ -1,18 +1,18 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import { AuthService } from "@core/services/auth.service";
-import { Observable } from "rxjs";
-import { Router } from "@angular/router";
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AuthService } from '@core/services/auth';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: "app-login",
+  selector: 'app-login',
   template: `
-    <div class="PageContainer">
+    <ui-page>
       <app-login-form
         (successfullyLoggedIn)="handleLoggedIn()"
       ></app-login-form>
-    </div>
+    </ui-page>
   `,
-  styleUrls: ["./login.component.scss"],
+  styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
@@ -25,6 +25,6 @@ export class LoginComponent implements OnInit {
   }
 
   async handleLoggedIn() {
-    await this.router.navigate(["/dashboard"]);
+    await this.router.navigate(['/dashboard']);
   }
 }

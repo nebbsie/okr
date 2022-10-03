@@ -11,66 +11,60 @@ import { AuthService } from '@core/services';
 @Component({
   selector: 'app-login-form',
   template: `
-    <mat-card class="LoginForm">
-      <mat-card-title class="LoginForm-title">Login</mat-card-title>
-      <mat-card-content class="LoginForm-content">
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input [formControl]="emailControl" matInput />
-          <mat-icon matSuffix>alternate_email</mat-icon>
-        </mat-form-field>
+    <ui-text align="center" weight="bold" size="xxlarge">okrhub</ui-text>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input [formControl]="emailControl" matInput />
+      <mat-icon matSuffix>alternate_email</mat-icon>
+    </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Password</mat-label>
-          <input
-            [type]="hidePassword ? 'password' : 'text'"
-            [formControl]="passwordControl"
-            matInput
-          />
-          <button
-            mat-icon-button
-            matSuffix
-            (click)="hidePassword = !hidePassword"
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hidePassword"
-          >
-            <mat-icon>
-              {{ hidePassword ? 'visibility_off' : 'visibility' }}
-            </mat-icon>
-          </button>
-        </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        [type]="hidePassword ? 'password' : 'text'"
+        [formControl]="passwordControl"
+        matInput
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hidePassword = !hidePassword"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePassword"
+      >
+        <mat-icon>
+          {{ hidePassword ? 'visibility_off' : 'visibility' }}
+        </mat-icon>
+      </button>
+    </mat-form-field>
 
-        <ui-button
-          colour="primary"
-          marginBottom="xsmall"
-          [fullWidth]="true"
-          [loading]="loading$ | oAsync"
-          (click)="handleLogin()"
-        >
-          Login
-        </ui-button>
+    <ui-button
+      colour="primary"
+      marginBottom="xsmall"
+      [fullWidth]="true"
+      [loading]="loading$ | oAsync"
+      (click)="handleLogin()"
+    >
+      Login
+    </ui-button>
 
-        <ui-alert *ngIf="error$ | oAsync" marginBottom="small" type="error">
-          Your username and/or password do not match.
-        </ui-alert>
+    <ui-alert *ngIf="error$ | oAsync" marginBottom="small" type="error">
+      Your username and/or password do not match.
+    </ui-alert>
 
-        <ui-link link="password-reset" marginBottom="mid">
-          Forgot password?
-        </ui-link>
+    <ui-link link="password-reset" marginBottom="mid">
+      Forgot password?
+    </ui-link>
 
-        <ui-divider-text marginBottom="small">
-          or sign in with
-        </ui-divider-text>
+    <ui-divider-text marginBottom="small"> or sign in with </ui-divider-text>
 
-        <app-google-auth-button
-          [loading]="loadingGoogle$ | oAsync"
-          (submit)="handleGoogleLogin()"
-          marginBottom="mid"
-        ></app-google-auth-button>
+    <app-google-auth-button
+      [loading]="loadingGoogle$ | oAsync"
+      (submit)="handleGoogleLogin()"
+      marginBottom="mid"
+    ></app-google-auth-button>
 
-        <ui-link link="/register" align="center">Need an account?</ui-link>
-      </mat-card-content>
-    </mat-card>
+    <ui-link link="/register" align="center">Need an account?</ui-link>
   `,
   styleUrls: ['./login-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

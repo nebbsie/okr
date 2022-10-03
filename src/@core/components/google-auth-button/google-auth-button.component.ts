@@ -9,12 +9,7 @@ import {
 @Component({
   selector: 'app-google-auth-button',
   template: `
-    <ui-button
-      [loading]="loading"
-      [fullWidth]="true"
-      [colour]="undefined"
-      (click)="submit.emit()"
-    >
+    <ui-button [loading]="loading" [fullWidth]="true" (click)="submit.emit()">
       <img
         marginRight="small"
         width="24"

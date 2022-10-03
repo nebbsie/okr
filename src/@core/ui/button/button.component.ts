@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  HostBinding,
   Input,
   OnInit,
 } from '@angular/core';
@@ -9,7 +10,14 @@ import { ThemePalette } from '@angular/material/core';
 @Component({
   selector: 'ui-button',
   template: `
-    <button [class.FullWidth]="fullWidth" [color]="colour" mat-raised-button>
+    <button
+      class="Button"
+      [attr.data-full-width]="fullWidth"
+      [attr.data-full-width-tablet]="fullWidthTablet"
+      [attr.data-full-width-desktop]="fullWidthDesktop"
+      [color]="colour"
+      mat-raised-button
+    >
       <ng-container *ngIf="!loading">
         <ng-content></ng-content>
       </ng-container>
@@ -27,7 +35,18 @@ import { ThemePalette } from '@angular/material/core';
 export class ButtonComponent implements OnInit {
   @Input() colour: ThemePalette;
 
-  @Input() fullWidth = false;
+  @Input()
+  @HostBinding('attr.data-full-width')
+  fullWidth = false;
+
+  @Input()
+  @HostBinding('attr.data-full-width-tablet')
+  fullWidthTablet = false;
+
+  @Input()
+  @HostBinding('attr.data-full-width-desktop')
+  fullWidthDesktop = false;
+
   @Input() loading? = false;
 
   lightStyle = false;
