@@ -1,0 +1,58 @@
+@import 'variables';
+@import 'text';
+@import 'breakpoints';
+
+:host {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  word-break: break-word;
+  text-decoration: none;
+
+  &[data-text-truncate='true'] {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &[data-type='span'] {
+    display: inline-block;
+  }
+
+  &[data-text-display='inline-block'] {
+    display: inline-block;
+  }
+
+  &[data-text-align='center'] {
+    text-align: center;
+  }
+
+  &[data-text-align='left'] {
+    text-align: left;
+  }
+
+  &[data-text-align='right'] {
+    text-align: right;
+  }
+
+  &[data-text-truncate='true'] {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+  }
+
+  &[data-font-colour='grey'] {
+    color: $colour-accent;
+  }
+
+  @include TextWeightGenerator();
+  @include TextColourGenerator();
+  @include TextTransformGenerator();
+
+  @include TextSizeGenerator();
+
+  @include tablet() {
+    @include TextSizeGenerator(tablet);
+  }
+}

@@ -1,0 +1,124 @@
+@import 'variables';
+@import 'colours';
+
+/* Sets the correct weight of the font based on the value passed into the text component. */
+@mixin TextWeightGenerator {
+  &[data-font-weight='thin'] {
+    font-weight: $font-weight-thin;
+  }
+
+  &[data-font-weight='regular'] {
+    font-weight: $font-weight-regular;
+  }
+
+  &[data-font-weight='bold'] {
+    font-weight: $font-weight-bold;
+  }
+
+  &[data-font-weight='medium'] {
+    font-weight: $font-weight-medium;
+  }
+}
+
+/* Sets the correct weight of the font based on the value passed into the text component. */
+@mixin TextColourGenerator {
+  &[data-font-colour='dark'] {
+    color: $font-colour-dark;
+  }
+
+  &[data-font-colour='black'] {
+    color: black;
+  }
+
+  &[data-font-colour='success'] {
+    color: $font-colour-success;
+  }
+
+  &[data-font-colour='danger'] {
+    color: $font-colour-danger;
+  }
+
+  &[data-font-colour='mid'] {
+    color: $font-colour-mid;
+  }
+
+  &[data-font-colour='white'] {
+    color: white;
+  }
+}
+
+@mixin TextTransformGenerator {
+  &[data-font-transform='capitalise'] {
+    text-transform: capitalize;
+  }
+
+  &[data-font-transform='lowercase'] {
+    text-transform: lowercase;
+  }
+
+  &[data-font-transform='uppercase'] {
+    text-transform: uppercase;
+  }
+}
+
+/* Sets the correct size of the font based on the value passed into the text component. */
+@mixin TextSizeGenerator($name: '') {
+  @if $name != '' {
+    $name: '-' + $name;
+  }
+
+  #{if(&, "&", "*")}#{'[data-size' + $name + '=title-large]'} {
+    font-size: $font-title-large;
+    line-height: $line-height-title-large;
+  }
+
+  #{if(&, "&", "*")}#{'[data-size' + $name + '=title-xmid]'} {
+    font-size: $font-title-xmid;
+    line-height: $line-height-title-xmid;
+  }
+
+  #{if(&, "&", "*")}#{'[data-size' + $name + '=title-mid]'} {
+    font-size: $font-title-mid;
+    line-height: $line-height-mid;
+  }
+
+  #{if(&, "&", "*")}#{'[data-size' + $name + '=title-small]'} {
+    font-size: $font-title-small;
+    line-height: $line-height-xsmall;
+  }
+
+  #{if(&, "&", "*")}#{'[data-size' + $name + '=xlarge]'} {
+    font-size: $font-xlarge;
+    line-height: $line-height-xlarge;
+  }
+
+  #{if(&, "&", "*")}#{'[data-size' + $name + '=large]'} {
+    font-size: $font-large;
+    line-height: $line-height-large;
+  }
+
+  #{if(&, "&", "*")}#{'[data-size' + $name + '=xmid]'} {
+    font-size: $font-xmid;
+    line-height: $line-height-xmid;
+  }
+
+  #{if(&, "&", "*")}#{'[data-size' + $name + '=mid]'} {
+    font-size: $font-mid;
+    line-height: $line-height-mid;
+  }
+
+  #{if(&, "&", "*")}#{'[data-size' + $name + '=small]'} {
+    font-size: $font-small;
+    line-height: $line-height-small;
+  }
+
+  #{if(&, "&", "*")}#{'[data-size' + $name + '=xsmall]'} {
+    font-size: $font-xsmall;
+    line-height: $line-height-xsmall;
+  }
+
+  #{if(&, "&", "*")}#{'[data-size' + $name + '=input]'} {
+    font-size: $font-input;
+    line-height: $line-height-input;
+  }
+}

@@ -1,0 +1,46 @@
+@import 'variables';
+@import 'breakpoints';
+
+/* Generates default spacing */
+@each $spacing-item in $spacing-list {
+  $i: index($spacing-list, $spacing-item);
+
+  #{'[data-margin-right=' + nth($spacing-name, $i) + ']'} {
+    margin-right: $spacing-item !important;
+  }
+
+  #{'[data-margin-bottom=' + nth($spacing-name, $i) + ']'} {
+    margin-bottom: $spacing-item !important;
+  }
+}
+
+/* Generates spacing for tablet */
+@include tablet() {
+  @each $spacing-item in $spacing-list {
+    $i: index($spacing-list, $spacing-item);
+
+    #{'[data-margin-right-tablet=' + nth($spacing-name, $i) + ']'} {
+      margin-right: $spacing-item !important;
+    }
+
+    #{'[data-margin-bottom-tablet=' + nth($spacing-name, $i) + ']'} {
+      margin-bottom: $spacing-item !important;
+    }
+  }
+}
+
+
+/* Generates spacing for desktop */
+@include desktop() {
+  @each $spacing-item in $spacing-list {
+    $i: index($spacing-list, $spacing-item);
+
+    #{'[data-margin-right-desktop=' + nth($spacing-name, $i) + ']'} {
+      margin-right: $spacing-item !important;
+    }
+
+    #{'[data-margin-bottom-desktop=' + nth($spacing-name, $i) + ']'} {
+      margin-bottom: $spacing-item !important;
+    }
+  }
+}

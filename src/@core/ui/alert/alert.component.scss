@@ -1,0 +1,39 @@
+@import 'variables';
+@import 'colours';
+
+:host {
+  display: flex;
+  padding: $spacing-small $spacing-xxsmall;
+  align-items: center;
+  background-color: rgb(253, 236, 234);
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,.12);
+
+
+  &[data-type='error'] {
+    background-color: rgb(253, 236, 234);
+  }
+
+  &[data-type='warning'] {
+    background-color: rgb(255, 244, 229);
+  }
+
+  &[data-type='info'] {
+    background-color: rgb(232, 244, 253)
+  }
+
+  &[data-type='success'] {
+    background-color: rgb(237, 247, 237)
+  }
+}
+
+.Icon {
+  padding-right: $spacing-small;
+  &[type="error_outline"] {
+    color: $font-colour-danger;
+  }
+
+  &[type="check_circle"] {
+    color: $font-colour-success;
+  }
+}

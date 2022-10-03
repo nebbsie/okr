@@ -1,0 +1,60 @@
+/* Font Weight */
+$font-weight-thin: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+/* Font Size */
+$font-title-large: 112px; //4
+$font-title-xmid: 56px; //3
+$font-title-mid: 45px; //2
+$font-title-small: 34px; //1
+
+$font-xlarge: 24px; // headline
+$font-large: 20px; // title
+$font-xmid: 16px; //subheading
+$font-mid: 14px; //body
+$font-small: 12px; // caption
+$font-xsmall: 8px;
+$font-input: auto;
+
+/* Line Heights */
+$line-height-title-large: 112px;
+$line-height-title-xmid: 56px;
+$line-height-mid: 48px;
+$line-height-small: 40px;
+
+$line-height-xlarge: 32px;
+$line-height-large: 32px;
+$line-height-xmid: 28px;
+$line-height-mid: 20px;
+$line-height-small: 14px;
+$line-height-xsmall: 8px;
+$line-height-input: 1.125em;
+
+/* Spacing */
+$spacing-none: 0;
+$spacing-xxxsmall: 4px;
+$spacing-xxsmall: 8px;
+$spacing-xsmall: 12px;
+$spacing-small: 16px;
+$spacing-mid: 24px;
+$spacing-large: 32px;
+$spacing-xlarge: 48px;
+$spacing-xxlarge: 64px;
+$spacing-xxxlarge: 72px;
+$spacing-xxxxlarge: 96px;
+
+$spacing-name: 'none' 'xxxsmall' 'xxsmall' 'xsmall' 'small' 'mid' 'large'
+  'xlarge' 'xxlarge' 'xxxlarge' 'xxxxlarge';
+
+$spacing-list: $spacing-none $spacing-xxxsmall $spacing-xxsmall $spacing-xsmall
+  $spacing-small $spacing-mid $spacing-large $spacing-xlarge $spacing-xxlarge
+  $spacing-xxxlarge $spacing-xxxxlarge;
+
+/* Breakpoints */
+$breakpoint-mobile: 660px;
+$breakpoint-tablet: 960px;
+$breakpoint-desktop: 1200px;
+
+/* z-Index */
