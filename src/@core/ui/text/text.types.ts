@@ -9,6 +9,7 @@ export type TextSize =
   | 'xxlarge'
   | 'xlarge'
   | 'large'
+  | 'xmid'
   | 'mid'
   | 'small'
   | 'xsmall'
@@ -26,6 +27,7 @@ export type TextColour =
   | 'success'
   | 'danger'
   | 'info'
-  | 'warning';
+  | 'warning'
+  | 'achieved';
 
 export type TextAlign = 'center' | 'left' | 'right';
