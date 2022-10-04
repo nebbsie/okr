@@ -3,6 +3,7 @@ import {
   Auth,
   authState,
   GoogleAuthProvider,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   User,
@@ -16,6 +17,15 @@ import { LoginResponse } from '@core/services/auth/auth.types';
 })
 export class AuthService {
   constructor(private auth: Auth) {}
+
+  resetPassword(email: string): Observable<void> {
+    return fromPromise(
+      sendPasswordResetEmail(this.auth, email, {
+        url: 'http://localhost:4200/recover/reset',
+        handleCodeInApp: true,
+      })
+    );
+  }
 
   /**
    * Gets the users Firebase information.

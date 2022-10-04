@@ -6,7 +6,7 @@ import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   template: `
-    <ui-page [centerContent]="true" contentDirection="column">
+    <ui-page [center]="true" contentDirection="column">
       <ui-button colour="warn" (click)="logout()"> Logout </ui-button>
 
       <ui-text>Dashboard</ui-text>

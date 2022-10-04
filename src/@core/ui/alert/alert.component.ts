@@ -21,7 +21,9 @@ import { AlertType } from '@core/ui/alert/alert.types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AlertComponent implements OnInit {
-  @Input() type: AlertType = 'info';
+  @HostBinding('attr.alert-type')
+  @Input()
+  type: AlertType = 'info';
 
   @HostBinding('attr.data-type')
   iconType!: string;

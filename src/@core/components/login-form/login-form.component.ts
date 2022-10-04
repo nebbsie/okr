@@ -11,7 +11,10 @@ import { AuthService } from '@core/services';
 @Component({
   selector: 'app-login-form',
   template: `
-    <ui-text align="center" weight="bold" size="xxlarge">okrhub</ui-text>
+    <ui-text align="center" weight="bold" size="xxlarge" marginBottom="mid">
+      okrhub
+    </ui-text>
+
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input [formControl]="emailControl" matInput />
@@ -52,7 +55,7 @@ import { AuthService } from '@core/services';
       Your username and/or password do not match.
     </ui-alert>
 
-    <ui-link link="password-reset" marginBottom="mid">
+    <ui-link link="/recover/forgot" marginBottom="mid">
       Forgot password?
     </ui-link>
 

@@ -5,7 +5,7 @@
   padding-top: $spacing-mid;
 }
 
-.LoginForm {
+.Form {
   @include tablet() {
     max-width: 350px;
   }

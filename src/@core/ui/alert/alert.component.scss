@@ -10,20 +10,20 @@
   border: 1px solid rgba(0,0,0,.12);
 
 
-  &[data-type='error'] {
+  &[alert-type='error'] {
     background-color: rgb(253, 236, 234);
   }
 
-  &[data-type='warning'] {
+  &[alert-type='warning'] {
     background-color: rgb(255, 244, 229);
   }
 
-  &[data-type='info'] {
+  &[alert-type='info'] {
     background-color: rgb(232, 244, 253)
   }
 
-  &[data-type='success'] {
-    background-color: rgb(237, 247, 237)
+  &[alert-type='success'] {
+    background-color: lighten($font-colour-success, 50%)
   }
 }
 

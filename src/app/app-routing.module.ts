@@ -30,6 +30,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('./register/register.module').then((m) => m.RegisterModule),
   },
+
+  {
+    path: 'recover',
+    loadChildren: () =>
+      import('./recover/recover.module').then((m) => m.RecoverModule),
+  },
 ];
 
 @NgModule({

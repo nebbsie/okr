@@ -6,8 +6,9 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   template: `
-    <ui-page>
+    <ui-page [center]="true">
       <app-login-form
+        class="Form"
         (successfullyLoggedIn)="handleLoggedIn()"
       ></app-login-form>
     </ui-page>

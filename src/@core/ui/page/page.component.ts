@@ -15,7 +15,7 @@ import { ContentDirection } from './page.types';
 export class PageComponent {
   @Input()
   @HostBinding('attr.data-center-content')
-  centerContent?: boolean = false;
+  center?: boolean = false;
 
   @Input()
   @HostBinding('attr.data-flex-direction')
