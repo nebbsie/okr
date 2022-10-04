@@ -1,3 +1,4 @@
+@import 'variables';
 @use 'text';
 @use 'breakpoints';
 
@@ -41,6 +42,22 @@
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-all;
+  }
+
+  &[data-font-colour='grey'] {
+    color: $colour-accent;
+  }
+
+  &[data-font-colour='achieved'] {
+    color: $font-colour-achieved;
+  }
+
+  &[data-font-colour='success'] {
+    color: $font-colour-success;
+  }
+
+  &[data-font-colour='danger'] {
+    color: $font-colour-danger;
   }
 
   @include text.TextWeightGenerator();

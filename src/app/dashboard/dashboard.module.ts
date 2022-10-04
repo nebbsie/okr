@@ -4,8 +4,13 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { ButtonModule, PageModule, TextModule } from '@core/ui';
-import { PipesModule } from '@core/pipes';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { DirectivesModule } from '@core/directives';
+import { MatTableModule } from '@angular/material/table';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { PipesModule } from '@core/pipes';
 import { TopBarModule } from '@core/components/top-bar';
 
 @NgModule({
@@ -16,8 +21,13 @@ import { TopBarModule } from '@core/components/top-bar';
     ButtonModule,
     PageModule,
     TextModule,
-    PipesModule,
+    MatIconModule,
+    MatSidenavModule,
     DirectivesModule,
+    MatTableModule,
+    MatProgressBarModule,
+    MatButtonModule,
+    PipesModule,
     TopBarModule,
   ],
 })
