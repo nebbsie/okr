@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "check-size": "source-map-explorer dist/okrhub/**/*.js"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +24,7 @@
     "@angular/router": "^14.2.4",
     "prettier": "^2.7.1",
     "rxjs": "~7.5.0",
+    "source-map-explorer": "^2.5.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
