@@ -16,6 +16,7 @@ import { GoogleAuthButtonModule } from '@core/components/google-auth-button';
 import { DividerTextModule } from '@core/ui/divider-text/divider-text.module';
 import { PipesModule } from '@core/pipes/pipes.module';
 import { AlertModule } from '@core/ui/alert/alert.module';
+import { PasswordInputModule } from '@core/components/password-input';
 
 @NgModule({
   declarations: [LoginFormComponent],
@@ -36,6 +37,7 @@ import { AlertModule } from '@core/ui/alert/alert.module';
     DividerTextModule,
     PipesModule,
     AlertModule,
+    PasswordInputModule,
   ],
   exports: [LoginFormComponent],
 })

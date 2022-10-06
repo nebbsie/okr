@@ -1,13 +1,18 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { AuthService } from '@core/services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
   template: `
-    <ui-text align="center" weight="bold" size="xxlarge" marginBottom="mid">
-      okrhub
+    <ui-text align="center" weight="bold" size="xlarge" marginBottom="mid">
+      Forgot password?
+    </ui-text>
+
+    <ui-text align="center" size="mid" colour="grey" marginBottom="mid">
+      No worries, we'll send you reset instructions.
     </ui-text>
 
     <mat-form-field appearance="outline">
@@ -20,47 +25,37 @@ import { AuthService } from '@core/services';
       colour="primary"
       marginBottom="xsmall"
       [fullWidth]="true"
+      [disabled]="emailControl.value === null"
       [loading]="loading$ | oAsync"
       (click)="handleResetPassword()"
     >
       Reset Password
     </ui-button>
 
-    <ui-link
-      align="center"
-      link="/login"
-      [marginBottom]="(sentReset$ | oAsync) ? 'mid' : 'none'"
-    >
-      Back to Sign In
-    </ui-link>
-
-    <ui-alert *ngIf="sentReset$ | oAsync" type="success">
-      Successfully reset password. Check your emails for instructions.
-    </ui-alert>
+    <ui-link align="center" link="/login"> Back to Login </ui-link>
   `,
   styleUrls: ['./forgot-password.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ForgotPasswordComponent implements OnInit {
-  emailControl = new FormControl();
+export class ForgotPasswordComponent {
+  emailControl = new FormControl<string | null>(null);
 
   private loadingSubject$ = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject$.asObservable();
 
-  private sentResetSubject$ = new BehaviorSubject<boolean>(false);
-  sentReset$ = this.sentResetSubject$.asObservable();
-
-  constructor(private auth: AuthService) {}
-
-  ngOnInit(): void {}
+  constructor(private auth: AuthService, private router: Router) {}
 
   async handleResetPassword() {
+    if (this.emailControl.value === null) {
+      return;
+    }
+
     this.loadingSubject$.next(true);
-    this.sentResetSubject$.next(false);
 
-    await firstValueFrom(this.auth.resetPassword(this.emailControl.value));
+    await firstValueFrom(
+      this.auth.sendPasswordResetEmail(this.emailControl.value)
+    );
 
-    this.sentResetSubject$.next(true);
-    this.loadingSubject$.next(false);
+    await this.router.navigate(['/recover/sent']);
   }
 }

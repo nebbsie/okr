@@ -45,6 +45,14 @@
   &[data-font-colour='white'] {
     color: white;
   }
+
+  &[data-font-colour='grey'] {
+    color: $font-colour-grey;
+  }
+
+  &[data-font-colour='primary'] {
+    color: $font-colour-primary;
+  }
 }
 
 @mixin TextTransformGenerator {

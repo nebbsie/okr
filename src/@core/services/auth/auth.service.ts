@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   Auth,
   authState,
+  confirmPasswordReset,
   GoogleAuthProvider,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
@@ -18,12 +19,29 @@ import { LoginResponse } from '@core/services/auth/auth.types';
 export class AuthService {
   constructor(private auth: Auth) {}
 
-  resetPassword(email: string): Observable<void> {
+  sendPasswordResetEmail(email: string): Observable<boolean> {
     return fromPromise(
       sendPasswordResetEmail(this.auth, email, {
         url: 'http://localhost:4200/recover/reset',
         handleCodeInApp: true,
       })
+        .then((res) => {
+          return true;
+        })
+        .catch((err) => {
+          return false;
+        })
+    );
+  }
+
+  confirmPasswordReset(
+    oobCode: string,
+    newPassword: string
+  ): Observable<boolean> {
+    return fromPromise(
+      confirmPasswordReset(this.auth, oobCode, newPassword)
+        .then((res) => true)
+        .catch((err) => false)
     );
   }
 

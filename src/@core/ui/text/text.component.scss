@@ -42,9 +42,7 @@
     word-break: break-all;
   }
 
-  &[data-font-colour='grey'] {
-    color: $colour-accent;
-  }
+
 
   @include TextWeightGenerator();
   @include TextColourGenerator();

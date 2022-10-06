@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-recover-reset',
+  selector: 'page-recover-sent',
   template: `
     <ui-page [center]="true">
-      <app-reset-password class="Form"></app-reset-password>
+      <app-reset-email-sent class="Form"></app-reset-email-sent>
     </ui-page>
   `,
-  styleUrls: ['./recover-reset.component.scss'],
+  styleUrls: ['./recover-sent.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecoverResetComponent implements OnInit {
+export class RecoverSentComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}

@@ -16,6 +16,7 @@ import { ThemePalette } from '@angular/material/core';
       [attr.data-full-width-tablet]="fullWidthTablet"
       [attr.data-full-width-desktop]="fullWidthDesktop"
       [color]="colour"
+      [disabled]="disabled"
       mat-raised-button
     >
       <ng-container *ngIf="!loading">
@@ -48,6 +49,7 @@ export class ButtonComponent implements OnInit {
   fullWidthDesktop = false;
 
   @Input() loading? = false;
+  @Input() disabled? = false;
 
   lightStyle = false;
 

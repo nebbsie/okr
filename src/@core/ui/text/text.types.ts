@@ -24,6 +24,7 @@ export type TextColour =
   | 'mid'
   | 'white'
   | 'warning'
-  | 'grey';
+  | 'grey'
+  | 'primary';
 
 export type TextAlign = 'center' | 'left' | 'right';

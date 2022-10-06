@@ -16,6 +16,13 @@ const routes: Routes = [
         (m) => m.RecoverResetModule
       ),
   },
+  {
+    path: 'sent',
+    loadChildren: () =>
+      import('./recover-sent/recover-sent.module').then(
+        (m) => m.RecoverSentModule
+      ),
+  },
 ];
 
 @NgModule({

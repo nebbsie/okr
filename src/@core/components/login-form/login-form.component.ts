@@ -2,11 +2,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  OnInit,
   Output,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { BehaviorSubject, firstValueFrom } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, map, Observable } from 'rxjs';
 import { AuthService } from '@core/services';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -15,31 +17,24 @@ import { AuthService } from '@core/services';
       okrhub
     </ui-text>
 
+    <ui-alert
+      *ngIf="(fromAction$ | oAsync) === 'password-reset'"
+      type="success"
+      marginBottom="mid"
+    >
+      Your password has been successfully reset.
+    </ui-alert>
+
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input [formControl]="emailControl" matInput />
       <mat-icon matSuffix>alternate_email</mat-icon>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Password</mat-label>
-      <input
-        [type]="hidePassword ? 'password' : 'text'"
-        [formControl]="passwordControl"
-        matInput
-      />
-      <button
-        mat-icon-button
-        matSuffix
-        (click)="hidePassword = !hidePassword"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hidePassword"
-      >
-        <mat-icon>
-          {{ hidePassword ? 'visibility_off' : 'visibility' }}
-        </mat-icon>
-      </button>
-    </mat-form-field>
+    <app-password-input
+      label="Password"
+      [control]="passwordControl"
+    ></app-password-input>
 
     <ui-button
       colour="primary"
@@ -72,10 +67,9 @@ import { AuthService } from '@core/services';
   styleUrls: ['./login-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnInit {
   @Output() successfullyLoggedIn = new EventEmitter<void>();
 
-  hidePassword = true;
   emailControl = new FormControl();
   passwordControl = new FormControl();
 
@@ -88,7 +82,15 @@ export class LoginFormComponent {
   private errorSubject$ = new BehaviorSubject<boolean>(false);
   error$ = this.errorSubject$.asObservable();
 
-  constructor(private auth: AuthService) {}
+  fromAction$!: Observable<string | undefined>;
+
+  constructor(private auth: AuthService, private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.fromAction$ = this.route.queryParams.pipe(
+      map((params) => params['from'])
+    );
+  }
 
   async handleLogin() {
     this.loadingSubject$.next(true);

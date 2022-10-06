@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { TextAlign, TextSize } from '@core/ui/text/text.types';
+import { TextAlign, TextColour, TextSize } from '@core/ui/text';
 
 @Component({
   selector: 'ui-link',
   template: `
-    <a [routerLink]="link">
-      <ui-text [size]="size" [align]="align">
+    <a class="Link" [routerLink]="link">
+      <ui-text [colour]="colour" [size]="size" [align]="align">
         <ng-content></ng-content>
       </ui-text>
     </a>
@@ -21,4 +21,7 @@ export class LinkComponent {
 
   @Input()
   align?: TextAlign;
+
+  @Input()
+  colour: TextColour = 'grey';
 }
