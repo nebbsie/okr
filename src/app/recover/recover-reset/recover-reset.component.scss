@@ -1,12 +1,13 @@
-@import "breakpoints";
+@use "breakpoints";
+@use "variables";
 
 :host {
   display: block;
-  padding-top: $spacing-mid;
+  padding-top: variables.$spacing-mid;
 }
 
 .Form {
-  @include tablet() {
+  @include breakpoints.tablet() {
     max-width: 350px;
   }
 }

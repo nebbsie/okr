@@ -1,6 +1,5 @@
-@import 'variables';
-@import 'text';
-@import 'breakpoints';
+@use 'text';
+@use 'breakpoints';
 
 :host {
   display: inline;
@@ -42,15 +41,12 @@
     word-break: break-all;
   }
 
+  @include text.TextWeightGenerator();
+  @include text.TextColourGenerator();
+  @include text.TextTransformGenerator();
+  @include text.TextSizeGenerator();
 
-
-  @include TextWeightGenerator();
-  @include TextColourGenerator();
-  @include TextTransformGenerator();
-
-  @include TextSizeGenerator();
-
-  @include tablet() {
-    @include TextSizeGenerator(tablet);
+  @include breakpoints.tablet() {
+    @include text.TextSizeGenerator(tablet);
   }
 }

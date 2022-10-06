@@ -1,22 +1,23 @@
-@import 'spacing';
+@use 'breakpoints';
+@use 'spacing';
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .HideMobile {
-  @include mobile() {
+  @include breakpoints.mobile() {
     display: none !important;
   }
 }
 
 .HideTablet {
-  @include tablet() {
+  @include breakpoints.tablet() {
     display: none !important;
   }
 }
 
 .HideDesktop {
-  @include desktop() {
+  @include breakpoints.desktop() {
     display: none !important;
   }
 }

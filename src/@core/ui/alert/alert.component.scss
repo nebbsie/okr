@@ -1,9 +1,9 @@
-@import 'variables';
-@import 'colours';
+@use 'variables';
+@use 'colours';
 
 :host {
   display: flex;
-  padding: $spacing-small $spacing-xxsmall;
+  padding: variables.$spacing-small variables.$spacing-xxsmall;
   align-items: center;
   background-color: rgb(253, 236, 234);
   border-radius: 4px;
@@ -23,17 +23,17 @@
   }
 
   &[alert-type='success'] {
-    background-color: lighten($font-colour-success, 50%)
+    background-color: lighten(colours.$font-colour-success, 50%)
   }
 }
 
 .Icon {
-  padding-right: $spacing-small;
+  padding-right: variables.$spacing-small;
   &[type="error_outline"] {
-    color: $font-colour-danger;
+    color: colours.$font-colour-danger;
   }
 
   &[type="check_circle"] {
-    color: $font-colour-success;
+    color: colours.$font-colour-success;
   }
 }

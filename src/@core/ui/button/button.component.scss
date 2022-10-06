@@ -1,4 +1,4 @@
-@import "spacing";
+@use 'breakpoints';
 
 :host {
   display: inline-block;
@@ -9,14 +9,14 @@
     width: 100%;
   }
 
-  @include tablet() {
+  @include breakpoints.tablet() {
     &[data-full-width-tablet='true'] {
       display: block;
       width: 100%;
     }
   }
 
-  @include desktop() {
+  @include breakpoints.desktop() {
     &[data-full-width-desktop='true'] {
       display: block;
       width: 100%;
@@ -32,14 +32,14 @@
     width: 100%;
   }
 
-  @include tablet() {
+  @include breakpoints.tablet() {
     &[data-full-width-tablet='true'] {
       display: block;
       width: 100%;
     }
   }
 
-  @include desktop() {
+  @include breakpoints.desktop() {
     &[data-full-width-desktop='true'] {
       display: block;
       width: 100%;

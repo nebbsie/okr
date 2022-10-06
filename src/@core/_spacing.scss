@@ -1,5 +1,21 @@
-@import 'variables';
-@import 'breakpoints';
+@use 'breakpoints';
+@use 'variables';
+
+$spacing-name: 'none' 'xxxsmall' 'xxsmall' 'xsmall' 'small' 'mid' 'large'
+'xlarge' 'xxlarge' 'xxxlarge' 'xxxxlarge';
+
+$spacing-list:
+        variables.$spacing-none
+        variables.$spacing-xxxsmall
+        variables.$spacing-xxsmall
+        variables.$spacing-xsmall
+        variables.$spacing-small
+        variables.$spacing-mid
+        variables.$spacing-large
+        variables.$spacing-xlarge
+        variables.$spacing-xxlarge
+        variables.$spacing-xxxlarge
+        variables.$spacing-xxxxlarge;
 
 /* Generates default spacing */
 @each $spacing-item in $spacing-list {
@@ -15,7 +31,7 @@
 }
 
 /* Generates spacing for tablet */
-@include tablet() {
+@include breakpoints.tablet() {
   @each $spacing-item in $spacing-list {
     $i: index($spacing-list, $spacing-item);
 
@@ -29,9 +45,8 @@
   }
 }
 
-
 /* Generates spacing for desktop */
-@include desktop() {
+@include breakpoints.desktop() {
   @each $spacing-item in $spacing-list {
     $i: index($spacing-list, $spacing-item);
 

@@ -41,12 +41,7 @@ $spacing-xxlarge: 64px;
 $spacing-xxxlarge: 72px;
 $spacing-xxxxlarge: 96px;
 
-$spacing-name: 'none' 'xxxsmall' 'xxsmall' 'xsmall' 'small' 'mid' 'large'
-  'xlarge' 'xxlarge' 'xxxlarge' 'xxxxlarge';
 
-$spacing-list: $spacing-none $spacing-xxxsmall $spacing-xxsmall $spacing-xsmall
-  $spacing-small $spacing-mid $spacing-large $spacing-xlarge $spacing-xxlarge
-  $spacing-xxxlarge $spacing-xxxxlarge;
 
 /* Breakpoints */
 $breakpoint-mobile: 660px;

@@ -1,8 +1,9 @@
-@import "spacing";
+@use "variables";
+@use "breakpoints";
 
 :host {
   display: flex;
-  padding: $spacing-large;
+  padding: variables.$spacing-large;
 
   &[data-flex-direction='column'] {
     flex-direction: column;
@@ -20,7 +21,7 @@
     }
   }
 
-  @include tablet() {
-    padding: $spacing-small;
+  @include breakpoints.tablet() {
+    padding: variables.$spacing-small;
   }
 }
