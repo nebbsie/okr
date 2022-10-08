@@ -1,39 +1,38 @@
 @use 'variables';
-@use 'colours';
 
 :host {
   display: flex;
   padding: variables.$spacing-small variables.$spacing-xxsmall;
   align-items: center;
-  background-color: rgb(253, 236, 234);
   border-radius: 4px;
   border: 1px solid rgba(0,0,0,.12);
 
 
   &[alert-type='error'] {
-    background-color: rgb(253, 236, 234);
+    background-color: variables.$colour-alert-bg-error;
   }
 
   &[alert-type='warning'] {
-    background-color: rgb(255, 244, 229);
+    background-color: variables.$colour-alert-bg-warning;
   }
 
   &[alert-type='info'] {
-    background-color: rgb(232, 244, 253)
+    background-color: variables.$colour-alert-bg-info;
   }
 
   &[alert-type='success'] {
-    background-color: lighten(colours.$font-colour-success, 50%)
+    background-color: variables.$colour-alert-bg-success;
   }
 }
 
 .Icon {
   padding-right: variables.$spacing-small;
+
   &[type="error_outline"] {
-    color: colours.$font-colour-danger;
+    color: variables.$font-colour-danger;
   }
 
   &[type="check_circle"] {
-    color: colours.$font-colour-success;
+    color: variables.$font-colour-success;
   }
 }

@@ -1,5 +1,4 @@
 @use 'variables';
-@use 'colours';
 
 /* Sets the correct weight of the font based on the value passed into the text component. */
 @mixin TextWeightGenerator {
@@ -23,35 +22,23 @@
 /* Sets the correct weight of the font based on the value passed into the text component. */
 @mixin TextColourGenerator {
   &[data-font-colour='dark'] {
-    color: colours.$font-colour-dark;
-  }
-
-  &[data-font-colour='black'] {
-    color: black;
-  }
-
-  &[data-font-colour='success'] {
-    color: colours.$font-colour-success;
-  }
-
-  &[data-font-colour='danger'] {
-    color: colours.$font-colour-danger;
-  }
-
-  &[data-font-colour='mid'] {
-    color: colours.$font-colour-mid;
-  }
-
-  &[data-font-colour='white'] {
-    color: white;
+    color: variables.$font-colour-dark;
   }
 
   &[data-font-colour='grey'] {
-    color: colours.$font-colour-grey;
+    color: variables.$font-colour-grey;
   }
 
-  &[data-font-colour='primary'] {
-    color: colours.$font-colour-primary;
+  &[data-font-colour='white'] {
+    color: variables.$font-colour-white;
+  }
+
+  &[data-font-colour='success'] {
+    color: variables.$font-colour-success;
+  }
+
+  &[data-font-colour='danger'] {
+    color: variables.$font-colour-danger;
   }
 }
 
@@ -77,51 +64,37 @@
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=xxxxlarge]'} {
     font-size: variables.$font-title-xxxxlarge;
-    line-height: variables.$line-height-xxxxlarge;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=xxxlarge]'} {
     font-size: variables.$font-title-xxxlarge;
-    line-height: variables.$line-height-xxxlarge;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=xxlarge]'} {
     font-size: variables.$font-title-xxlarge;
-    line-height: variables.$line-height-xxlarge;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=xlarge]'} {
     font-size: variables.$font-xlarge;
-    line-height: variables.$font-xlarge;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=large]'} {
     font-size: variables.$font-large;
-    line-height: variables.$line-height-large;
-  }
-
-  #{if(&, "&", "*")}#{'[data-size' + $name + '=xmid]'} {
-    font-size: variables.$font-xmid;
-    line-height: variables.$line-height-xmid;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=mid]'} {
     font-size: variables.$font-mid;
-    line-height: variables.$line-height-mid;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=small]'} {
     font-size: variables.$font-small;
-    line-height: variables.$line-height-small;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=xsmall]'} {
     font-size: variables.$font-xsmall;
-    line-height: variables.$line-height-xsmall;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=input]'} {
     font-size: variables.$font-input;
-    line-height: variables.$line-height-input;
   }
 }

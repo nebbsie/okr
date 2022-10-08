@@ -8,7 +8,6 @@ export type TextSize =
   | 'xxlarge'
   | 'xlarge'
   | 'large'
-  | 'xmid'
   | 'mid'
   | 'small'
   | 'xsmall'
@@ -16,15 +15,6 @@ export type TextSize =
 
 export type TextWeight = 'thin' | 'regular' | 'medium' | 'bold';
 
-export type TextColour =
-  | 'dark'
-  | 'black'
-  | 'success'
-  | 'danger'
-  | 'mid'
-  | 'white'
-  | 'warning'
-  | 'grey'
-  | 'primary';
+export type TextColour = 'dark' | 'grey' | 'white' | 'success' | 'danger';
 
 export type TextAlign = 'center' | 'left' | 'right';

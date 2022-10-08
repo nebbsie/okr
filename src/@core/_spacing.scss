@@ -1,8 +1,17 @@
 @use 'breakpoints';
 @use 'variables';
 
-$spacing-name: 'none' 'xxxsmall' 'xxsmall' 'xsmall' 'small' 'mid' 'large'
-'xlarge' 'xxlarge' 'xxxlarge' 'xxxxlarge';
+$spacing-name: 'none'
+               'xxxsmall'
+               'xxsmall'
+               'xsmall'
+               'small'
+               'mid'
+               'large'
+               'xlarge'
+               'xxlarge'
+               'xxxlarge'
+               'xxxxlarge';
 
 $spacing-list:
         variables.$spacing-none

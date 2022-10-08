@@ -16,18 +16,6 @@ $font-small: 12px; // caption
 $font-xsmall: 8px;
 $font-input: auto;
 
-/* Line Heights */
-$line-height-xxxxlarge: $font-title-xxxxlarge;
-$line-height-xxxlarge: $font-title-xxxlarge;
-$line-height-xxlarge: $font-title-xxlarge;
-$line-height-xlarge: $font-xlarge;
-$line-height-large: $font-large;
-$line-height-xmid: $font-xmid;
-$line-height-mid: $font-mid;
-$line-height-small: $font-small;
-$line-height-xsmall: $font-xsmall;
-$line-height-input: $font-input;
-
 /* Spacing */
 $spacing-none: 0;
 $spacing-xxxsmall: 4px;
@@ -41,11 +29,37 @@ $spacing-xxlarge: 64px;
 $spacing-xxxlarge: 72px;
 $spacing-xxxxlarge: 96px;
 
-
-
 /* Breakpoints */
 $breakpoint-mobile: 660px;
 $breakpoint-tablet: 960px;
 $breakpoint-desktop: 1200px;
 
 /* z-Index */
+
+/* Colours */
+$colour-dark: #14100d;
+$colour-dark-grey: #545454;
+$colour-accent: #c0bfbf;
+$colour-white: #f6f6f5;
+$colour-light-green: #52b4b0;
+$colour-green: #2ac680;
+$colour-red: #ff3640;
+$colour-light-red: #fdecea;
+$colour-light-orange: #fff4e5;
+$colour-light-blue: #e8f4fd;
+$colour-light-green: #80bfa3;
+
+/* Alert Colours */
+$colour-alert-bg-error: $colour-light-red;
+$colour-alert-bg-warning: $colour-light-orange;
+$colour-alert-bg-info: $colour-light-blue;
+$colour-alert-bg-success: $colour-light-green;
+
+
+/* Font Colours */
+$font-colour-dark: $colour-dark;
+$font-colour-grey: $colour-dark-grey;
+$font-colour-mid: $colour-accent;
+$font-colour-white: $colour-white;
+$font-colour-success: $colour-green;
+$font-colour-danger: $colour-red;
