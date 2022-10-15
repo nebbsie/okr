@@ -17,7 +17,7 @@ import {
         src="assets/google-logo.svg"
         alt="Google logo"
       />
-      Sign in with Google
+      <ng-content></ng-content>
     </ui-button>
   `,
   styleUrls: ['./google-auth-button.component.scss'],

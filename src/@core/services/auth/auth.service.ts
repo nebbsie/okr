@@ -9,15 +9,24 @@ import {
   signInWithPopup,
   User,
 } from '@angular/fire/auth';
-import { from, map, Observable } from 'rxjs';
+import {
+  filter,
+  firstValueFrom,
+  from,
+  map,
+  Observable,
+  shareReplay,
+} from 'rxjs';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { LoginResponse } from '@core/services/auth/auth.types';
+import { isDefined } from '@core/utils';
+import { UsersService } from '@core/services/collections/users';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private auth: Auth) {}
+  constructor(private auth: Auth, private users: UsersService) {}
 
   sendPasswordResetEmail(email: string): Observable<boolean> {
     return fromPromise(
@@ -50,7 +59,8 @@ export class AuthService {
    */
   getAuthState(): Observable<User | undefined> {
     return authState(this.auth).pipe(
-      map((auth) => (auth === null ? undefined : auth))
+      map((auth) => (auth === null ? undefined : auth)),
+      shareReplay()
     );
   }
 
@@ -68,19 +78,25 @@ export class AuthService {
     return this.getAuthState().pipe(map((auth) => !!auth));
   }
 
+  getUserId(): Observable<string> {
+    return this.getAuthState().pipe(
+      map((auth) => auth?.uid),
+      filter(isDefined)
+    );
+  }
+
   /**
    * Logs the user in via an email and password to Firebase.
-   *
-   * @param email
-   * @param password
    */
   loginWithEmail(email: string, password: string): Observable<LoginResponse> {
     // NOTE: I'm sure there is a nicer way to convert this from a Promise to Observable.
-    // This will do for the moment however.
+    // This will do for the moment, however.
     return fromPromise(
       (async (): Promise<LoginResponse> => {
         try {
           await signInWithEmailAndPassword(this.auth, email, password);
+
+          await this.checkForUser();
 
           return {
             success: true,
@@ -100,11 +116,13 @@ export class AuthService {
    */
   loginWithGoogle(): Observable<LoginResponse> {
     // NOTE: I'm sure there is a nicer way to convert this from a Promise to Observable.
-    // This will do for the moment however.
+    // This will do for the moment.
     return fromPromise(
       (async (): Promise<LoginResponse> => {
         try {
           await signInWithPopup(this.auth, new GoogleAuthProvider());
+
+          await this.checkForUser();
 
           return {
             success: true,
@@ -117,5 +135,19 @@ export class AuthService {
         }
       })()
     );
+  }
+
+  async checkForUser() {
+    const user = await firstValueFrom(
+      this.users.getById(this.getUserId()).result$
+    );
+
+    const usersId = await firstValueFrom(this.getUserId());
+
+    // If the user doesn't have a user we need to make one.
+    if (!user) {
+      console.info('Creating user');
+      await firstValueFrom(this.users.set({ id: usersId }).result$);
+    }
   }
 }

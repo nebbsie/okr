@@ -2,10 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginFormComponent } from './login-form.component';
 import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ButtonModule } from '@core/ui/button';
 import { DirectivesModule } from '@core/directives/directives.module';
@@ -16,17 +13,14 @@ import { GoogleAuthButtonModule } from '@core/components/google-auth-button';
 import { DividerTextModule } from '@core/ui/divider-text/divider-text.module';
 import { PipesModule } from '@core/pipes/pipes.module';
 import { AlertModule } from '@core/ui/alert/alert.module';
-import { PasswordInputModule } from '@core/components/password-input';
+import { InputModule } from '@core/ui/input';
 
 @NgModule({
   declarations: [LoginFormComponent],
   imports: [
     CommonModule,
     MatCardModule,
-    MatFormFieldModule,
     ReactiveFormsModule,
-    MatIconModule,
-    MatInputModule,
     MatButtonModule,
     ButtonModule,
     DirectivesModule,
@@ -37,7 +31,7 @@ import { PasswordInputModule } from '@core/components/password-input';
     DividerTextModule,
     PipesModule,
     AlertModule,
-    PasswordInputModule,
+    InputModule,
   ],
   exports: [LoginFormComponent],
 })

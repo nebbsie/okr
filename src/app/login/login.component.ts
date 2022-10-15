@@ -1,6 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AuthService } from '@core/services/auth';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,14 +14,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnInit {
-  loggedIn$!: Observable<boolean>;
-
-  constructor(private auth: AuthService, private router: Router) {}
-
-  ngOnInit(): void {
-    this.loggedIn$ = this.auth.isLoggedIn();
-  }
+export class LoginComponent {
+  constructor(private router: Router) {}
 
   async handleLoggedIn() {
     await this.router.navigate(['/dashboard']);

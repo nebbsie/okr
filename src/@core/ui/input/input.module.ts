@@ -1,22 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PasswordInputComponent } from './password-input.component';
+import { InputComponent } from './input.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { DirectivesModule } from '@core/directives';
 
 @NgModule({
-  declarations: [PasswordInputComponent],
+  declarations: [InputComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
-    ReactiveFormsModule,
-    MatButtonModule,
     MatInputModule,
+    MatButtonModule,
+    ReactiveFormsModule,
     MatIconModule,
+    DirectivesModule,
   ],
-  exports: [PasswordInputComponent],
+  exports: [InputComponent],
 })
-export class PasswordInputModule {}
+export class InputModule {}

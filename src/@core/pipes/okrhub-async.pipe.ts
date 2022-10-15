@@ -4,7 +4,7 @@ import * as Rx from 'rxjs';
 
 // FIXME: switch back to async after https://github.com/angular/angular/issues/16982
 // eslint-disable-next-line @angular-eslint/no-pipe-impure
-@Pipe({ name: 'oAsync', pure: false })
+@Pipe({ name: 'Async', pure: false })
 export class OkrhubAsyncPipe extends AsyncPipe implements PipeTransform {
   // @ts-ignore
   transform<T>(obj$: null | undefined): undefined;

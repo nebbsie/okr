@@ -26,7 +26,7 @@ import { Router } from '@angular/router';
       marginBottom="xsmall"
       [fullWidth]="true"
       [disabled]="emailControl.value === null"
-      [loading]="loading$ | oAsync"
+      [loading]="loading$ | Async"
       (click)="handleResetPassword()"
     >
       Reset Password

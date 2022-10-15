@@ -22,15 +22,17 @@ import { AuthService } from '@core/services';
       Your new password must be different from previously used passwords.
     </ui-text>
 
-    <app-password-input
+    <ui-input
       label="Password"
+      type="password"
       [control]="passwordControl"
-    ></app-password-input>
+    ></ui-input>
 
-    <app-password-input
-      label="Confirm Password"
+    <ui-input
+      label="Confirm password"
+      type="password"
       [control]="passwordConfirmControl"
-    ></app-password-input>
+    ></ui-input>
 
     <ui-text size="small" colour="grey" marginBottom="mid">
       Both passwords must match.
@@ -40,8 +42,8 @@ import { AuthService } from '@core/services';
       colour="primary"
       marginBottom="xsmall"
       [fullWidth]="true"
-      [disabled]="invalidPasswords$ | oAsync"
-      [loading]="loading$ | oAsync"
+      [disabled]="invalidPasswords$ | Async"
+      [loading]="loading$ | Async"
       (click)="handlePasswordChange()"
     >
       Reset Password
@@ -49,7 +51,7 @@ import { AuthService } from '@core/services';
 
     <ui-link align="center" link="/recover/sent"> Back </ui-link>
 
-    <ui-alert *ngIf="error$ | oAsync" type="error">
+    <ui-alert *ngIf="error$ | Async" type="error">
       There was an error resetting your password. Try again.
     </ui-alert>
   `,
