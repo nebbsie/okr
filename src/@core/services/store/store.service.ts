@@ -7,7 +7,6 @@ import {
   docData,
   enableIndexedDbPersistence,
   Firestore,
-  FirestoreDataConverter,
   getDoc,
   query,
   serverTimestamp,
@@ -28,30 +27,29 @@ import {
 } from 'rxjs';
 import { makeObservable, sanitiseObject } from '@core/utils';
 import {
+  CreateData,
   CreateResult,
   DeleteResult,
   DocumentId,
-  FirebaseError,
   GetResult,
   ListenResult,
+  SetData,
   SetResult,
   UntypedCreateData,
   UntypedUpdateData,
+  UpdateData,
   UpdateResult,
   WhereConstraints,
   WhereResult,
 } from './store.types';
-import {
-  CreateData,
-  SetData,
-  StoreDocument,
-  UpdateData,
-} from '@core/services/store';
+import { FirebaseError } from './store.errors';
+import { ConvertFirebaseError, StoreConverter } from './store.helpers';
+import { StoreCollection } from './config/collections';
 
 @Injectable({
   providedIn: 'root',
 })
-export class StoreService {
+export class Store {
   constructor(private firestore: Firestore) {
     enableIndexedDbPersistence(this.firestore).then();
   }
@@ -66,10 +64,10 @@ export class StoreService {
   /**
    * Creates a new object in the store.
    */
-  create<T extends StoreDocument>(
-    collection: string,
-    request: CreateData<T>
-  ): CreateResult {
+  create<C extends StoreCollection>(
+    collection: C['name'],
+    request: CreateData<C['type']>
+  ): CreateResult<C> {
     const errorSubject$ = new Subject<FirebaseError>();
     const loadingSubject$ = new BehaviorSubject(false);
 
@@ -89,7 +87,7 @@ export class StoreService {
       map(() => id),
       tap(() => loadingSubject$.next(false)),
       catchError((err) => {
-        errorSubject$.next(this.getError(err));
+        errorSubject$.next(ConvertFirebaseError(err));
         loadingSubject$.next(false);
         throw err;
       })
@@ -105,12 +103,11 @@ export class StoreService {
   /**
    * Updates an existing object in the store.
    */
-  update<T extends StoreDocument>(
-    collection: string,
+  update<C extends StoreCollection>(
+    collection: C['name'],
     id: DocumentId,
-    request: UpdateData<T>,
-    converter: FirestoreDataConverter<T>
-  ): UpdateResult {
+    request: UpdateData<C['type']>
+  ): UpdateResult<C> {
     const errorSubject$ = new Subject<FirebaseError>();
     const loadingSubject$ = new BehaviorSubject(false);
 
@@ -121,13 +118,15 @@ export class StoreService {
       tap(() => loadingSubject$.next(true)),
       switchMap(([_id, _request]) =>
         updateDoc(
-          doc(this.firestore, collection, _id).withConverter(converter),
+          doc(this.firestore, collection, _id).withConverter(
+            StoreConverter(collection)
+          ),
           sanitiseObject(_request as UntypedUpdateData)
         )
       ),
       tap(() => loadingSubject$.next(false)),
       catchError((err) => {
-        errorSubject$.next(this.getError(err));
+        errorSubject$.next(ConvertFirebaseError(err));
         loadingSubject$.next(false);
         throw err;
       })
@@ -143,11 +142,10 @@ export class StoreService {
   /**
    * Creates an object in the store.
    */
-  set<T extends StoreDocument>(
-    collection: string,
-    request: SetData<T>,
-    converter: FirestoreDataConverter<T>
-  ): SetResult {
+  set<C extends StoreCollection>(
+    collection: C['name'],
+    request: SetData<C['type']>
+  ): SetResult<C> {
     const errorSubject$ = new Subject<FirebaseError>();
     const loadingSubject$ = new BehaviorSubject(false);
 
@@ -155,7 +153,9 @@ export class StoreService {
       tap(() => loadingSubject$.next(true)),
       switchMap(([_request]) =>
         setDoc(
-          doc(this.firestore, collection, _request.id).withConverter(converter),
+          doc(this.firestore, collection, _request.id).withConverter(
+            StoreConverter(collection)
+          ),
           sanitiseObject({
             ..._request,
             createdTime: serverTimestamp(),
@@ -164,7 +164,7 @@ export class StoreService {
       ),
       tap(() => loadingSubject$.next(false)),
       catchError((err) => {
-        errorSubject$.next(this.getError(err));
+        errorSubject$.next(ConvertFirebaseError(err));
         loadingSubject$.next(false);
         throw err;
       })
@@ -180,7 +180,10 @@ export class StoreService {
   /**
    * Deletes an existing object in the store.
    */
-  delete(collection: string, id: DocumentId): DeleteResult {
+  delete<C extends StoreCollection>(
+    collection: C['name'],
+    id: DocumentId
+  ): DeleteResult<C> {
     const errorSubject$ = new Subject<FirebaseError>();
     const loadingSubject$ = new BehaviorSubject(false);
 
@@ -189,7 +192,7 @@ export class StoreService {
       switchMap((id) => deleteDoc(doc(this.firestore, collection, id))),
       tap(() => loadingSubject$.next(false)),
       catchError((err) => {
-        errorSubject$.next(this.getError(err));
+        errorSubject$.next(ConvertFirebaseError(err));
         loadingSubject$.next(false);
         throw err;
       })
@@ -205,11 +208,10 @@ export class StoreService {
   /**
    * Gets a value from the store and ensures its up-to-date via a where clause.
    */
-  where<T extends StoreDocument>(
-    col: string,
-    constraints: WhereConstraints = [],
-    converter: FirestoreDataConverter<T>
-  ): WhereResult<T> {
+  where<C extends StoreCollection>(
+    col: C['name'],
+    constraints: WhereConstraints = []
+  ): WhereResult<C> {
     const errorSubject$ = new Subject<FirebaseError>();
     const loadingSubject$ = new BehaviorSubject(false);
 
@@ -218,14 +220,14 @@ export class StoreService {
       switchMap(([_constraints]) => {
         return collectionData(
           query(
-            collection(this.firestore, col).withConverter(converter),
+            collection(this.firestore, col).withConverter(StoreConverter(col)),
             ..._constraints
           )
         );
       }),
       tap(() => loadingSubject$.next(false)),
       catchError((err) => {
-        errorSubject$.next(this.getError(err));
+        errorSubject$.next(ConvertFirebaseError(err));
         loadingSubject$.next(false);
         throw err;
       })
@@ -241,22 +243,25 @@ export class StoreService {
   /**
    * Gets a value from the store and ensures its up-to-date.
    */
-  listen<T extends StoreDocument>(
-    collection: string,
-    id: DocumentId,
-    converter: FirestoreDataConverter<T>
-  ): ListenResult<T> {
+  listen<C extends StoreCollection>(
+    collection: C['name'],
+    id: DocumentId
+  ): ListenResult<C> {
     const errorSubject$ = new Subject<FirebaseError>();
     const loadingSubject$ = new BehaviorSubject(false);
 
     const result$ = makeObservable(id).pipe(
       tap(() => loadingSubject$.next(true)),
       switchMap((_id) =>
-        docData(doc(this.firestore, collection, _id).withConverter(converter))
+        docData(
+          doc(this.firestore, collection, _id).withConverter(
+            StoreConverter(collection)
+          )
+        )
       ),
       tap(() => loadingSubject$.next(false)),
       catchError((err) => {
-        errorSubject$.next(this.getError(err));
+        errorSubject$.next(ConvertFirebaseError(err));
         loadingSubject$.next(false);
         throw err;
       })
@@ -272,11 +277,10 @@ export class StoreService {
   /**
    * Gets a value from the store at the moment of calling. Is not kept up to date.
    */
-  get<T extends StoreDocument>(
-    collection: string,
-    id: DocumentId,
-    converter: FirestoreDataConverter<T>
-  ): GetResult<T> {
+  get<C extends StoreCollection>(
+    collection: C['name'],
+    id: DocumentId
+  ): GetResult<C> {
     const errorSubject$ = new Subject<FirebaseError>();
     const loadingSubject$ = new BehaviorSubject(false);
 
@@ -284,12 +288,16 @@ export class StoreService {
       tap(() => loadingSubject$.next(true)),
       switchMap((_id) =>
         from(
-          getDoc(doc(this.firestore, collection, _id).withConverter(converter))
+          getDoc(
+            doc(this.firestore, collection, _id).withConverter(
+              StoreConverter(collection)
+            )
+          )
         ).pipe(map((val) => val.data()))
       ),
       tap(() => loadingSubject$.next(false)),
       catchError((err) => {
-        errorSubject$.next(this.getError(err));
+        errorSubject$.next(ConvertFirebaseError(err));
         loadingSubject$.next(false);
         throw err;
       })
@@ -300,21 +308,5 @@ export class StoreService {
       error$: errorSubject$.asObservable(),
       loading$: loadingSubject$.asObservable(),
     };
-  }
-
-  getError(err: any): FirebaseError {
-    const code = err.code as string;
-    const isDefinedError = code in FirebaseError;
-    if (isDefinedError) {
-      console.error(
-        `Error is currently not defined. You need to add: ${code} to FirebaseError enum.`
-      );
-    }
-    switch (code) {
-      case FirebaseError.PERMISSION_DENIED:
-        return FirebaseError.PERMISSION_DENIED;
-      default:
-        return FirebaseError.UNKNOWN;
-    }
   }
 }

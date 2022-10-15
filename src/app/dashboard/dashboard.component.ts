@@ -2,28 +2,27 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuthService } from '@core/services';
 import { Router } from '@angular/router';
 import { firstValueFrom, Observable } from 'rxjs';
-import { User, UsersService } from '@core/services/collections/users';
-import { GetResult } from '@core/services/store';
+import { GetResult, Store } from '@core/services/store';
+import { UsersCollection } from '@core/services/store/config/collections';
 
 @Component({
   selector: 'app-dashboard',
   template: `
+    <app-mobile-top-bar title="Teams">
+      <ui-button colour="warn" (click)="logout()"> Logout </ui-button>
+      <ui-button type="icon" icon="settings"></ui-button>
+    </app-mobile-top-bar>
+
     <ui-page [center]="true" contentDirection="column">
-      <ui-button colour="warn" marginBottom="mid" (click)="logout()">
-        Logout
-      </ui-button>
+      {{ user.result$ | Async | json }}
 
-      <ui-text marginBottom="large">Dashboard</ui-text>
+      <ui-button marginBottom="mid" (click)="createEnterprise()"
+        >Create Enterprise</ui-button
+      >
 
-      User: {{ user.result$ | Async | json }}
-      <br />
+      <ui-button marginBottom="mid">Create Team</ui-button>
 
-      Loading:
-      {{ user.loading$ | Async | json }}
-      <br />
-
-      Error: {{ user.error$ | Async | json }}
-      <br />
+      <ui-button marginBottom="mid">Create Board</ui-button>
     </ui-page>
   `,
   styleUrls: ['./dashboard.component.scss'],
@@ -32,18 +31,18 @@ import { GetResult } from '@core/services/store';
 export class DashboardComponent implements OnInit {
   usersId$!: Observable<string>;
 
-  user!: GetResult<User>;
+  user!: GetResult<UsersCollection>;
 
   constructor(
     private auth: AuthService,
     private router: Router,
-    private users: UsersService
+    private store: Store
   ) {}
 
   ngOnInit(): void {
     this.usersId$ = this.auth.getUserId();
 
-    this.user = this.users.getById(this.usersId$);
+    this.user = this.store.get('users', this.usersId$);
   }
 
   async logout() {
@@ -51,7 +50,7 @@ export class DashboardComponent implements OnInit {
     await this.router.navigate(['/login']);
   }
 
-  create(): void {}
+  createEnterprise(): void {}
 
   delete(): void {}
 

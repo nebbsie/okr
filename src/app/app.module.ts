@@ -8,6 +8,9 @@ import { environment } from '@env/environment';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MobileBottomBarModule } from '@core/components/mobile-bottom-bar';
+import { DirectivesModule } from '@core/directives';
+import { PipesModule } from '@core/pipes';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +21,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
+    MobileBottomBarModule,
+    DirectivesModule,
+    PipesModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -7,6 +7,9 @@ export type Environment = {
     authDomain: string;
     messagingSenderId: string;
   };
+  http: {
+    baseUrl: string;
+  };
   production: boolean;
   enableDevConfig: boolean;
 };

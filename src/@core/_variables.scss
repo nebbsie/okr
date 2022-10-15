@@ -34,7 +34,11 @@ $breakpoint-mobile: 660px;
 $breakpoint-tablet: 960px;
 $breakpoint-desktop: 1200px;
 
+/* Heights */
+$bottom-bar-height: 32px;
+
 /* z-Index */
+$bottom-bar-z-index: 9999;
 
 /* Colours */
 $colour-dark: #14100d;
@@ -48,6 +52,8 @@ $colour-light-red: #fdecea;
 $colour-light-orange: #fff4e5;
 $colour-light-blue: #e8f4fd;
 $colour-light-green: #80bfa3;
+$colour-light-bg: #f8f8fa;
+$colour-light-bars: #f5f5f5;
 
 /* Alert Colours */
 $colour-alert-bg-error: $colour-light-red;

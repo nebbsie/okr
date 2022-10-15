@@ -1,8 +1,9 @@
 @use 'breakpoints';
 @use 'spacing';
+@use "variables";
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: variables.$colour-light-bg; }
 
 .HideMobile {
   @include breakpoints.mobile() {

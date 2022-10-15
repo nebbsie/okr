@@ -1,5 +1,7 @@
 import { QueryConstraint } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { FirebaseError } from './store.errors';
+import { StoreCollection } from './config/collections';
 
 export type OmittedStoreObjectParams = keyof StoreDocument;
 
@@ -43,69 +45,28 @@ export type UntypedCreateData = {
   readonly id: string;
 };
 
-export function transformStoreDocumentFields(data: any): StoreDocument {
-  if (!data.id) {
-    throw new Error('Could not find id in transformer.');
-  }
-
-  if (!data.createdTime) {
-    console.error('Could not find createdTime in transformer.');
-  }
-
-  return {
-    id: data.id,
-    createdTime: data.createdTime,
-  };
-}
-
-export type StoreResult<T> = {
+export type StoreResult<
+  T extends StoreDocument | StoreDocument[] | string | void
+> = {
   readonly loading$: Observable<boolean>;
   readonly error$: Observable<FirebaseError>;
   readonly result$: Observable<T>;
 };
 
-export type CreateResult = StoreResult<string>;
-export type DeleteResult = StoreResult<void>;
-export type SetResult = StoreResult<void>;
-export type UpdateResult = StoreResult<void>;
-export type WhereResult<T extends StoreDocument> = StoreResult<T[]>;
-export type GetResult<T extends StoreDocument> = StoreResult<T | undefined>;
-export type ListenResult<T extends StoreDocument> = StoreResult<T | undefined>;
+export type CreateResult<C extends StoreCollection> = StoreResult<string>;
 
-export interface CollectionService<T extends StoreDocument> {
-  /**
-   * Creates a new object in the store.
-   * Returns the created objects ID.
-   */
-  create(request: CreateData<T>): CreateResult;
+export type DeleteResult<C extends StoreCollection> = StoreResult<void>;
 
-  /**
-   * Updates an existing object in the store.
-   */
-  update(id: DocumentId, request: UpdateData<T>): UpdateResult;
+export type SetResult<C extends StoreCollection> = StoreResult<void>;
 
-  /**
-   * If the object already exists it updates the data, if it doesn't exist it creates it.
-   */
-  set(request: SetData<T>): SetResult;
+export type UpdateResult<C extends StoreCollection> = StoreResult<void>;
 
-  /**
-   * Deletes an existing object in the store.
-   */
-  delete(id: DocumentId): DeleteResult;
+export type WhereResult<C extends StoreCollection> = StoreResult<C['type'][]>;
 
-  /**
-   * Gets a document via its ID once. Does not listen for changes.
-   */
-  getById(id: DocumentId): GetResult<T>;
+export type GetResult<C extends StoreCollection> = StoreResult<
+  C['type'] | undefined
+>;
 
-  /**
-   * Gets a list of documents from the store. These are kept up to date.
-   */
-  getWhere(constraints: WhereConstraints): WhereResult<T>;
-}
-
-export enum FirebaseError {
-  UNKNOWN = 'unknown',
-  PERMISSION_DENIED = 'permission-denied',
-}
+export type ListenResult<C extends StoreCollection> = StoreResult<
+  C['type'] | undefined
+>;

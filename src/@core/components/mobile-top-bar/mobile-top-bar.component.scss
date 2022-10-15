@@ -1,0 +1,16 @@
+@use "variables";
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: variables.$spacing-xxsmall;
+  padding-left: variables.$spacing-small;
+  padding-right: variables.$spacing-small;
+  background-color: variables.$colour-light-bars;
+  border-bottom: 1px solid variables.$colour-accent;
+}
+
+.RightActions {
+  margin-left: auto;
+}

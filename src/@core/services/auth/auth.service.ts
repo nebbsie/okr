@@ -20,24 +20,26 @@ import {
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { LoginResponse } from '@core/services/auth/auth.types';
 import { isDefined } from '@core/utils';
-import { UsersService } from '@core/services/collections/users';
+import { environment } from '@env/environment';
+import { Store } from '@core/services/store';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private auth: Auth, private users: UsersService) {}
+  constructor(private auth: Auth, private store: Store) {}
 
   sendPasswordResetEmail(email: string): Observable<boolean> {
     return fromPromise(
       sendPasswordResetEmail(this.auth, email, {
-        url: 'http://localhost:4200/recover/reset',
+        url: `${environment.http.baseUrl}/recover/reset`,
         handleCodeInApp: true,
       })
-        .then((res) => {
+        .then(() => {
           return true;
         })
         .catch((err) => {
+          console.error(err);
           return false;
         })
     );
@@ -49,8 +51,11 @@ export class AuthService {
   ): Observable<boolean> {
     return fromPromise(
       confirmPasswordReset(this.auth, oobCode, newPassword)
-        .then((res) => true)
-        .catch((err) => false)
+        .then(() => true)
+        .catch((err) => {
+          console.error(err);
+          return false;
+        })
     );
   }
 
@@ -102,6 +107,7 @@ export class AuthService {
             success: true,
           };
         } catch (err: any) {
+          console.error(err);
           return {
             success: false,
             errorCode: err.code,
@@ -128,6 +134,7 @@ export class AuthService {
             success: true,
           };
         } catch (err: any) {
+          console.error(err);
           return {
             success: false,
             errorCode: err.code,
@@ -139,15 +146,14 @@ export class AuthService {
 
   async checkForUser() {
     const user = await firstValueFrom(
-      this.users.getById(this.getUserId()).result$
+      this.store.get('users', this.getUserId()).result$
     );
 
     const usersId = await firstValueFrom(this.getUserId());
 
     // If the user doesn't have a user we need to make one.
     if (!user) {
-      console.info('Creating user');
-      await firstValueFrom(this.users.set({ id: usersId }).result$);
+      await firstValueFrom(this.store.set('users', { id: usersId }).result$);
     }
   }
 }

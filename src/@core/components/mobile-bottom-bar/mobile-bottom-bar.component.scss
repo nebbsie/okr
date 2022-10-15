@@ -1,0 +1,14 @@
+@use "variables";
+
+:host {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: variables.$bottom-bar-height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: variables.$spacing-xxxsmall;
+  border-top: 1px solid variables.$colour-accent;
+  background-color: variables.$colour-light-bars;
+}
