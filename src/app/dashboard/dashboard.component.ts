@@ -162,54 +162,63 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
           <!--            (cdkDropListDropped)="drop($event, dataSource)"-->
           <!--          >-->
 
-          <!--cdkDrag-->
-          <div class="example-box okr-table-grid" marginBottom="xsmall">
-            <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-            <ui-text>{{ okr.objective }}</ui-text>
-            <ui-text>{{ okr.createdDate }}</ui-text>
-            <ui-text>{{ okr.owner }}</ui-text>
-            <ui-text>{{ okr.team }}</ui-text>
-            <!--progress bar and stats area-->
+          <div class="flex-okr-expand-collapse">
             <div>
-              <div class="flex-space-between">
-                <ui-text
-                  [colour]="getReturnColour(okr.stats.state)"
-                  weight="medium"
-                >
-                  {{ okr.stats.progression * 100 + '%' }}
-                </ui-text>
-                <div
-                  [ngClass]="{
-                    'on-track-bg-colour': okr.stats.state === 'On Track',
-                    'off-track-bg-colour': okr.stats.state === 'Off Track',
-                    'achieved-bg-colour': okr.stats.state === 'Achieved'
-                  }"
-                  class="state-bg"
-                  marginBottom="xxxsmall"
-                >
+              <!--expand_less-->
+              <mat-icon
+                fontIcon="expand_more"
+                (click)="showHideKeyResults(okr)"
+              ></mat-icon>
+            </div>
+            <!--cdkDrag-->
+            <div class="example-box okr-table-grid" marginBottom="xsmall">
+              <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+              <ui-text>{{ okr.objective }}</ui-text>
+              <ui-text>{{ okr.createdDate }}</ui-text>
+              <ui-text>{{ okr.owner }}</ui-text>
+              <ui-text>{{ okr.team }}</ui-text>
+              <!--progress bar and stats area-->
+              <div>
+                <div class="flex-space-between">
                   <ui-text
                     [colour]="getReturnColour(okr.stats.state)"
                     weight="medium"
                   >
-                    {{ okr.stats.state }}
+                    {{ okr.stats.progression * 100 + '%' }}
                   </ui-text>
+                  <div
+                    [ngClass]="{
+                      'on-track-bg-colour': okr.stats.state === 'On Track',
+                      'off-track-bg-colour': okr.stats.state === 'Off Track',
+                      'achieved-bg-colour': okr.stats.state === 'Achieved'
+                    }"
+                    class="state-bg"
+                    marginBottom="xxxsmall"
+                  >
+                    <ui-text
+                      [colour]="getReturnColour(okr.stats.state)"
+                      weight="medium"
+                    >
+                      {{ okr.stats.state }}
+                    </ui-text>
+                  </div>
                 </div>
+                <mat-progress-bar
+                  mode="determinate"
+                  [value]="okr.stats.progression * 100"
+                  marginBottom="xxxsmall"
+                ></mat-progress-bar>
+                <ui-text size="xsmall">
+                  {{ 'Updated: ' + okr.stats.updatedAt }}
+                </ui-text>
               </div>
-              <mat-progress-bar
-                mode="determinate"
-                [value]="okr.stats.progression * 100"
-                marginBottom="xxxsmall"
-              ></mat-progress-bar>
-              <ui-text size="xsmall">
-                {{ 'Updated: ' + okr.stats.updatedAt }}
-              </ui-text>
+              <!--end stats section-->
+              <div class="flex">
+                <mat-icon fontIcon="more_vert"></mat-icon>
+              </div>
             </div>
-            <!--end stats section-->
-            <div class="flex">
-              <mat-icon fontIcon="more_vert"></mat-icon>
-            </div>
+            <!--end draggable box first-->
           </div>
-          <!--end draggable box first-->
           <!--          </div>-->
           <div
             cdkDropList
@@ -472,6 +481,21 @@ export class DashboardComponent implements OnInit {
   drop(event: CdkDragDrop<string[]>, arrayToChange: any) {
     moveItemInArray(arrayToChange, event.previousIndex, event.currentIndex);
   }
+
+  showHideKeyResults(okr: {
+    objective: string;
+    createdDate: string;
+    owner: string;
+    team: string;
+    stats: { progression: number; state: string; updatedAt: string };
+    keyResults: {
+      name: string;
+      createdDate: string;
+      owner: string;
+      team: string;
+      stats: { progression: number; state: string; updatedAt: string };
+    }[];
+  }) {}
 
   getReturnColour(state: string): TextColour {
     if (state === 'On Track') {
