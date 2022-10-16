@@ -1,5 +1,5 @@
 import { transformStoreDocumentFields } from '../store.helpers';
-import { User } from './documents';
+import { Enterprise, EnterpriseUser, User } from './documents';
 
 function TransformUser(data: any): User {
   return {
@@ -7,6 +7,24 @@ function TransformUser(data: any): User {
   };
 }
 
+function TransformEnterprise(data: any): Enterprise {
+  return {
+    name: data.name,
+    creatorId: data.createdTime,
+    ...transformStoreDocumentFields(data),
+  };
+}
+
+function TransformEnterpriseUser(data: any): EnterpriseUser {
+  return {
+    userId: data.userId,
+    role: data.role,
+    ...transformStoreDocumentFields(data),
+  };
+}
+
 export const TransformerMap = {
   users: TransformUser,
+  enterprises: TransformEnterprise,
+  enterpriseUsers: TransformEnterpriseUser,
 };

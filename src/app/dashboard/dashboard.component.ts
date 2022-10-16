@@ -1,8 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuthService } from '@core/services';
 import { Router } from '@angular/router';
-import { firstValueFrom, Observable } from 'rxjs';
-import { GetResult, Store } from '@core/services/store';
+import { combineLatest, firstValueFrom, map, Observable } from 'rxjs';
+import {
+  CreateData,
+  Enterprise,
+  EnterprisesCollection,
+  GetResult,
+  Store,
+} from '@core/services/store';
 import { UsersCollection } from '@core/services/store/config/collections';
 
 @Component({
@@ -14,15 +20,19 @@ import { UsersCollection } from '@core/services/store/config/collections';
     </app-mobile-top-bar>
 
     <ui-page [center]="true" contentDirection="column">
-      {{ user.result$ | Async | json }}
+      {{ userResult.result$ | Async | json }}
 
-      <ui-button marginBottom="mid" (click)="createEnterprise()"
-        >Create Enterprise</ui-button
+      <ui-button marginBottom="mid" (click)="createEnterprise()">
+        Create Enterprise
+      </ui-button>
+
+      <ui-button marginBottom="mid" (click)="createTeam()"
+        >Create Team</ui-button
       >
 
-      <ui-button marginBottom="mid">Create Team</ui-button>
-
-      <ui-button marginBottom="mid">Create Board</ui-button>
+      <ui-button marginBottom="mid" (click)="createBoard()"
+        >Create Board</ui-button
+      >
     </ui-page>
   `,
   styleUrls: ['./dashboard.component.scss'],
@@ -31,7 +41,7 @@ import { UsersCollection } from '@core/services/store/config/collections';
 export class DashboardComponent implements OnInit {
   usersId$!: Observable<string>;
 
-  user!: GetResult<UsersCollection>;
+  userResult!: GetResult<UsersCollection>;
 
   constructor(
     private auth: AuthService,
@@ -42,7 +52,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.usersId$ = this.auth.getUserId();
 
-    this.user = this.store.get('users', this.usersId$);
+    this.userResult = this.store.get('users', this.usersId$);
   }
 
   async logout() {
@@ -50,9 +60,25 @@ export class DashboardComponent implements OnInit {
     await this.router.navigate(['/login']);
   }
 
-  createEnterprise(): void {}
+  async createEnterprise() {
+    const enterpriseId = await firstValueFrom(
+      this.store.create<EnterprisesCollection>(
+        'enterprises',
+        combineLatest([this.auth.getUserId()]).pipe(
+          map(([userId]) => {
+            const request: CreateData<Enterprise> = {
+              creatorId: userId,
+              name: 'My Test Enterprise',
+            };
 
-  delete(): void {}
+            return request;
+          })
+        )
+      ).result$
+    );
+  }
 
-  get(): void {}
+  createTeam(): void {}
+
+  createBoard(): void {}
 }
