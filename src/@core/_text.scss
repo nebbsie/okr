@@ -60,6 +60,14 @@
   &[data-font-colour='warning'] {
     color: variables.$font-colour-warning;
   }
+
+  &[data-font-colour='achieved'] {
+    color: variables.$font-colour-achieved;
+  }
+
+  &[data-font-colour='heading-dark-grey'] {
+    color: variables.$font-colour-dark-grey;
+  }
 }
 
 @mixin TextTransformGenerator {

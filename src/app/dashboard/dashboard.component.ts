@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 import { combineLatest, firstValueFrom, map, Observable } from 'rxjs';
 import { MatSidenavContainer } from '@angular/material/sidenav';
 import { TextColour } from '@core/ui';
-<<<<<<< HEAD
 import {
   CreateData,
   Enterprise,
@@ -19,9 +18,7 @@ import {
   Store,
 } from '@core/services/store';
 import { UsersCollection } from '@core/services/store/config/collections';
-=======
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
->>>>>>> 0d75837 (Changed main cards functionality)
 
 @Component({
   selector: 'app-dashboard',
@@ -31,10 +28,10 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
     <!--      <ui-text>Dashboard</ui-text>-->
 
-    <app-mobile-top-bar title="Teams">
-      <ui-button colour="warn" (click)="logout()"> Logout </ui-button>
-      <ui-button type="icon" icon="settings"></ui-button>
-    </app-mobile-top-bar>
+    <!--    <app-mobile-top-bar title="Teams">-->
+    <!--      <ui-button colour="warn" (click)="logout()"> Logout </ui-button>-->
+    <!--      <ui-button type="icon" icon="settings"></ui-button>-->
+    <!--    </app-mobile-top-bar>-->
 
     <!--<ui-page [center]="true" contentDirection="column">
       {{ userResult.result$ | Async | json }}

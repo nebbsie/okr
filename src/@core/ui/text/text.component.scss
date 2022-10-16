@@ -1,4 +1,3 @@
-@import 'variables';
 @use 'text';
 @use 'breakpoints';
 
@@ -44,37 +43,10 @@
     word-break: break-all;
   }
 
-  &[data-font-colour='grey'] {
-    color: $colour-accent;
-  }
-
-  &[data-font-colour='achieved'] {
-    color: $font-colour-achieved;
-  }
-
-  &[data-font-colour='success'] {
-    color: $font-colour-success;
-  }
-
-  &[data-font-colour='danger'] {
-    color: $font-colour-danger;
-  }
-
-<<<<<<< HEAD
   @include text.TextWeightGenerator();
   @include text.TextColourGenerator();
   @include text.TextTransformGenerator();
   @include text.TextSizeGenerator();
-=======
-  &[data-font-colour='heading-dark-grey'] {
-    color: $font-colour-dark-grey;
-  }
-
-
-  @include TextWeightGenerator();
-  @include TextColourGenerator();
-  @include TextTransformGenerator();
->>>>>>> 0d75837 (Changed main cards functionality)
 
   @include breakpoints.tablet() {
     @include text.TextSizeGenerator(tablet);
