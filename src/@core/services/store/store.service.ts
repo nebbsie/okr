@@ -9,6 +9,7 @@ import {
   Firestore,
   getDoc,
   query,
+  runTransaction,
   serverTimestamp,
   setDoc,
   Timestamp,
@@ -45,6 +46,7 @@ import {
 import { FirebaseError } from './store.errors';
 import { ConvertFirebaseError, StoreConverter } from './store.helpers';
 import { StoreCollection } from './config/collections';
+import { Transaction, TransactionOptions } from '@firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -52,6 +54,13 @@ import { StoreCollection } from './config/collections';
 export class Store {
   constructor(private firestore: Firestore) {
     enableIndexedDbPersistence(this.firestore).then();
+  }
+
+  runInTransaction<T>(
+    func: (transaction: Transaction) => Promise<T>,
+    options?: TransactionOptions
+  ) {
+    return runTransaction(this.firestore, func, options);
   }
 
   /**

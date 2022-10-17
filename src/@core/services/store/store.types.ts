@@ -70,3 +70,20 @@ export type GetResult<C extends StoreCollection> = StoreResult<
 export type ListenResult<C extends StoreCollection> = StoreResult<
   C['type'] | undefined
 >;
+
+export type SuccessRequestResult = {
+  readonly status: 'success';
+};
+
+export type ErrorRequestResult = {
+  readonly status: 'error';
+  readonly message: string;
+  readonly code: ErrorCode;
+};
+
+export type RequestResult = SuccessRequestResult | ErrorRequestResult;
+
+export enum ErrorCode {
+  ENTERPRISE_NOT_FOUND,
+  TEAM_NOT_FOUND,
+}

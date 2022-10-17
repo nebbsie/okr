@@ -1,4 +1,13 @@
-import { EnterpriseUser, User } from './documents';
+import {
+  Board,
+  BoardMember,
+  Enterprise,
+  EnterpriseMember,
+  Log,
+  Team,
+  TeamMember,
+  User,
+} from './documents';
 
 export type UsersCollection = {
   name: 'users';
@@ -7,15 +16,45 @@ export type UsersCollection = {
 
 export type EnterprisesCollection = {
   name: 'enterprises';
-  type: User;
+  type: Enterprise;
 };
 
 export type EnterpriseUsersCollection = {
-  name: 'enterpriseUsers';
-  type: EnterpriseUser;
+  name: 'enterpriseMembers';
+  type: EnterpriseMember;
+};
+
+export type TeamsCollection = {
+  name: 'teams';
+  type: Team;
+};
+
+export type TeamUsersCollection = {
+  name: 'teamMembers';
+  type: TeamMember;
+};
+
+export type BoardsCollection = {
+  name: 'boards';
+  type: Board;
+};
+
+export type BoardUsersCollection = {
+  name: 'boardMembers';
+  type: BoardMember;
+};
+
+export type LogsCollection = {
+  name: 'logs';
+  type: Log;
 };
 
 export type StoreCollection =
   | UsersCollection
   | EnterprisesCollection
-  | EnterpriseUsersCollection;
+  | EnterpriseUsersCollection
+  | TeamsCollection
+  | TeamUsersCollection
+  | BoardsCollection
+  | BoardUsersCollection
+  | LogsCollection;

@@ -1,21 +1,29 @@
+// Generic
+export type MinimalObject = {
+  readonly id: string;
+  readonly name: string;
+};
+
 // Users
-export interface MinimalUser {
-  readonly id: string;
-  readonly name: string;
-  readonly avatar: string;
-}
+export type MinimalUser = MinimalObject;
 
 // Enterprises
-export interface MinimalEnterprise {
-  readonly id: string;
-  readonly name: string;
-  readonly avatar: string;
-}
+export type MinimalEnterprise = MinimalObject;
 
-// Enterprises
 export enum EnterpriseRole {
   OWNER = 'owner',
   ADMIN = 'admin',
   MODERATOR = 'moderator',
   USER = 'user',
+}
+
+// Teams
+export type MinimalTeam = MinimalObject;
+
+// Boards
+export type MinimalBoard = MinimalObject;
+
+// Logs
+export enum LogType {
+  TEAM_DELETE = 'team_delete',
 }

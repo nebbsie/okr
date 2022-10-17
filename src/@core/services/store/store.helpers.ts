@@ -2,7 +2,11 @@ import { FirebaseError } from './store.errors';
 import { StoreCollection } from '@core/services/store/config/collections';
 import { FirestoreDataConverter } from '@angular/fire/firestore';
 import { TransformerMap } from '@core/services/store/config/transformers';
-import { StoreDocument } from '@core/services/store/store.types';
+import {
+  ErrorCode,
+  ErrorRequestResult,
+  StoreDocument,
+} from '@core/services/store/store.types';
 
 export function ConvertFirebaseError(err: any): FirebaseError {
   const code = err.code as string;
@@ -46,4 +50,17 @@ export function transformStoreDocumentFields(data: any): StoreDocument {
     id: data.id,
     createdTime: data.createdTime,
   };
+}
+
+export function getServiceLogicError(
+  msg: string,
+  code: ErrorCode
+): ErrorRequestResult {
+  const err: ErrorRequestResult = {
+    status: 'error',
+    message: msg,
+    code,
+  };
+  console.error(err);
+  return err;
 }

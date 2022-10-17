@@ -50,7 +50,7 @@ import { ThemePalette } from '@angular/material/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent implements OnInit {
-  @Input() colour: ThemePalette;
+  @Input() colour: ThemePalette = 'primary';
   @Input() type: 'normal' | 'icon' = 'normal';
 
   @Input() icon?: string;
