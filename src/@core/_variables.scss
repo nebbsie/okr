@@ -5,9 +5,10 @@ $font-weight-medium: 500;
 $font-weight-bold: 700;
 
 /* Font Size */
-$font-title-xxxxlarge: 56px; //3
-$font-title-xxxlarge: 45px; //2
-$font-title-xxlarge: 34px; //1
+$font-xxxxxlarge: 64px;
+$font-xxxxlarge: 56px; //3
+$font-xxxlarge: 45px; //2
+$font-xxlarge: 34px; //1
 $font-xlarge: 24px; // headline
 $font-large: 20px; // title
 $font-xmid: 16px; //subheading
@@ -36,14 +37,26 @@ $breakpoint-desktop: 1200px;
 
 /* Heights */
 $bottom-bar-height: 32px;
+$logged-out-nav-height: 60px;
+$logged-out-nav-height-desktop: 93px;
+$logged-out-footer-height: 50px;
+
+/* Widths */
+$page-width:  100%;
+$page-width-tablet: 95%;
+$page-width-desktop: 1200px;
+$max-page-width: 1200px;
 
 /* z-Index */
-$bottom-bar-z-index: 9999;
+$bottom-bar-z-index: 500;
+$logged-out-nav-z-index: 500;
 
 /* Colours */
-$colour-dark: #14100d;
+$colour-primary: #835aff;
+$colour-accent: #f3555b;
+$colour-dark: #181818;
 $colour-dark-grey: #545454;
-$colour-accent: #c0bfbf;
+$colour-light-grey: #bbbbbb;
 $colour-white: #f6f6f5;
 $colour-light-green: #52b4b0;
 $colour-green: #2ac680;
@@ -61,11 +74,12 @@ $colour-alert-bg-warning: $colour-light-orange;
 $colour-alert-bg-info: $colour-light-blue;
 $colour-alert-bg-success: $colour-light-green;
 
-
 /* Font Colours */
+$font-colour-primary: $colour-primary;
+$font-colour-accent: $colour-accent;
 $font-colour-dark: $colour-dark;
 $font-colour-grey: $colour-dark-grey;
-$font-colour-mid: $colour-accent;
+$font-colour-mid: $colour-light-grey;
 $font-colour-white: $colour-white;
 $font-colour-success: $colour-green;
 $font-colour-danger: $colour-red;

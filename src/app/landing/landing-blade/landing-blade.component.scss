@@ -1,0 +1,24 @@
+@use "breakpoints";
+
+:host {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.EmailCollect {
+  display: flex;
+  justify-content: center;
+
+  &-input {
+    max-width: 100%;
+
+    @include breakpoints.tablet() {
+      max-width: 70%;
+    }
+
+    @include breakpoints.desktop() {
+      max-width: 40%;
+    }
+  }
+}

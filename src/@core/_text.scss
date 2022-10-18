@@ -21,12 +21,24 @@
 
 /* Sets the correct weight of the font based on the value passed into the text component. */
 @mixin TextColourGenerator {
+  &[data-font-colour='primary'] {
+    color: variables.$font-colour-primary;
+  }
+
+  &[data-font-colour='accent'] {
+    color: variables.$font-colour-accent;
+  }
+
   &[data-font-colour='dark'] {
     color: variables.$font-colour-dark;
   }
 
   &[data-font-colour='grey'] {
     color: variables.$font-colour-grey;
+  }
+
+  &[data-font-colour='mid'] {
+    color: variables.$font-colour-mid;
   }
 
   &[data-font-colour='white'] {
@@ -62,39 +74,53 @@
     $name: '-' + $name;
   }
 
+  #{if(&, "&", "*")}#{'[data-size' + $name + '=title]'} {
+    font-size: variables.$font-xxxxxlarge;
+    line-height: 0.9em;
+  }
+
   #{if(&, "&", "*")}#{'[data-size' + $name + '=xxxxlarge]'} {
-    font-size: variables.$font-title-xxxxlarge;
+    font-size: variables.$font-xxxxlarge;
+    line-height: 1em;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=xxxlarge]'} {
-    font-size: variables.$font-title-xxxlarge;
+    font-size: variables.$font-xxxlarge;
+    line-height: 1em;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=xxlarge]'} {
-    font-size: variables.$font-title-xxlarge;
+    font-size: variables.$font-xxlarge;
+    line-height: 1em;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=xlarge]'} {
     font-size: variables.$font-xlarge;
+    line-height: 1em;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=large]'} {
     font-size: variables.$font-large;
+    line-height: 1em;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=mid]'} {
     font-size: variables.$font-mid;
+    line-height: 1em;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=small]'} {
     font-size: variables.$font-small;
+    line-height: 1em;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=xsmall]'} {
     font-size: variables.$font-xsmall;
+    line-height: 1em;
   }
 
   #{if(&, "&", "*")}#{'[data-size' + $name + '=input]'} {
     font-size: variables.$font-input;
+    line-height: 1em;
   }
 }

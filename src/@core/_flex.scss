@@ -1,0 +1,77 @@
+@mixin FlexDirectionGenerator($name: '') {
+  @if $name != '' {
+    $name: '-' + $name;
+  }
+
+  #{if(&, "&", "*")}#{'[data-flex-direction' + $name + '=row]'} {
+    flex-direction: row;
+  }
+
+  #{if(&, "&", "*")}#{'[data-flex-direction' + $name + '=row-reverse]'} {
+    flex-direction: row-reverse;
+  }
+
+  #{if(&, "&", "*")}#{'[data-flex-direction' + $name + '=column]'} {
+    flex-direction: column;
+  }
+
+  #{if(&, "&", "*")}#{'[data-flex-direction' + $name + '=column-reverse]'} {
+    flex-direction: column-reverse;
+  }
+}
+
+@mixin FlexAlignItemsGenerator($name: '') {
+  @if $name != '' {
+    $name: '-' + $name;
+  }
+
+  #{if(&, "&", "*")}#{'[data-flex-align' + $name + '=flex-start]'} {
+    align-items: flex-start;
+  }
+
+  #{if(&, "&", "*")}#{'[data-flex-align' + $name + '=flex-end]'} {
+    align-items: flex-end;
+  }
+
+  #{if(&, "&", "*")}#{'[data-flex-align' + $name + '=center]'} {
+    align-items: center;
+  }
+
+  #{if(&, "&", "*")}#{'[data-flex-align' + $name + '=baseline]'} {
+    align-items: baseline;
+  }
+
+  #{if(&, "&", "*")}#{'[data-flex-align' + $name + '=stretch]'} {
+    align-items: stretch;
+  }
+}
+
+@mixin FlexJustifyGenerator($name: '') {
+  @if $name != '' {
+    $name: '-' + $name;
+  }
+
+  #{if(&, "&", "*")}#{'[data-flex-justify' + $name + '=flex-start]'} {
+    justify-content: flex-start;
+  }
+
+  #{if(&, "&", "*")}#{'[data-flex-justify' + $name + '=flex-end]'} {
+    justify-content: flex-end;
+  }
+
+  #{if(&, "&", "*")}#{'[data-flex-justify' + $name + '=center]'} {
+    justify-content: center;
+  }
+
+  #{if(&, "&", "*")}#{'[data-flex-justify' + $name + '=space-between]'} {
+    justify-content: space-between;
+  }
+
+  #{if(&, "&", "*")}#{'[data-flex-justify' + $name + '=space-around]'} {
+    justify-content:space-around;
+  }
+
+  #{if(&, "&", "*")}#{'[data-flex-justify' + $name + '=space-evenly]'} {
+    justify-content: space-evenly;
+  }
+}

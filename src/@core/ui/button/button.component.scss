@@ -32,6 +32,10 @@
     width: 100%;
   }
 
+  &[data-tall='true'] {
+    height: 46px;
+  }
+
   @include breakpoints.tablet() {
     &[data-full-width-tablet='true'] {
       display: block;

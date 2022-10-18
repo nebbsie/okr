@@ -11,6 +11,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MobileBottomBarModule } from '@core/components/mobile-bottom-bar';
 import { DirectivesModule } from '@core/directives';
 import { PipesModule } from '@core/pipes';
+import { LoggedOutNavigationModule } from '@core/components/logged-out-navigation';
+import { CenterModule } from '@core/ui/center/center.module';
+import { FooterModule } from '@core/components/footer/footer.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +27,9 @@ import { PipesModule } from '@core/pipes';
     MobileBottomBarModule,
     DirectivesModule,
     PipesModule,
+    LoggedOutNavigationModule,
+    CenterModule,
+    FooterModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

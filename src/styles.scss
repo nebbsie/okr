@@ -1,9 +1,16 @@
 @use 'breakpoints';
 @use 'spacing';
-@use "variables";
+@use 'variables';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: variables.$colour-light-bg; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  background-color: variables.$colour-light-bg;
+}
 
 .HideMobile {
   @include breakpoints.mobile() {
@@ -29,4 +36,8 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition: background-color 5000s;
   -webkit-text-fill-color: black !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap {
+  border-width: 1px !important;
 }

@@ -54,7 +54,7 @@ export class TextComponent implements OnChanges {
 
   @HostBinding('attr.data-text-align')
   @Input()
-  align?: TextAlign;
+  align?: TextAlign = 'left';
 
   @Input()
   @HostBinding('attr.data-font-weight')

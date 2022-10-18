@@ -1,0 +1,28 @@
+@use "variables";
+@use "breakpoints";
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+
+.Footer {
+  display: flex;
+  height: variables.$logged-out-footer-height;
+  background-color: variables.$colour-dark;
+
+  padding-top: variables.$spacing-xsmall;
+  padding-bottom: variables.$spacing-xsmall;
+
+  @include breakpoints.tablet() {
+    padding-top: variables.$spacing-mid;
+    padding-bottom: variables.$spacing-mid;
+  }
+
+  &-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

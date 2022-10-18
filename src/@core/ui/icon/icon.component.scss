@@ -1,0 +1,32 @@
+@use 'text';
+@use 'breakpoints';
+
+:host {
+  display: flex;
+}
+
+
+.Icon {
+  width: unset !important;
+  height: unset !important;
+
+  &-Link {
+    &:hover {
+      cursor: pointer;
+      filter: brightness(80%);
+      transition: all 200ms cubic-bezier(.03,.76,.83,.67);
+    }
+  }
+
+  @include text.TextColourGenerator();
+  @include text.TextSizeGenerator();
+
+  @include breakpoints.tablet() {
+    @include text.TextSizeGenerator(tablet);
+  }
+
+  @include breakpoints.desktop() {
+    @include text.TextSizeGenerator(desktop);
+  }
+}
+

@@ -1,0 +1,24 @@
+@use "breakpoints";
+@use "flex";
+
+:host {
+  display: flex;
+
+  @include flex.FlexDirectionGenerator();
+  @include flex.FlexJustifyGenerator();
+  @include flex.FlexAlignItemsGenerator();
+
+  @include breakpoints.tablet() {
+    @include flex.FlexDirectionGenerator(tablet);
+    @include flex.FlexJustifyGenerator(tablet);
+    @include flex.FlexAlignItemsGenerator(tablet);
+  }
+
+  @include breakpoints.desktop() {
+    @include flex.FlexDirectionGenerator(desktop);
+    @include flex.FlexJustifyGenerator(desktop);
+    @include flex.FlexAlignItemsGenerator(desktop);
+  }
+}
+
+

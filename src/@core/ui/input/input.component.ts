@@ -2,9 +2,11 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
+  Output,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -37,6 +39,15 @@ import { Subscription } from 'rxjs';
         </mat-icon>
       </button>
 
+      <button
+        *ngIf="submitAction"
+        mat-icon-button
+        matSuffix
+        (click)="submit.emit()"
+      >
+        <mat-icon>{{ submitAction }}</mat-icon>
+      </button>
+
       <mat-hint *ngIf="hint" marginBottom="mid">{{ hint }}</mat-hint>
 
       <mat-error *ngIf="error">{{ error }}</mat-error>
@@ -54,6 +65,9 @@ export class InputComponent implements OnInit, OnDestroy {
   hidePassword = true;
 
   @Input() icon?: string;
+  @Input() submitAction?: string;
+
+  @Output() submit = new EventEmitter();
 
   subscription?: Subscription;
   error?: string;
