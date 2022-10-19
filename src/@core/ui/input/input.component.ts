@@ -9,7 +9,7 @@ import {
   Output,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { startWith, Subscription } from 'rxjs';
 
 @Component({
   selector: 'ui-input',
@@ -81,10 +81,12 @@ export class InputComponent implements OnInit, OnDestroy {
   constructor(private ref: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.subscription = this.control.valueChanges.subscribe(() => {
-      [this.error] = Object.values(this.control.errors || {});
-      this.ref.markForCheck();
-    });
+    this.subscription = this.control.valueChanges
+      .pipe(startWith(undefined))
+      .subscribe(() => {
+        [this.error] = Object.values(this.control.errors || {});
+        this.ref.markForCheck();
+      });
   }
 
   handleSubmit(event: MouseEvent): void {
