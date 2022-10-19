@@ -9,14 +9,15 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-root',
   template: `
     <ng-container *ngIf="config$ | Async as config">
-      <ui-center
-        *ngIf="!(isLoggedIn$ | Async) && config.noShell !== true"
-        class="Navigation"
-      >
-        <app-logged-out-navigation></app-logged-out-navigation>
-      </ui-center>
+      <ng-container *ngIf="!(isLoggedIn$ | Async) && config.noShell !== true">
+        <ui-center class="Navigation">
+          <app-logged-out-navigation></app-logged-out-navigation>
+        </ui-center>
 
-      <main class="Content">
+        <div class="NavArea"></div>
+      </ng-container>
+
+      <main class="Content" [class.LoggedOut]="">
         <router-outlet></router-outlet>
       </main>
 

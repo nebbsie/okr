@@ -3,15 +3,17 @@
 
 .Content {
   width: 100%;
-  padding-top: 80px;
-  min-height: calc(100vh - #{variables.$logged-out-nav-height} - #{variables.$logged-out-footer-height} - #{variables.$spacing-xxxxlarge} - 2px);
-
-  @include breakpoints.tablet() {
-    padding-top: 110px;
-  }
 }
 
 .Navigation {
   position: fixed;
   z-index: variables.$logged-out-nav-z-index;
+}
+
+.NavArea {
+  height: variables.$logged-out-nav-height;
+
+  @include breakpoints.tablet() {
+    height: variables.$logged-out-nav-height-desktop;
+  }
 }

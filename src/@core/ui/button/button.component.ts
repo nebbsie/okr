@@ -18,7 +18,7 @@ import { ThemePalette } from '@angular/material/core';
       [attr.data-full-width-desktop]="fullWidthDesktop"
       [attr.data-tall]="tallButton"
       [color]="colour"
-      [disabled]="disabled"
+      [disabled]="disabled || loading"
       mat-raised-button
     >
       <ng-container *ngIf="!loading">
@@ -40,7 +40,7 @@ import { ThemePalette } from '@angular/material/core';
       [attr.data-full-width-desktop]="fullWidthDesktop"
       [attr.data-tall]="tallButton"
       [color]="colour"
-      [disabled]="disabled"
+      [disabled]="disabled || loading"
       mat-stroked-button
     >
       <ng-container *ngIf="!loading">
