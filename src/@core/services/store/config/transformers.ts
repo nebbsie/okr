@@ -2,6 +2,7 @@ import { transformStoreDocumentFields } from '../store.helpers';
 import {
   Board,
   BoardMember,
+  EarlyAccess,
   Enterprise,
   EnterpriseMember,
   Log,
@@ -68,6 +69,13 @@ function TransformLog(data: any): Log {
   };
 }
 
+function TransformEarlyAccess(data: any): EarlyAccess {
+  return {
+    email: data.email,
+    ...transformStoreDocumentFields(data),
+  };
+}
+
 export const TransformerMap = {
   users: TransformUser,
   enterprises: TransformEnterprise,
@@ -77,4 +85,5 @@ export const TransformerMap = {
   teams: TransformTeam,
   teamMembers: TransformTeamMember,
   logs: TransformLog,
+  earlyAccess: TransformEarlyAccess,
 };

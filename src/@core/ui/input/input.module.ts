@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { DirectivesModule } from '@core/directives';
+import { TextModule } from '@core/ui';
 
 @NgModule({
   declarations: [InputComponent],
@@ -18,6 +19,7 @@ import { DirectivesModule } from '@core/directives';
     ReactiveFormsModule,
     MatIconModule,
     DirectivesModule,
+    TextModule,
   ],
   exports: [InputComponent],
 })

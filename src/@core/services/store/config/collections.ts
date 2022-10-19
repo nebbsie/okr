@@ -1,6 +1,7 @@
 import {
   Board,
   BoardMember,
+  EarlyAccess,
   Enterprise,
   EnterpriseMember,
   Log,
@@ -49,6 +50,11 @@ export type LogsCollection = {
   type: Log;
 };
 
+export type EarlyAccessCollection = {
+  name: 'earlyAccess';
+  type: EarlyAccess;
+};
+
 export type StoreCollection =
   | UsersCollection
   | EnterprisesCollection
@@ -57,4 +63,5 @@ export type StoreCollection =
   | TeamUsersCollection
   | BoardsCollection
   | BoardUsersCollection
-  | LogsCollection;
+  | LogsCollection
+  | EarlyAccessCollection;

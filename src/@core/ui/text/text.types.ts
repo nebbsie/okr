@@ -24,6 +24,8 @@ export type TextColour =
   | 'mid'
   | 'white'
   | 'success'
-  | 'danger';
+  | 'danger'
+  | 'info'
+  | 'warning';
 
 export type TextAlign = 'center' | 'left' | 'right';

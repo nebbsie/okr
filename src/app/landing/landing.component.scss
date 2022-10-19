@@ -4,7 +4,7 @@
 :host {
   display: block;
 
-  padding-top: variables.$spacing-large;
+  padding-top: variables.$spacing-small;
 
   @include breakpoints.tablet() {
     padding-top: variables.$spacing-xxxlarge;

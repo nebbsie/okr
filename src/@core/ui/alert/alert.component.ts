@@ -6,14 +6,16 @@ import {
   OnInit,
 } from '@angular/core';
 import { AlertType } from '@core/ui/alert/alert.types';
+import { TextColour } from '@core/ui';
 
 @Component({
   selector: 'ui-alert',
   template: `
-    <mat-icon class="Icon" [attr.type]="iconType">
+    <ui-icon [colour]="iconColour" marginRight="mid">
       {{ iconType }}
-    </mat-icon>
-    <ui-text size="small">
+    </ui-icon>
+
+    <ui-text>
       <ng-content></ng-content>
     </ui-text>
   `,
@@ -25,22 +27,26 @@ export class AlertComponent implements OnInit {
   @Input()
   type: AlertType = 'info';
 
-  @HostBinding('attr.data-type')
   iconType!: string;
+  iconColour!: TextColour;
 
   ngOnInit(): void {
     switch (this.type) {
       case 'error':
         this.iconType = 'error_outline';
+        this.iconColour = 'danger';
         break;
       case 'warning':
         this.iconType = 'warning_amber';
+        this.iconColour = 'warning';
         break;
       case 'info':
         this.iconType = 'info';
+        this.iconColour = 'info';
         break;
       case 'success':
         this.iconType = 'check_circle';
+        this.iconColour = 'success';
         break;
     }
   }

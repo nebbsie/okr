@@ -4,6 +4,12 @@
 :host {
   display: flex;
 
+
+  &[data-center='true'] {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
   @include flex.FlexDirectionGenerator();
   @include flex.FlexJustifyGenerator();
   @include flex.FlexAlignItemsGenerator();

@@ -37,8 +37,8 @@ $breakpoint-desktop: 1200px;
 
 /* Heights */
 $bottom-bar-height: 32px;
-$logged-out-nav-height: 60px;
-$logged-out-nav-height-desktop: 93px;
+$logged-out-nav-height: 50px;
+$logged-out-nav-height-desktop: 70px;
 $logged-out-footer-height: 50px;
 
 /* Widths */
@@ -58,13 +58,16 @@ $colour-dark: #181818;
 $colour-dark-grey: #545454;
 $colour-light-grey: #bbbbbb;
 $colour-white: #f6f6f5;
-$colour-light-green: #52b4b0;
-$colour-green: #2ac680;
-$colour-red: #ff3640;
-$colour-light-red: #fdecea;
-$colour-light-orange: #fff4e5;
-$colour-light-blue: #e8f4fd;
-$colour-light-green: #80bfa3;
+$colour-green: #34d39d;
+$colour-red: #f04d62;
+$colour-blue: #01d0ea;
+$colour-orange: #ffbf2f;
+
+$colour-light-red: #fdedee;
+$colour-light-orange: #fff9e9;
+$colour-light-blue: #e6fafd;
+$colour-light-green: #eafbf6;
+
 $colour-light-bg: #f8f8fa;
 $colour-light-bars: #f5f5f5;
 
@@ -83,3 +86,5 @@ $font-colour-mid: $colour-light-grey;
 $font-colour-white: $colour-white;
 $font-colour-success: $colour-green;
 $font-colour-danger: $colour-red;
+$font-colour-info: $colour-blue;
+$font-colour-warning: $colour-orange;

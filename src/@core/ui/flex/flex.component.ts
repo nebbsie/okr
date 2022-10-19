@@ -18,6 +18,10 @@ import {
 })
 export class FlexComponent {
   @Input()
+  @HostBinding('attr.data-center')
+  center?: boolean;
+
+  @Input()
   @HostBinding('attr.data-flex-direction')
   direction?: FlexDirection;
 

@@ -6,9 +6,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgba(variables.$colour-light-bg, 0.95);
+  background: rgba(variables.$colour-light-bg, 0.95);
   height: variables.$logged-out-nav-height;
-
 
   @include breakpoints.tablet() {
     height: variables.$logged-out-nav-height-desktop;

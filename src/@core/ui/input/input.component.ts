@@ -21,6 +21,7 @@ import { Subscription } from 'rxjs';
           type === 'password' ? (hidePassword ? 'password' : 'text') : type
         "
         [formControl]="control"
+        [disabled]="disabled ?? false"
         matInput
       />
 
@@ -40,13 +41,15 @@ import { Subscription } from 'rxjs';
       </button>
 
       <button
-        *ngIf="submitAction"
+        *ngIf="submitAction && !loading"
         mat-icon-button
         matSuffix
-        (click)="submit.emit()"
+        (click)="handleSubmit($event)"
       >
         <mat-icon>{{ submitAction }}</mat-icon>
       </button>
+
+      <span *ngIf="loading" class="Loading" matSuffix> </span>
 
       <mat-hint *ngIf="hint" marginBottom="mid">{{ hint }}</mat-hint>
 
@@ -61,11 +64,14 @@ export class InputComponent implements OnInit, OnDestroy {
   @Input() hint?: string;
   @Input() type!: 'text' | 'password' | 'email';
   @Input() control!: FormControl;
+  @Input() disabled?: boolean = false;
 
   hidePassword = true;
 
   @Input() icon?: string;
+
   @Input() submitAction?: string;
+  @Input() loading?: boolean = false;
 
   @Output() submit = new EventEmitter();
 
@@ -79,6 +85,11 @@ export class InputComponent implements OnInit, OnDestroy {
       [this.error] = Object.values(this.control.errors || {});
       this.ref.markForCheck();
     });
+  }
+
+  handleSubmit(event: MouseEvent): void {
+    event?.stopPropagation();
+    this.submit.emit();
   }
 
   ngOnDestroy() {

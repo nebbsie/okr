@@ -21,7 +21,9 @@ import {
   combineLatest,
   from,
   map,
+  of,
   shareReplay,
+  startWith,
   Subject,
   switchMap,
   tap,
@@ -98,14 +100,16 @@ export class Store {
       catchError((err) => {
         errorSubject$.next(ConvertFirebaseError(err));
         loadingSubject$.next(false);
-        throw err;
+        return of(undefined);
       })
     );
 
     return {
       result$: result$.pipe(shareReplay()),
-      error$: errorSubject$.asObservable(),
-      loading$: loadingSubject$.asObservable(),
+      error$: errorSubject$
+        .asObservable()
+        .pipe(startWith(undefined), shareReplay()),
+      loading$: loadingSubject$.asObservable().pipe(shareReplay()),
     };
   }
 
@@ -137,14 +141,16 @@ export class Store {
       catchError((err) => {
         errorSubject$.next(ConvertFirebaseError(err));
         loadingSubject$.next(false);
-        throw err;
+        return of(undefined);
       })
     );
 
     return {
       result$: result$.pipe(shareReplay()),
-      error$: errorSubject$.asObservable(),
-      loading$: loadingSubject$.asObservable(),
+      error$: errorSubject$
+        .asObservable()
+        .pipe(startWith(undefined), shareReplay()),
+      loading$: loadingSubject$.asObservable().pipe(shareReplay()),
     };
   }
 
@@ -175,14 +181,16 @@ export class Store {
       catchError((err) => {
         errorSubject$.next(ConvertFirebaseError(err));
         loadingSubject$.next(false);
-        throw err;
+        return of(undefined);
       })
     );
 
     return {
       result$: result$.pipe(shareReplay()),
-      error$: errorSubject$.asObservable(),
-      loading$: loadingSubject$.asObservable(),
+      error$: errorSubject$
+        .asObservable()
+        .pipe(startWith(undefined), shareReplay()),
+      loading$: loadingSubject$.asObservable().pipe(shareReplay()),
     };
   }
 
@@ -203,14 +211,16 @@ export class Store {
       catchError((err) => {
         errorSubject$.next(ConvertFirebaseError(err));
         loadingSubject$.next(false);
-        throw err;
+        return of(undefined);
       })
     );
 
     return {
       result$: result$.pipe(shareReplay()),
-      error$: errorSubject$.asObservable(),
-      loading$: loadingSubject$.asObservable(),
+      error$: errorSubject$
+        .asObservable()
+        .pipe(startWith(undefined), shareReplay()),
+      loading$: loadingSubject$.asObservable().pipe(shareReplay()),
     };
   }
 
@@ -238,14 +248,16 @@ export class Store {
       catchError((err) => {
         errorSubject$.next(ConvertFirebaseError(err));
         loadingSubject$.next(false);
-        throw err;
+        return of(undefined);
       })
     );
 
     return {
       result$: result$.pipe(shareReplay()),
-      error$: errorSubject$.asObservable(),
-      loading$: loadingSubject$.asObservable(),
+      error$: errorSubject$
+        .asObservable()
+        .pipe(startWith(undefined), shareReplay()),
+      loading$: loadingSubject$.asObservable().pipe(shareReplay()),
     };
   }
 
@@ -272,14 +284,16 @@ export class Store {
       catchError((err) => {
         errorSubject$.next(ConvertFirebaseError(err));
         loadingSubject$.next(false);
-        throw err;
+        return of(undefined);
       })
     );
 
     return {
       result$: result$.pipe(shareReplay()),
-      error$: errorSubject$.asObservable(),
-      loading$: loadingSubject$.asObservable(),
+      error$: errorSubject$
+        .asObservable()
+        .pipe(startWith(undefined), shareReplay()),
+      loading$: loadingSubject$.asObservable().pipe(shareReplay()),
     };
   }
 
@@ -308,14 +322,16 @@ export class Store {
       catchError((err) => {
         errorSubject$.next(ConvertFirebaseError(err));
         loadingSubject$.next(false);
-        throw err;
+        return of(undefined);
       })
     );
 
     return {
       result$: result$.pipe(shareReplay()),
-      error$: errorSubject$.asObservable(),
-      loading$: loadingSubject$.asObservable(),
+      error$: errorSubject$
+        .asObservable()
+        .pipe(startWith(undefined), shareReplay()),
+      loading$: loadingSubject$.asObservable().pipe(shareReplay()),
     };
   }
 }

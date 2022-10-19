@@ -49,8 +49,8 @@ export type StoreResult<
   T extends StoreDocument | StoreDocument[] | string | void
 > = {
   readonly loading$: Observable<boolean>;
-  readonly error$: Observable<FirebaseError>;
-  readonly result$: Observable<T>;
+  readonly error$: Observable<FirebaseError | undefined>;
+  readonly result$: Observable<T | undefined>;
 };
 
 export type CreateResult<C extends StoreCollection> = StoreResult<string>;

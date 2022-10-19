@@ -22,6 +22,13 @@ service cloud.firestore {
       allow write: if request.auth != null;
     }
 
+    match /earlyAccess/{logId} {
+      allow read: if false;
+      allow write: if true;
+      allow update: if false;
+      allow delete: if false;
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }

@@ -27,3 +27,7 @@ export interface Log extends StoreDocument {
   readonly userId: string;
   readonly extra: any;
 }
+
+export interface EarlyAccess extends StoreDocument {
+  readonly email: string;
+}

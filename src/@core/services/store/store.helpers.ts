@@ -9,13 +9,16 @@ import {
 } from '@core/services/store/store.types';
 
 export function ConvertFirebaseError(err: any): FirebaseError {
+  console.error(err);
+
   const code = err.code as string;
   const isDefinedError = code in FirebaseError;
-  if (isDefinedError) {
+  if (!isDefinedError) {
     console.error(
       `Error is currently not defined. You need to add: ${code} to FirebaseError enum.`
     );
   }
+
   switch (code) {
     case FirebaseError.PERMISSION_DENIED:
       return FirebaseError.PERMISSION_DENIED;
