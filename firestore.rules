@@ -18,7 +18,7 @@ service cloud.firestore {
     }
 
     match /logs/{logId} {
-      allow read: if False;
+      allow read: if false;
       allow write: if request.auth != null;
     }
 
