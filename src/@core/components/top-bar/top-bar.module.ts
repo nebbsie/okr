@@ -1,20 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MobileTopBarComponent } from './mobile-top-bar.component';
+import { TopBarComponent } from './top-bar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { TextModule } from '@core/ui';
+import { LinkModule, TextModule } from '@core/ui';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
-  declarations: [MobileTopBarComponent],
+  declarations: [TopBarComponent],
   imports: [
     CommonModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     TextModule,
+    MatMenuModule,
+    LinkModule,
   ],
-  exports: [MobileTopBarComponent],
+  exports: [TopBarComponent],
 })
-export class MobileTopBarModule {}
+export class TopBarModule {}

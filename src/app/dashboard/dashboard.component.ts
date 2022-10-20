@@ -1,15 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuthService } from '@core/services';
-import { Router } from '@angular/router';
-import { firstValueFrom, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   template: `
-    <app-mobile-top-bar title="Teams">
-      <ui-button colour="warn" (click)="logout()"> Logout </ui-button>
-      <ui-button type="icon" icon="settings"></ui-button>
-    </app-mobile-top-bar>
+    <app-top-bar title="Dashboard"> </app-top-bar>
 
     <ui-page [center]="true" contentDirection="column"> </ui-page>
   `,
@@ -19,14 +15,9 @@ import { firstValueFrom, Observable } from 'rxjs';
 export class DashboardComponent implements OnInit {
   usersId$!: Observable<string>;
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService) {}
 
   ngOnInit(): void {
     this.usersId$ = this.auth.getUserId();
-  }
-
-  async logout() {
-    await firstValueFrom(this.auth.logout());
-    await this.router.navigate(['/login']);
   }
 }

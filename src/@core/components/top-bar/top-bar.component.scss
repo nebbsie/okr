@@ -1,0 +1,22 @@
+@use "variables";
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: variables.$spacing-xxsmall variables.$spacing-small;
+  background-color: variables.$colour-dark;
+  border-bottom: 1px solid variables.$colour-xlight-grey;
+}
+
+.RightActions {
+  margin-left: auto;
+}
+
+.Avatar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+}

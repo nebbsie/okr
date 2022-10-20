@@ -1,9 +1,6 @@
 @use "variables";
 @use "breakpoints";
 
-.Content {
-  width: 100%;
-}
 
 .Navigation {
   position: fixed;
@@ -15,5 +12,11 @@
 
   @include breakpoints.tablet() {
     height: variables.$logged-out-nav-height-desktop;
+  }
+}
+
+.DrawerContainer {
+  @include breakpoints.tablet() {
+    height: 100%;
   }
 }

@@ -6,9 +6,7 @@ import { DashboardComponent } from './dashboard.component';
 import { ButtonModule, PageModule, TextModule } from '@core/ui';
 import { PipesModule } from '@core/pipes';
 import { DirectivesModule } from '@core/directives';
-import { MobileTopBarModule } from '@core/components/mobile-top-bar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { TopBarModule } from '@core/components/top-bar';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -20,9 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
     TextModule,
     PipesModule,
     DirectivesModule,
-    MobileTopBarModule,
-    MatIconModule,
-    MatButtonModule,
+    TopBarModule,
   ],
 })
 export class DashboardModule {}

@@ -14,6 +14,8 @@ import { PipesModule } from '@core/pipes';
 import { LoggedOutNavigationModule } from '@core/components/logged-out-navigation';
 import { CenterModule } from '@core/ui/center/center.module';
 import { FooterModule } from '@core/components/footer/footer.module';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { SideBarModule } from '@core/components/side-bar';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +32,8 @@ import { FooterModule } from '@core/components/footer/footer.module';
     LoggedOutNavigationModule,
     CenterModule,
     FooterModule,
+    MatSidenavModule,
+    SideBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

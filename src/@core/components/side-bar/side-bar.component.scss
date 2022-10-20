@@ -1,0 +1,15 @@
+@use "breakpoints";
+
+:host {
+  display: block;
+  width: 0; // The side bar is not shown on mobile.
+  height: 100%;
+
+  @include breakpoints.tablet() {
+    width: 200px;
+  }
+
+  @include breakpoints.desktop() {
+    width: 250px;
+  }
+}
