@@ -11,6 +11,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { PipesModule } from '@core/pipes';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { KeyResultListModule } from '@core/components/key-result-list/key-result-list.module';
+import { ObjectiveParentCardModule } from '@core/components/objective-parent-card/objective-parent-card.module';
+import { ObjectiveCardListModule } from '@core/components/objective-card-list/objective-card-list.module';
+import { SidebarNavigationModule } from '@core/components/sidebar-navigation/sidebar-navigation.module';
 import { TopBarModule } from '@core/components/top-bar';
 
 @NgModule({
@@ -30,6 +34,10 @@ import { TopBarModule } from '@core/components/top-bar';
     PipesModule,
     DragDropModule,
     TopBarModule,
+    KeyResultListModule,
+    ObjectiveParentCardModule,
+    ObjectiveCardListModule,
+    SidebarNavigationModule,
   ],
 })
 export class DashboardModule {}

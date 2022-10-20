@@ -26,8 +26,6 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
     <!--    <ui-page [center]="true" contentDirection="column">-->
     <!--      <ui-button colour="warn" (click)="logout()"> Logout </ui-button>-->
 
-    <!--      <ui-text>Dashboard</ui-text>-->
-
     <!--    <app-mobile-top-bar title="Teams">-->
     <!--      <ui-button colour="warn" (click)="logout()"> Logout </ui-button>-->
     <!--      <ui-button type="icon" icon="settings"></ui-button>-->
@@ -58,89 +56,12 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
     <!-- Creates a layout with a left-positioned sidenav and explicit content. -->
     <div class="page-container grid">
-      <mat-sidenav-container class="sidebar">
-        <mat-sidenav mode="side">Start</mat-sidenav>
+      <app-sidebar-navigation
+        [people]="people"
+        [teams]="teams"
+      ></app-sidebar-navigation>
 
-        <mat-sidenav-content
-          class="sidebar-top-content sidebar-item-padding-margin flex active"
-        >
-          <div class="top-links-info-container flex">
-            <mat-icon fontIcon="person_outline"></mat-icon>
-            <ui-text weight="medium" size="small">You</ui-text>
-          </div>
-          <div class="top-links-number-container">
-            <ui-text weight="medium" size="small">3</ui-text>
-          </div>
-        </mat-sidenav-content>
-        <mat-sidenav-content
-          class="sidebar-top-content sidebar-item-padding-margin flex"
-        >
-          <div class="top-links-info-container flex">
-            <mat-icon fontIcon="people_outline"></mat-icon>
-            <ui-text weight="medium" size="small">Teams</ui-text>
-          </div>
-          <div class="top-links-number-container">
-            <ui-text weight="medium" size="small">7</ui-text>
-          </div>
-        </mat-sidenav-content>
-        <mat-sidenav-content
-          class="sidebar-top-content sidebar-item-padding-margin flex"
-          marginBottom="xsmall"
-        >
-          <div class="top-links-info-container flex">
-            <mat-icon fontIcon="business"></mat-icon>
-            <ui-text weight="medium" size="small">Companies</ui-text>
-          </div>
-          <div class="top-links-number-container">
-            <ui-text weight="medium" size="small">12</ui-text>
-          </div>
-        </mat-sidenav-content>
-
-        <mat-sidenav-content
-          class="flex-space-between sidebar-item-padding-margin"
-        >
-          <ui-text>People (34)</ui-text>
-          <mat-icon fontIcon="add"></mat-icon>
-        </mat-sidenav-content>
-
-        <mat-sidenav-content
-          *ngFor="let person of people"
-          class="sidebar-person-element flex-space-only sidebar-item-padding-margin"
-        >
-          <img [src]="person.avatarImg" alt="" />
-          <div class="sidebar-person-element-info">
-            <ui-text weight="medium" size="small">{{ person.name }}</ui-text>
-            <ui-text weight="regular" size="small">{{ person.role }}</ui-text>
-          </div>
-        </mat-sidenav-content>
-
-        <mat-sidenav-content
-          class="sidebar-item-padding-left-right"
-          marginBottom="xsmall"
-        >
-          <ui-text weight="regular" size="small">Show more</ui-text>
-        </mat-sidenav-content>
-
-        <mat-sidenav-content
-          class="flex-space-between sidebar-item-padding-margin"
-        >
-          <ui-text>Teams (7)</ui-text>
-          <mat-icon fontIcon="add"></mat-icon>
-        </mat-sidenav-content>
-
-        <mat-sidenav-content
-          class="teams-sidebar-section sidebar-item-padding-margin"
-          *ngFor="let team of teams"
-        >
-          <div class="flex">
-            <div class="sidebar-teams-icon-container flex">
-              <mat-icon fontIcon="people_outline"></mat-icon>
-            </div>
-            <ui-text weight="regular" size="mid">{{ team.name }}</ui-text>
-          </div>
-        </mat-sidenav-content>
-      </mat-sidenav-container>
-
+      <!--Main Cards Area-->
       <div class="content-area">
         <div class="okr-headings-container okr-table-grid">
           <ui-text
@@ -152,133 +73,34 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
           </ui-text>
         </div>
 
-        <ng-container *ngFor="let okr of dataSource">
-          <!--          <div-->
-          <!--            cdkDropList-->
-          <!--            class="example-list draggable-list-container"-->
-          <!--            (cdkDropListDropped)="drop($event, dataSource)"-->
-          <!--          >-->
+        <!--        <ng-container *ngFor="let okr of dataSource">-->
+        <!--          <div-->
+        <!--            cdkDropList-->
+        <!--            class="example-list draggable-list-container"-->
+        <!--            (cdkDropListDropped)="drop($event, dataSource)"-->
+        <!--          >-->
+        <!--            <app-objective-parent-card-->
+        <!--              [visibility]="showKeyResults"-->
+        <!--              (keyResultListVisibilityEvent)="showHideKeyResults($event)"-->
+        <!--              [okr]="okr"-->
+        <!--            ></app-objective-parent-card>-->
 
-          <div class="flex-okr-expand-collapse">
-            <div>
-              <!--expand_less-->
-              <mat-icon
-                fontIcon="expand_more"
-                (click)="showHideKeyResults(okr)"
-              ></mat-icon>
-            </div>
-            <!--cdkDrag-->
-            <div class="example-box okr-table-grid" marginBottom="xsmall">
-              <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-              <ui-text>{{ okr.objective }}</ui-text>
-              <ui-text>{{ okr.createdDate }}</ui-text>
-              <ui-text>{{ okr.owner }}</ui-text>
-              <ui-text>{{ okr.team }}</ui-text>
-              <!--progress bar and stats area-->
-              <div>
-                <div class="flex-space-between">
-                  <ui-text
-                    [colour]="getReturnColour(okr.stats.state)"
-                    weight="medium"
-                  >
-                    {{ okr.stats.progression * 100 + '%' }}
-                  </ui-text>
-                  <div
-                    [ngClass]="{
-                      'on-track-bg-colour': okr.stats.state === 'On Track',
-                      'off-track-bg-colour': okr.stats.state === 'Off Track',
-                      'achieved-bg-colour': okr.stats.state === 'Achieved'
-                    }"
-                    class="state-bg"
-                    marginBottom="xxxsmall"
-                  >
-                    <ui-text
-                      [colour]="getReturnColour(okr.stats.state)"
-                      weight="medium"
-                    >
-                      {{ okr.stats.state }}
-                    </ui-text>
-                  </div>
-                </div>
-                <mat-progress-bar
-                  mode="determinate"
-                  [value]="okr.stats.progression * 100"
-                  marginBottom="xxxsmall"
-                ></mat-progress-bar>
-                <ui-text size="xsmall">
-                  {{ 'Updated: ' + okr.stats.updatedAt }}
-                </ui-text>
-              </div>
-              <!--end stats section-->
-              <div class="flex">
-                <mat-icon fontIcon="more_vert"></mat-icon>
-              </div>
-            </div>
-            <!--end draggable box first-->
-          </div>
-          <!--          </div>-->
-          <div
-            cdkDropList
-            class="example-list draggable-list-container"
-            (cdkDropListDropped)="drop($event, okr.keyResults)"
-          >
-            <!--start draggable inner keyResults-->
-            <div
-              class="example-box okr-table-grid inner-okr-key-result-row"
-              cdkDrag
-              *ngFor="let keyResult of okr.keyResults"
-              marginBottom="xsmall"
-            >
-              <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-              <ui-text>{{ keyResult.name }}</ui-text>
-              <ui-text>{{ keyResult.createdDate }}</ui-text>
-              <ui-text>{{ keyResult.owner }}</ui-text>
-              <ui-text>{{ keyResult.team }}</ui-text>
-              <!--progress bar and stats area-->
-              <div>
-                <div class="flex-space-between">
-                  <ui-text
-                    [colour]="getReturnColour(keyResult.stats.state)"
-                    weight="medium"
-                  >
-                    {{ keyResult.stats.progression * 100 + '%' }}
-                  </ui-text>
-                  <div
-                    [ngClass]="{
-                      'on-track-bg-colour':
-                        keyResult.stats.state === 'On Track',
-                      'off-track-bg-colour':
-                        keyResult.stats.state === 'Off Track',
-                      'achieved-bg-colour': keyResult.stats.state === 'Achieved'
-                    }"
-                    class="state-bg"
-                    marginBottom="xxxsmall"
-                  >
-                    <ui-text
-                      [colour]="getReturnColour(keyResult.stats.state)"
-                      weight="medium"
-                    >
-                      {{ keyResult.stats.state }}
-                    </ui-text>
-                  </div>
-                </div>
-                <mat-progress-bar
-                  mode="determinate"
-                  [value]="keyResult.stats.progression * 100"
-                  marginBottom="xxxsmall"
-                ></mat-progress-bar>
-                <ui-text size="xsmall">
-                  {{ 'Updated: ' + keyResult.stats.updatedAt }}
-                </ui-text>
-              </div>
-              <!--end stats section-->
-              <div class="flex">
-                <mat-icon fontIcon="more_vert"></mat-icon>
-              </div>
-            </div>
-            <!--end draggable box inner keyResults-->
-          </div>
+        <!--            &lt;!&ndash;start draggable inner keyResults&ndash;&gt;-->
+        <!--            <app-key-result-list-->
+        <!--              *ngIf="showKeyResults"-->
+        <!--              [keyResults]="okr.keyResults"-->
+        <!--            ></app-key-result-list>-->
+        <!--            &lt;!&ndash;end draggable box inner keyResults&ndash;&gt;-->
+        <!--          </div>-->
+        <!--        </ng-container>-->
+
+        <ng-container *ngFor="let okr of dataSource">
+          <app-objective-card-list
+            [okr]="okr"
+            [dataSource]="dataSource"
+          ></app-objective-card-list>
         </ng-container>
+
         <!--end drop list-->
       </div>
       <!--end main page section-->
@@ -292,6 +114,8 @@ export class DashboardComponent implements OnInit {
   usersId$!: Observable<string>;
 
   userResult!: GetResult<UsersCollection>;
+
+  showKeyResults: boolean = true;
 
   //@ViewChild(MatSidenavContainer) sidenavContainer: MatSidenavContainer;
 
@@ -479,20 +303,12 @@ export class DashboardComponent implements OnInit {
     moveItemInArray(arrayToChange, event.previousIndex, event.currentIndex);
   }
 
-  showHideKeyResults(okr: {
-    objective: string;
-    createdDate: string;
-    owner: string;
-    team: string;
-    stats: { progression: number; state: string; updatedAt: string };
-    keyResults: {
-      name: string;
-      createdDate: string;
-      owner: string;
-      team: string;
-      stats: { progression: number; state: string; updatedAt: string };
-    }[];
-  }) {}
+  showHideKeyResults(showHide: boolean) {
+    console.log('showsing the output of bool from parent');
+    console.log(showHide);
+    this.showKeyResults = showHide;
+    console.log('new parent value is: ' + this.showKeyResults);
+  }
 
   getReturnColour(state: string): TextColour {
     if (state === 'On Track') {

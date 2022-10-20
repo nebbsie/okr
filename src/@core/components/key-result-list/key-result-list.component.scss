@@ -1,0 +1,99 @@
+:host {
+  display: block;
+}
+
+.example-box {
+  padding: 12px 24px;
+  color: rgba(0, 0, 0, 0.87);
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-radius: 5px;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+  -webkit-box-shadow: 0 2px 5px 0 rgba(99, 99, 99, 0.2);
+  -moz-box-shadow: 0 2px 5px 0 rgba(99, 99, 99, 0.2);
+  box-shadow: 0 2px 5px 0 rgba(99, 99, 99, 0.2);
+}
+
+.inner-okr-key-result-row {
+  margin-left: 48px;
+  width: calc(100% - 48px);
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-custom-placeholder {
+  background: #ccc;
+  border: dotted 3px #999;
+  min-height: 60px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Utility Classes */
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-okr-expand-collapse {
+  display: flex;
+  align-items: center;
+}
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.okr-table-grid {
+  display: grid;
+  grid-template-columns: 4fr repeat(5, 1fr);
+}
+
+.on-track-colour {
+  color: #1DB510;
+}
+.on-track-bg-colour {
+  background-color: #F5FFF8;
+}
+.off-track-colour {
+  color: #E03131;
+}
+.off-track-bg-colour {
+  background-color: #FFF2F2;
+}
+.achieved-colour {
+  color: #1B6215;
+}
+.achieved-bg-colour {
+  background-color: #F2FFF5;
+}
+
+.state-bg {
+  padding: 0.3em;
+  border-radius: 0.3em;
+}
