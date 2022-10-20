@@ -21,7 +21,11 @@ import { ScreenSizeService } from '@core/services/screen-size/screen-size.servic
           <div class="NavArea"></div>
         </ng-container>
 
-        <mat-drawer-container class="DrawerContainer">
+        <mat-drawer-container
+          [class.DrawerContainer]="
+            authState === 'loggedIn' && (showSidebar$ | Async)
+          "
+        >
           <mat-drawer
             *ngIf="authState === 'loggedIn' && (showSidebar$ | Async)"
             mode="side"
