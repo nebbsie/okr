@@ -1,0 +1,95 @@
+@use 'variables';
+
+:host {
+  display: block;
+}
+
+.sidebar,
+.content-area {
+  padding: variables.$spacing-large;
+}
+
+.sidebar-item-padding-left-right {
+  padding: 0 0.7em;
+}
+
+.sidebar-item-padding-margin {
+  padding: 0.5em 0.7em;
+  margin-bottom: 0.1em;
+}
+
+mat-sidenav-container .sidebar-top-content.active {
+  background-color: #EBEBEB;
+}
+
+mat-sidenav-container .sidebar-top-content {
+  //padding: 0.5em 0.7em;
+  border-radius: 0.8em;
+  //margin-bottom: 0.1em;
+}
+
+mat-sidenav-container .sidebar-top-content.flex {
+  justify-content: space-between;
+}
+
+.top-links-info-container.flex {
+  gap: 10px;
+}
+
+.top-links-number-container {
+  background-color: #D3D3D3;
+  padding: 0 0.8em;
+  border-radius: 0.7em;
+}
+
+.sidebar-person-element img {
+  width: 40px;
+  border-radius: 50%;
+}
+
+.sidebar-person-element-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.teams-sidebar-section .flex {
+  justify-content: flex-start;
+  gap: 10px;
+  text-align: left;
+}
+
+.sidebar-teams-icon-container {
+  background-color: #DDDCF6;
+  padding: 0.5em;
+  border-radius: 0.8em;
+}
+
+//had to override this weird height thing on side bar breaking grid commands
+.mat-drawer-content {
+  height: auto;
+}
+
+.mat-drawer-container {
+  background-color: #F5F5F5;
+}
+
+/* Utility Classes */
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-space-only {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
