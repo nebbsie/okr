@@ -7,6 +7,7 @@ import { DirectivesModule } from '@core/directives';
 import { TextModule } from '@core/ui';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { KeyResultListModule } from '@core/components/key-result-list/key-result-list.module';
+import { ObjectiveParentCardModule } from '@core/components/objective-parent-card/objective-parent-card.module';
 
 @NgModule({
   declarations: [ObjectiveCardListComponent],
@@ -18,6 +19,7 @@ import { KeyResultListModule } from '@core/components/key-result-list/key-result
     TextModule,
     MatProgressBarModule,
     KeyResultListModule,
+    ObjectiveParentCardModule,
   ],
   exports: [ObjectiveCardListComponent],
 })

@@ -73,35 +73,9 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
           </ui-text>
         </div>
 
-        <!--        <ng-container *ngFor="let okr of dataSource">-->
-        <!--          <div-->
-        <!--            cdkDropList-->
-        <!--            class="example-list draggable-list-container"-->
-        <!--            (cdkDropListDropped)="drop($event, dataSource)"-->
-        <!--          >-->
-        <!--            <app-objective-parent-card-->
-        <!--              [visibility]="showKeyResults"-->
-        <!--              (keyResultListVisibilityEvent)="showHideKeyResults($event)"-->
-        <!--              [okr]="okr"-->
-        <!--            ></app-objective-parent-card>-->
-
-        <!--            &lt;!&ndash;start draggable inner keyResults&ndash;&gt;-->
-        <!--            <app-key-result-list-->
-        <!--              *ngIf="showKeyResults"-->
-        <!--              [keyResults]="okr.keyResults"-->
-        <!--            ></app-key-result-list>-->
-        <!--            &lt;!&ndash;end draggable box inner keyResults&ndash;&gt;-->
-        <!--          </div>-->
-        <!--        </ng-container>-->
-
-        <ng-container *ngFor="let okr of dataSource">
-          <app-objective-card-list
-            [okr]="okr"
-            [dataSource]="dataSource"
-          ></app-objective-card-list>
-        </ng-container>
-
-        <!--end drop list-->
+        <app-objective-card-list
+          [dataSource]="dataSource"
+        ></app-objective-card-list>
       </div>
       <!--end main page section-->
     </div>
@@ -297,33 +271,6 @@ export class DashboardComponent implements OnInit {
   async logout() {
     await firstValueFrom(this.auth.logout());
     await this.router.navigate(['/login']);
-  }
-
-  drop(event: CdkDragDrop<string[]>, arrayToChange: any) {
-    moveItemInArray(arrayToChange, event.previousIndex, event.currentIndex);
-  }
-
-  showHideKeyResults(showHide: boolean) {
-    console.log('showsing the output of bool from parent');
-    console.log(showHide);
-    this.showKeyResults = showHide;
-    console.log('new parent value is: ' + this.showKeyResults);
-  }
-
-  getReturnColour(state: string): TextColour {
-    if (state === 'On Track') {
-      return 'success';
-    }
-
-    if (state === 'Off Track') {
-      return 'danger';
-    }
-
-    if (state === 'Achieved') {
-      return 'achieved';
-    }
-
-    return 'dark';
   }
 
   async createEnterprise() {

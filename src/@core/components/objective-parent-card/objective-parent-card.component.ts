@@ -78,6 +78,8 @@ export class ObjectiveParentCardComponent implements OnInit {
   @Input() visibility!: boolean;
   @Output() keyResultListVisibilityEvent = new EventEmitter<boolean>();
 
+  //visibility: boolean = false;
+
   constructor() {}
 
   ngOnInit(): void {}
