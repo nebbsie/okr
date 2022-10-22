@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { combineLatest, firstValueFrom, map, Observable } from 'rxjs';
 import { MatSidenavContainer } from '@angular/material/sidenav';
 import { TextColour } from '@core/ui';
+<<<<<<< HEAD
 import {
   CreateData,
   Enterprise,
@@ -18,6 +19,9 @@ import {
   Store,
 } from '@core/services/store';
 import { UsersCollection } from '@core/services/store/config/collections';
+=======
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+>>>>>>> 0d75837 (Changed main cards functionality)
 
 @Component({
   selector: 'app-dashboard',
@@ -141,98 +145,137 @@ import { UsersCollection } from '@core/services/store/config/collections';
       </mat-sidenav-container>
 
       <div class="content-area">
-        <table
-          mat-table
-          [dataSource]="dataSource"
-          class="mat-elevation-z8 content-table"
-        >
-          <!--- Note that these columns can be defined in any order.
-                      The actual rendered columns are set as a property on the row definition" -->
+        <div class="okr-headings-container okr-table-grid">
+          <ui-text
+            colour="heading-dark-grey"
+            [ngClass]="{ 'centre-align-text': isLast }"
+            *ngFor="let heading of displayedColumns; let isLast = last"
+          >
+            {{ heading }}
+          </ui-text>
+        </div>
 
-          <!-- Position Column -->
-          <ng-container matColumnDef="objective">
-            <th mat-header-cell *matHeaderCellDef>Objective</th>
-            <td mat-cell *matCellDef="let okr">{{ okr.objective }}</td>
-          </ng-container>
+        <ng-container *ngFor="let okr of dataSource">
+          <!--          <div-->
+          <!--            cdkDropList-->
+          <!--            class="example-list draggable-list-container"-->
+          <!--            (cdkDropListDropped)="drop($event, dataSource)"-->
+          <!--          >-->
 
-          <!-- Name Column -->
-          <ng-container matColumnDef="createdDate">
-            <th mat-header-cell *matHeaderCellDef>Created Date</th>
-            <td mat-cell *matCellDef="let okr">{{ okr.createdDate }}</td>
-          </ng-container>
-
-          <!-- Weight Column -->
-          <ng-container matColumnDef="owner">
-            <th mat-header-cell *matHeaderCellDef>Owner</th>
-            <td mat-cell *matCellDef="let okr">{{ okr.owner }}</td>
-          </ng-container>
-
-          <!-- Symbol Column -->
-          <ng-container matColumnDef="team">
-            <th mat-header-cell *matHeaderCellDef>Team</th>
-            <td mat-cell *matCellDef="let okr">{{ okr.team }}</td>
-          </ng-container>
-
-          <!-- Symbol Column -->
-          <!--          <ng-container matColumnDef="state">-->
-          <!--            <th mat-header-cell *matHeaderCellDef>Status</th>-->
-          <!--            <td mat-cell *matCellDef="let okr">{{ okr.stats.state }}</td>-->
-          <!--          </ng-container>-->
-
-          <ng-container matColumnDef="state">
-            <th mat-header-cell *matHeaderCellDef>Status</th>
-            <td mat-cell *matCellDef="let okr">
-              <div>
-                <div class="flex-space-between">
+          <!--cdkDrag-->
+          <div class="example-box okr-table-grid" marginBottom="xsmall">
+            <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+            <ui-text>{{ okr.objective }}</ui-text>
+            <ui-text>{{ okr.createdDate }}</ui-text>
+            <ui-text>{{ okr.owner }}</ui-text>
+            <ui-text>{{ okr.team }}</ui-text>
+            <!--progress bar and stats area-->
+            <div>
+              <div class="flex-space-between">
+                <ui-text
+                  [colour]="getReturnColour(okr.stats.state)"
+                  weight="medium"
+                >
+                  {{ okr.stats.progression * 100 + '%' }}
+                </ui-text>
+                <div
+                  [ngClass]="{
+                    'on-track-bg-colour': okr.stats.state === 'On Track',
+                    'off-track-bg-colour': okr.stats.state === 'Off Track',
+                    'achieved-bg-colour': okr.stats.state === 'Achieved'
+                  }"
+                  class="state-bg"
+                  marginBottom="xxxsmall"
+                >
                   <ui-text
                     [colour]="getReturnColour(okr.stats.state)"
                     weight="medium"
                   >
-                    {{ okr.stats.progression * 100 + '%' }}
+                    {{ okr.stats.state }}
+                  </ui-text>
+                </div>
+              </div>
+              <mat-progress-bar
+                mode="determinate"
+                [value]="okr.stats.progression * 100"
+                marginBottom="xxxsmall"
+              ></mat-progress-bar>
+              <ui-text size="xsmall">
+                {{ 'Updated: ' + okr.stats.updatedAt }}
+              </ui-text>
+            </div>
+            <!--end stats section-->
+            <div class="flex">
+              <mat-icon fontIcon="more_vert"></mat-icon>
+            </div>
+          </div>
+          <!--end draggable box first-->
+          <!--          </div>-->
+          <div
+            cdkDropList
+            class="example-list draggable-list-container"
+            (cdkDropListDropped)="drop($event, okr.keyResults)"
+          >
+            <!--start draggable inner keyResults-->
+            <div
+              class="example-box okr-table-grid inner-okr-key-result-row"
+              cdkDrag
+              *ngFor="let keyResult of okr.keyResults"
+              marginBottom="xsmall"
+            >
+              <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+              <ui-text>{{ keyResult.name }}</ui-text>
+              <ui-text>{{ keyResult.createdDate }}</ui-text>
+              <ui-text>{{ keyResult.owner }}</ui-text>
+              <ui-text>{{ keyResult.team }}</ui-text>
+              <!--progress bar and stats area-->
+              <div>
+                <div class="flex-space-between">
+                  <ui-text
+                    [colour]="getReturnColour(keyResult.stats.state)"
+                    weight="medium"
+                  >
+                    {{ keyResult.stats.progression * 100 + '%' }}
                   </ui-text>
                   <div
                     [ngClass]="{
-                      'on-track-bg-colour': okr.stats.state === 'On Track',
-                      'off-track-bg-colour': okr.stats.state === 'Off Track',
-                      'achieved-bg-colour': okr.stats.state === 'Achieved'
+                      'on-track-bg-colour':
+                        keyResult.stats.state === 'On Track',
+                      'off-track-bg-colour':
+                        keyResult.stats.state === 'Off Track',
+                      'achieved-bg-colour': keyResult.stats.state === 'Achieved'
                     }"
                     class="state-bg"
                     marginBottom="xxxsmall"
                   >
                     <ui-text
-                      [colour]="getReturnColour(okr.stats.state)"
+                      [colour]="getReturnColour(keyResult.stats.state)"
                       weight="medium"
                     >
-                      {{ okr.stats.state }}
+                      {{ keyResult.stats.state }}
                     </ui-text>
                   </div>
                 </div>
                 <mat-progress-bar
                   mode="determinate"
-                  [value]="okr.stats.progression * 100"
+                  [value]="keyResult.stats.progression * 100"
                   marginBottom="xxxsmall"
                 ></mat-progress-bar>
                 <ui-text size="xsmall">
-                  {{ 'Updated: ' + okr.stats.updatedAt }}
+                  {{ 'Updated: ' + keyResult.stats.updatedAt }}
                 </ui-text>
               </div>
-            </td>
-          </ng-container>
-
-          <!-- Symbol Column -->
-          <ng-container matColumnDef="options">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let okr">
+              <!--end stats section-->
               <div class="flex">
                 <mat-icon fontIcon="more_vert"></mat-icon>
               </div>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
+            </div>
+            <!--end draggable box inner keyResults-->
+          </div>
+        </ng-container>
+        <!--end drop list-->
       </div>
+      <!--end main page section-->
     </div>
     <!--    </ui-page>-->
   `,
@@ -292,6 +335,13 @@ export class DashboardComponent implements OnInit {
     owner: string;
     team: string;
     stats: { progression: number; state: string; updatedAt: string };
+    keyResults: {
+      name: string;
+      createdDate: string;
+      owner: string;
+      team: string;
+      stats: { progression: number; state: string; updatedAt: string };
+    }[];
   }[] = [
     {
       objective: 'Build Nebbsie The Dash',
@@ -299,6 +349,41 @@ export class DashboardComponent implements OnInit {
       owner: 'Anil R',
       team: 'Sales',
       stats: { progression: 0.25, state: 'On Track', updatedAt: '01/04/20222' },
+      keyResults: [
+        {
+          name: 'Build Nebbsie #1 Key Result',
+          createdDate: 'Oct 4',
+          owner: 'Anil R',
+          team: 'Sales',
+          stats: {
+            progression: 0.25,
+            state: 'On Track',
+            updatedAt: '01/04/20222',
+          },
+        },
+        {
+          name: 'Build Nebbsie #2 Key Result',
+          createdDate: 'Oct 4',
+          owner: 'Anil R',
+          team: 'Sales',
+          stats: {
+            progression: 0.25,
+            state: 'On Track',
+            updatedAt: '01/04/20222',
+          },
+        },
+        {
+          name: 'Build Nebbsie #3 Key Result',
+          createdDate: 'Oct 4',
+          owner: 'Anil R',
+          team: 'Sales',
+          stats: {
+            progression: 0.25,
+            state: 'On Track',
+            updatedAt: '01/04/20222',
+          },
+        },
+      ],
     },
     {
       objective: 'Finalise Design of OKR as a Service',
@@ -306,6 +391,30 @@ export class DashboardComponent implements OnInit {
       owner: 'Aaron N',
       team: 'Developers',
       stats: { progression: 0.1, state: 'Off Track', updatedAt: '01/04/20222' },
+      keyResults: [
+        {
+          name: 'Finalise Design #1 Key Result',
+          createdDate: 'Oct 4',
+          owner: 'Anil R',
+          team: 'Sales',
+          stats: {
+            progression: 0.25,
+            state: 'On Track',
+            updatedAt: '01/04/20222',
+          },
+        },
+        {
+          name: 'Finalise Design #2 Key Result',
+          createdDate: 'Oct 4',
+          owner: 'Anil R',
+          team: 'Sales',
+          stats: {
+            progression: 0.25,
+            state: 'On Track',
+            updatedAt: '01/04/20222',
+          },
+        },
+      ],
     },
     {
       objective:
@@ -314,16 +423,29 @@ export class DashboardComponent implements OnInit {
       owner: 'Aaron N',
       team: 'Sales',
       stats: { progression: 1.0, state: 'Achieved', updatedAt: '01/04/20222' },
+      keyResults: [
+        {
+          name: 'Close the open #1 Key Result',
+          createdDate: 'Oct 4',
+          owner: 'Anil R',
+          team: 'Sales',
+          stats: {
+            progression: 0.25,
+            state: 'On Track',
+            updatedAt: '01/04/20222',
+          },
+        },
+      ],
     },
   ];
 
   displayedColumns: string[] = [
-    'objective',
-    'createdDate',
-    'owner',
-    'team',
-    'state',
-    'options',
+    'Objective',
+    'Created Date',
+    'Owner',
+    'Team',
+    'Status',
+    'Options',
   ];
 
   constructor(
@@ -345,6 +467,10 @@ export class DashboardComponent implements OnInit {
   async logout() {
     await firstValueFrom(this.auth.logout());
     await this.router.navigate(['/login']);
+  }
+
+  drop(event: CdkDragDrop<string[]>, arrayToChange: any) {
+    moveItemInArray(arrayToChange, event.previousIndex, event.currentIndex);
   }
 
   getReturnColour(state: string): TextColour {
