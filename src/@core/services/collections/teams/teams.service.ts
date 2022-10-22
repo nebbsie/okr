@@ -29,6 +29,12 @@ export class TeamsService {
         enterpriseId: enterpriseId,
       }).result$
     );
+    if (!teamId) {
+      return getServiceLogicError(
+        'Unable to create team.',
+        ErrorCode.CREATE_FAILED
+      );
+    }
 
     // Get the enterprise that the team will be added to.
     const enterpriseToAddTo = await firstValueFrom(

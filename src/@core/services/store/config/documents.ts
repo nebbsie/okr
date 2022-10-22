@@ -1,5 +1,10 @@
 import { StoreDocument } from '../store.types';
-import { EnterpriseRole, LogType, MinimalTeam } from './types';
+import {
+  EnterpriseRole,
+  LogType,
+  MinimalKeyResult,
+  MinimalTeam,
+} from './types';
 
 export interface User extends StoreDocument {}
 
@@ -30,4 +35,13 @@ export interface Log extends StoreDocument {
 
 export interface EarlyAccess extends StoreDocument {
   readonly email: string;
+}
+
+export interface Objective extends StoreDocument {
+  readonly title: string;
+  readonly keyResults: MinimalKeyResult[];
+}
+
+export interface KeyResult extends StoreDocument {
+  readonly title: string;
 }

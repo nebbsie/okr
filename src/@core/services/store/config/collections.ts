@@ -4,7 +4,9 @@ import {
   EarlyAccess,
   Enterprise,
   EnterpriseMember,
+  KeyResult,
   Log,
+  Objective,
   Team,
   TeamMember,
   User,
@@ -55,6 +57,16 @@ export type EarlyAccessCollection = {
   type: EarlyAccess;
 };
 
+export type ObjectivesCollection = {
+  name: 'objectives';
+  type: Objective;
+};
+
+export type KeyResultCollection = {
+  name: 'keyResults';
+  type: KeyResult;
+};
+
 export type StoreCollection =
   | UsersCollection
   | EnterprisesCollection
@@ -64,4 +76,6 @@ export type StoreCollection =
   | BoardsCollection
   | BoardUsersCollection
   | LogsCollection
-  | EarlyAccessCollection;
+  | EarlyAccessCollection
+  | ObjectivesCollection
+  | KeyResultCollection;

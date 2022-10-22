@@ -3,6 +3,7 @@ import { StoreCollection } from '@core/services/store/config/collections';
 import { FirestoreDataConverter } from '@angular/fire/firestore';
 import { TransformerMap } from '@core/services/store/config/transformers';
 import {
+  DocumentState,
   ErrorCode,
   ErrorRequestResult,
   StoreDocument,
@@ -40,7 +41,10 @@ export function StoreConverter<C extends StoreCollection>(
   };
 }
 
-export function transformStoreDocumentFields(data: any): StoreDocument {
+export function transformStoreDocumentFields(
+  data: any,
+  defaultState: DocumentState = DocumentState.ACTIVE
+): StoreDocument {
   if (!data.id) {
     throw new Error('Could not find id in transformer.');
   }
@@ -52,6 +56,7 @@ export function transformStoreDocumentFields(data: any): StoreDocument {
   return {
     id: data.id,
     createdTime: data.createdTime,
+    state: defaultState,
   };
 }
 

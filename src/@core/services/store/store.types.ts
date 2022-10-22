@@ -22,6 +22,7 @@ export type DocumentId = DualParam<string>;
 export interface StoreDocument {
   readonly id: string;
   readonly createdTime: ServerTimestamp;
+  readonly state: DocumentState;
 }
 
 export interface ServerTimestamp {
@@ -86,4 +87,10 @@ export type RequestResult = SuccessRequestResult | ErrorRequestResult;
 export enum ErrorCode {
   ENTERPRISE_NOT_FOUND,
   TEAM_NOT_FOUND,
+  CREATE_FAILED,
+}
+
+export enum DocumentState {
+  ACTIVE = 'active',
+  REMOVED = 'removed',
 }

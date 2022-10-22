@@ -1,7 +1,6 @@
 @use "variables";
 @use "breakpoints";
 
-
 .Navigation {
   position: fixed;
   z-index: variables.$logged-out-nav-z-index;

@@ -5,7 +5,9 @@ import {
   EarlyAccess,
   Enterprise,
   EnterpriseMember,
+  KeyResult,
   Log,
+  Objective,
   Team,
   TeamMember,
   User,
@@ -76,6 +78,21 @@ function TransformEarlyAccess(data: any): EarlyAccess {
   };
 }
 
+function TransformObjective(data: any): Objective {
+  return {
+    title: data.title,
+    keyResults: data.keyResults,
+    ...transformStoreDocumentFields(data),
+  };
+}
+
+function TransformKeyResult(data: any): KeyResult {
+  return {
+    title: data.title,
+    ...transformStoreDocumentFields(data),
+  };
+}
+
 export const TransformerMap = {
   users: TransformUser,
   enterprises: TransformEnterprise,
@@ -86,4 +103,6 @@ export const TransformerMap = {
   teamMembers: TransformTeamMember,
   logs: TransformLog,
   earlyAccess: TransformEarlyAccess,
+  objectives: TransformObjective,
+  keyResults: TransformKeyResult,
 };
