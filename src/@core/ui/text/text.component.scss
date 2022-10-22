@@ -60,10 +60,21 @@
     color: $font-colour-danger;
   }
 
+<<<<<<< HEAD
   @include text.TextWeightGenerator();
   @include text.TextColourGenerator();
   @include text.TextTransformGenerator();
   @include text.TextSizeGenerator();
+=======
+  &[data-font-colour='heading-dark-grey'] {
+    color: $font-colour-dark-grey;
+  }
+
+
+  @include TextWeightGenerator();
+  @include TextColourGenerator();
+  @include TextTransformGenerator();
+>>>>>>> 0d75837 (Changed main cards functionality)
 
   @include breakpoints.tablet() {
     @include text.TextSizeGenerator(tablet);
