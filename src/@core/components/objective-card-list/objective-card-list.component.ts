@@ -17,68 +17,20 @@ import { TextColour } from '@core/ui';
       class="example-list draggable-list-container"
       (cdkDropListDropped)="drop($event, dataSource)"
     >
-      <div class="flex-okr-expand-collapse" cdkDrag>
-        <div>
-          <!--expand_less-->
-          <mat-icon
-            fontIcon="expand_more"
-            (click)="showHideKeyResults()"
-          ></mat-icon>
-        </div>
-        <div class="example-box okr-table-grid" marginBottom="xsmall">
-          <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-          <ui-text>{{ okr.objective }}</ui-text>
-          <ui-text>{{ okr.createdDate }}</ui-text>
-          <ui-text>{{ okr.owner }}</ui-text>
-          <ui-text>{{ okr.team }}</ui-text>
-          <!--progress bar and stats area-->
-          <div>
-            <div class="flex-space-between">
-              <ui-text
-                [colour]="getReturnColour(okr.stats.state)"
-                weight="medium"
-              >
-                {{ okr.stats.progression * 100 + '%' }}
-              </ui-text>
-              <div
-                [ngClass]="{
-                  'on-track-bg-colour': okr.stats.state === 'On Track',
-                  'off-track-bg-colour': okr.stats.state === 'Off Track',
-                  'achieved-bg-colour': okr.stats.state === 'Achieved'
-                }"
-                class="state-bg"
-                marginBottom="xxxsmall"
-              >
-                <ui-text
-                  [colour]="getReturnColour(okr.stats.state)"
-                  weight="medium"
-                >
-                  {{ okr.stats.state }}
-                </ui-text>
-              </div>
-            </div>
-            <mat-progress-bar
-              mode="determinate"
-              [value]="okr.stats.progression * 100"
-              marginBottom="xxxsmall"
-            ></mat-progress-bar>
-            <ui-text size="xsmall">
-              {{ 'Updated: ' + okr.stats.updatedAt }}
-            </ui-text>
-          </div>
-          <!--end stats section-->
-          <div class="flex">
-            <mat-icon fontIcon="more_vert"></mat-icon>
-          </div>
-        </div>
-        <!--end draggable box first-->
-      </div>
-      <!--start draggable inner keyResults-->
-      <app-key-result-list
-        *ngIf="showKeyResults"
-        [keyResults]="okr.keyResults"
-      ></app-key-result-list>
-      <!--end draggable box inner keyResults-->
+      <ng-container *ngFor="let okr of dataSource">
+        <app-objective-parent-card
+          [okr]="okr"
+          [visibility]="showKeyResults"
+          (keyResultListVisibilityEvent)="showHideKeyResults($event)"
+        ></app-objective-parent-card>
+
+        <!--start draggable inner keyResults-->
+        <app-key-result-list
+          *ngIf="showKeyResults"
+          [keyResults]="okr.keyResults"
+        ></app-key-result-list>
+        <!--end draggable box inner keyResults-->
+      </ng-container>
     </div>
   `,
   styleUrls: ['./objective-card-list.component.scss'],
@@ -86,7 +38,7 @@ import { TextColour } from '@core/ui';
 })
 export class ObjectiveCardListComponent implements OnInit {
   showKeyResults: boolean = false;
-  @Input() okr: any;
+  //@Input() okr: any;
   @Input() dataSource: any;
   // @Output() keyResultListVisibilityEvent = new EventEmitter<boolean>();
 
@@ -95,13 +47,20 @@ export class ObjectiveCardListComponent implements OnInit {
   ngOnInit(): void {}
 
   drop(event: CdkDragDrop<string[]>, arrayToChange: any) {
+    console.log('parent drop called');
+    console.log('previous index: ' + event.previousIndex);
+    console.log('current index: ' + event.currentIndex);
     moveItemInArray(arrayToChange, event.previousIndex, event.currentIndex);
   }
 
-  showHideKeyResults() {
-    console.log('showsing the output of bool from parent');
+  showHideKeyResults(event: boolean) {
+    console.log(
+      'showsing the output of bool from parent (this.showKeyResults)'
+    );
     console.log(this.showKeyResults);
-    this.showKeyResults = !this.showKeyResults;
+    console.log('showing the output of the child bool passed back (event)');
+    console.log(event);
+    this.showKeyResults = event; //!this.showKeyResults;
     console.log('new parent value is: ' + this.showKeyResults);
   }
 
