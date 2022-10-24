@@ -28,12 +28,7 @@ export type TextColour =
   | 'danger'
   | 'info'
   | 'warning'
-<<<<<<< HEAD
-  | 'achieved';
-=======
-  | 'grey'
   | 'achieved'
   | 'heading-dark-grey';
->>>>>>> 41c65f0 (rebased from nebbsie version)
 
 export type TextAlign = 'center' | 'left' | 'right';
