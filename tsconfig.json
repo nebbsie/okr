@@ -23,8 +23,19 @@
       "dom"
     ],
     "paths": {
-      "@core/*": ["@core/*"],
-      "@env/*": ["environments/*"]
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
+      "@directives/*": ["directives/*"],
+      "@pipes/*": ["pipes/*"],
+      "@services/*": ["services/*"],
+      "@ui/*": ["ui/*"],
+      "@utils/*": ["utils/*"],
+      "@env/*": [
+        "environments/*"
+      ],
+      "okrhub-ui": [
+        "dist/okrhub-ui"
+      ]
     }
   },
   "angularCompilerOptions": {

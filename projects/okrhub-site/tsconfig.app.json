@@ -1,0 +1,25 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/app",
+    "types": []
+  },
+  "paths": {
+    "@assets/*": ["src/assets/*"],
+    "@components/*": ["src/components/*"],
+    "@directives/*": ["src/directives/*"],
+    "@pipes/*": ["src/pipes/*"],
+    "@services/*": ["src/services/*"],
+    "@ui/*": ["src/ui/*"],
+    "@utils/*": ["src/utils/*"],
+    "@env/*": ["src/environments/*"]
+  },
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts",
+    "src/polyfills.ts",
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
+}

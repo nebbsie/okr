@@ -1,0 +1,8 @@
+@use "variables";
+@use "breakpoints";
+
+.DrawerContainer {
+  @include breakpoints.tablet() {
+    height: 100%;
+  }
+}

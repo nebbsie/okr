@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "okrhub": {
+    "okrhub-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -14,28 +14,29 @@
           "skipTests": true
         }
       },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/okrhub-app",
+      "sourceRoot": "projects/okrhub-app/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/okrhub",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
+            "outputPath": "dist/okrhub-app",
+            "index": "projects/okrhub-app/src/index.html",
+            "main": "projects/okrhub-app/src/main.ts",
+            "polyfills": "projects/okrhub-app/src/polyfills.ts",
+            "tsConfig": "projects/okrhub-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/okrhub-app/src/favicon.ico",
+              "projects/okrhub-app/src/assets"
             ],
             "styles": [
+              "projects/okrhub-app/src/styles.scss",
               "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["src/@core"]
+              "includePaths": ["src"]
             },
             "scripts": []
           },
@@ -45,7 +46,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1.5mb"
+                  "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -59,9 +60,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all",
-              "sourceMap": true,
-              "namedChunks": true
+              "outputHashing": "all"
             },
             "development": {
               "buildOptimizer": false,
@@ -78,10 +77,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "okrhub:build:production"
+              "browserTarget": "okrhub-app:build:production"
             },
             "development": {
-              "browserTarget": "okrhub:build:development"
+              "browserTarget": "okrhub-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -89,23 +88,132 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "okrhub:build"
+            "browserTarget": "okrhub-app:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
+            "main": "projects/okrhub-app/src/test.ts",
+            "polyfills": "projects/okrhub-app/src/polyfills.ts",
+            "tsConfig": "projects/okrhub-app/tsconfig.spec.json",
+            "karmaConfig": "projects/okrhub-app/karma.conf.js",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/okrhub-app/src/favicon.ico",
+              "projects/okrhub-app/src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/okrhub-app/src/styles.scss",
+              "src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "okrhub-site": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "changeDetection": "OnPush",
+          "displayBlock": true,
+          "inlineTemplate": true,
+          "skipTests": true
+        }
+      },
+      "root": "projects/okrhub-site",
+      "sourceRoot": "projects/okrhub-site/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/okrhub-site",
+            "index": "projects/okrhub-site/src/index.html",
+            "main": "projects/okrhub-site/src/main.ts",
+            "polyfills": "projects/okrhub-site/src/polyfills.ts",
+            "tsConfig": "projects/okrhub-site/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/okrhub-site/src/favicon.ico",
+              "projects/okrhub-site/src/assets"
+            ],
+            "styles": [
+              "projects/okrhub-site/src/styles.scss",
+              "src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src"]
+            },
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "okrhub-site:build:production"
+            },
+            "development": {
+              "browserTarget": "okrhub-site:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "okrhub-site:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/okrhub-site/src/test.ts",
+            "polyfills": "projects/okrhub-site/src/polyfills.ts",
+            "tsConfig": "projects/okrhub-site/tsconfig.spec.json",
+            "karmaConfig": "projects/okrhub-site/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/okrhub-site/src/favicon.ico",
+              "projects/okrhub-site/src/assets"
+            ],
+            "styles": [
+              "projects/okrhub-site/src/styles.scss",
               "src/styles.scss"
             ],
             "scripts": []

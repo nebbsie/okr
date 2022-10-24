@@ -1,0 +1,11 @@
+@use "../../../../../src/variables";
+@use "../../../../../src/breakpoints";
+
+:host {
+  display: block;
+  padding-top: variables.$spacing-small;
+
+  @include breakpoints.tablet() {
+    padding-top: variables.$spacing-xxxlarge;
+  }
+}

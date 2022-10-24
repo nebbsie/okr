@@ -1,0 +1,15 @@
+@use "variables";
+@use "breakpoints";
+
+.Navigation {
+  position: fixed;
+  z-index: variables.$logged-out-nav-z-index;
+}
+
+.NavArea {
+  height: variables.$logged-out-nav-height;
+
+  @include breakpoints.tablet() {
+    height: variables.$logged-out-nav-height-desktop;
+  }
+}
