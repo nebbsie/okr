@@ -35,7 +35,6 @@ import { ScreenSizeService } from '@services/screen-size';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  authState$!: Observable<'loggedIn' | 'loggedOut'>;
   config$!: Observable<Config>;
   showSidebar$!: Observable<boolean>;
   showMobileBottomBar$!: Observable<boolean>;
@@ -48,31 +47,29 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.authState$ = this.auth
-      .isLoggedIn()
-      .pipe(map((isLoggedIn) => (isLoggedIn ? 'loggedIn' : 'loggedOut')));
+    const isLoggedIn$ = this.auth.isLoggedIn();
 
     this.config$ = this.config.getConfig(this.route);
 
     this.showSidebar$ = combineLatest([
       this.screen.isMobile(),
       this.config$,
-      this.authState$,
+      isLoggedIn$,
     ]).pipe(
       map(
-        ([isMobile, config, authState]) =>
-          !isMobile && config.noShell !== true && authState === 'loggedIn'
+        ([isMobile, config, isLoggedIn]) =>
+          !isMobile && config.noShell !== true && isLoggedIn
       )
     );
 
     this.showMobileBottomBar$ = combineLatest([
       this.screen.isMobile(),
       this.config$,
-      this.authState$,
+      isLoggedIn$,
     ]).pipe(
       map(
-        ([isMobile, config, authState]) =>
-          isMobile && config.noShell !== true && authState === 'loggedIn'
+        ([isMobile, config, isLoggedIn]) =>
+          isMobile && config.noShell !== true && isLoggedIn
       )
     );
   }

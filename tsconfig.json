@@ -16,27 +16,42 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2020",
+    "target": "ES2022",
     "module": "es2020",
     "lib": [
       "es2020",
       "dom"
     ],
     "paths": {
-      "@assets/*": ["assets/*"],
-      "@components/*": ["components/*"],
-      "@directives/*": ["directives/*"],
-      "@pipes/*": ["pipes/*"],
-      "@services/*": ["services/*"],
-      "@ui/*": ["ui/*"],
-      "@utils/*": ["utils/*"],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@directives/*": [
+        "directives/*"
+      ],
+      "@pipes/*": [
+        "pipes/*"
+      ],
+      "@services/*": [
+        "services/*"
+      ],
+      "@ui/*": [
+        "ui/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
       "@env/*": [
         "environments/*"
       ],
       "okrhub-ui": [
         "dist/okrhub-ui"
       ]
-    }
+    },
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
