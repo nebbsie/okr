@@ -2,14 +2,14 @@ import {
   Board,
   BoardMember,
   EarlyAccess,
-  Enterprise,
-  EnterpriseMember,
   KeyResult,
   Log,
   Objective,
   Team,
   TeamMember,
   User,
+  Workspace,
+  WorkspaceMember,
 } from './documents';
 
 export type UsersCollection = {
@@ -17,14 +17,14 @@ export type UsersCollection = {
   type: User;
 };
 
-export type EnterprisesCollection = {
-  name: 'enterprises';
-  type: Enterprise;
+export type WorkspacesCollection = {
+  name: 'workspaces';
+  type: Workspace;
 };
 
-export type EnterpriseUsersCollection = {
-  name: 'enterpriseMembers';
-  type: EnterpriseMember;
+export type WorkspaceMembersCollection = {
+  name: 'workspaceMembers';
+  type: WorkspaceMember;
 };
 
 export type TeamsCollection = {
@@ -32,7 +32,7 @@ export type TeamsCollection = {
   type: Team;
 };
 
-export type TeamUsersCollection = {
+export type TeamMembersCollection = {
   name: 'teamMembers';
   type: TeamMember;
 };
@@ -42,7 +42,7 @@ export type BoardsCollection = {
   type: Board;
 };
 
-export type BoardUsersCollection = {
+export type BoardMembersCollection = {
   name: 'boardMembers';
   type: BoardMember;
 };
@@ -69,12 +69,12 @@ export type KeyResultCollection = {
 
 export type StoreCollection =
   | UsersCollection
-  | EnterprisesCollection
-  | EnterpriseUsersCollection
+  | WorkspacesCollection
+  | WorkspaceMembersCollection
   | TeamsCollection
-  | TeamUsersCollection
+  | TeamMembersCollection
   | BoardsCollection
-  | BoardUsersCollection
+  | BoardMembersCollection
   | LogsCollection
   | EarlyAccessCollection
   | ObjectivesCollection

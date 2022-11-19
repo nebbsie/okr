@@ -1,9 +1,13 @@
-@use "variables";
-@use "breakpoints";
+@use "../../variables";
+@use "../../breakpoints";
 
 :host {
+  display: block;
+}
+
+.PageContainer {
   display: flex;
-  padding: variables.$spacing-large;
+  padding: variables.$spacing-mid variables.$spacing-mid variables.$spacing-xxlarge;
 
   &[data-flex-direction='column'] {
     flex-direction: column;
@@ -24,4 +28,16 @@
   @include breakpoints.tablet() {
     padding: variables.$spacing-small;
   }
+}
+
+
+.PageTitle {
+  display: flex;
+  position: sticky;
+  align-items: center;
+  background-color: variables.$colour-white-bg;
+  border-bottom: variables.$border;
+  min-height: 60px;
+  padding: variables.$spacing-small;
+  top: 0;
 }

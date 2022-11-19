@@ -1,13 +1,17 @@
-@use 'text';
-@use 'breakpoints';
+@use '../../text';
+@use '../../breakpoints';
 
 :host {
-  display: inline;
+  display: inline-block;
   margin: 0;
   padding: 0;
   word-break: break-word;
   text-decoration: none;
   width: fit-content;
+
+  &[data-clickable='true'] {
+    cursor: pointer;
+  }
 
   &[data-text-truncate='true'] {
     white-space: nowrap;

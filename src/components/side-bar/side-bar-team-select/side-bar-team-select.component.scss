@@ -1,0 +1,27 @@
+@use "../../../variables";
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.TeamSelectTrigger {
+  border-bottom: variables.$border;
+  padding-left: variables.$spacing-small;
+  padding-right: variables.$spacing-small;
+  min-height: 60px;
+  cursor: pointer;
+}
+
+.TeamSelectTrigger:hover {
+  background-color: variables.$colour-hover;
+}
+
+.MatMenuHeader {
+  padding: variables.$spacing-xxxsmall variables.$spacing-xsmall variables.$spacing-none;
+}
+
+.MenuItem {
+  display: flex;
+  align-items: center;
+}

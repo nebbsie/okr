@@ -1,33 +1,43 @@
 import { Injectable } from '@angular/core';
 import {
-  EnterprisesCollection,
   ErrorCode,
   getServiceLogicError,
   LogType,
+  MinimalObject,
   RequestResult,
   Store,
   TeamsCollection,
+  WorkspacesCollection,
 } from '../../store';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, map } from 'rxjs';
 import { LogsService } from '../logs/logs.service';
+import { AuthService } from '@services/auth';
+import { UsersService } from '@services/collections/users';
+import { where } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TeamsService {
-  constructor(private store: Store, private logs: LogsService) {}
+  constructor(
+    private store: Store,
+    private logs: LogsService,
+    private auth: AuthService,
+    private users: UsersService
+  ) {}
 
   /**
    * 1) Creates a `Team`
-   * 2) Adds a `MinimalTeam` to the `Enterprise` that was given.
+   * 2) Adds a `MinimalTeam` to the `Workspace` that was given.
    */
-  async createTeam(name: string, enterpriseId: string): Promise<RequestResult> {
+  async createTeam(name: string, workspaceId: string): Promise<RequestResult> {
     // Create a team.
     const teamId = await firstValueFrom(
-      this.store.create('teams', {
+      this.store.create<TeamsCollection>('teams', {
         name,
-        enterpriseId: enterpriseId,
-      }).result$
+        workspaceId: workspaceId,
+        boards: new Map<string, MinimalObject>(),
+      }).value$
     );
     if (!teamId) {
       return getServiceLogicError(
@@ -37,25 +47,44 @@ export class TeamsService {
     }
 
     // Get the enterprise that the team will be added to.
-    const enterpriseToAddTo = await firstValueFrom(
-      this.store.get<EnterprisesCollection>('enterprises', enterpriseId).result$
+    const workspaceToAddTo = await firstValueFrom(
+      this.store.get<WorkspacesCollection>('workspaces', workspaceId).value$
     );
-    if (!enterpriseToAddTo) {
+    if (!workspaceToAddTo) {
       return getServiceLogicError(
-        'No enterprise was found to add the team to.',
-        ErrorCode.ENTERPRISE_NOT_FOUND
+        'No workspace was found to add the team to.',
+        ErrorCode.WORKSPACE_NOT_FOUND
       );
     }
 
     // Update the teams array on the enterprise.
+    workspaceToAddTo.teams.set(teamId, { name, id: teamId });
     await firstValueFrom(
-      this.store.update('enterprises', enterpriseId, {
-        teams: { ...enterpriseToAddTo.teams, [teamId]: { name, id: teamId } },
-      }).result$
+      this.store.update<WorkspacesCollection>('workspaces', workspaceId, {
+        teams: workspaceToAddTo.teams,
+      }).value$
+    );
+
+    const currentUser = await firstValueFrom(
+      this.users.getCurrentUser().value$
+    );
+    if (!currentUser) {
+      return getServiceLogicError(
+        'Failed to get logged in user',
+        ErrorCode.USER_NOT_FOUND
+      );
+    }
+
+    // Add the joined team to the user collection.
+    currentUser.joinedTeams.set(teamId, { name, id: teamId });
+    await firstValueFrom(
+      this.users.updateCurrentUser({ joinedTeams: currentUser.joinedTeams })
+        .value$
     );
 
     return {
       status: 'success',
+      id: teamId,
     };
   }
 
@@ -68,7 +97,7 @@ export class TeamsService {
   async deleteTeam(teamId: string): Promise<RequestResult> {
     // Get the `Team` to delete.
     const teamToDelete = await firstValueFrom(
-      this.store.get<TeamsCollection>('teams', teamId).result$
+      this.store.get<TeamsCollection>('teams', teamId).value$
     );
     if (!teamToDelete) {
       return getServiceLogicError(
@@ -78,36 +107,51 @@ export class TeamsService {
     }
 
     // Get the `Enterprise` that the `Team` is part of.
-    const enterprise = await firstValueFrom(
-      this.store.get<EnterprisesCollection>(
-        'enterprises',
-        teamToDelete.enterpriseId
-      ).result$
+    const workspace = await firstValueFrom(
+      this.store.get<WorkspacesCollection>(
+        'workspaces',
+        teamToDelete.workspaceId
+      ).value$
     );
-    if (!enterprise) {
+    if (!workspace) {
       return getServiceLogicError(
-        'Failed to find enterprise that the team was attached to.',
-        ErrorCode.ENTERPRISE_NOT_FOUND
+        'Failed to find workspace that the team was attached to.',
+        ErrorCode.WORKSPACE_NOT_FOUND
       );
     }
 
     // Deletes the `team`.
     await firstValueFrom(
-      this.store.delete<TeamsCollection>('teams', teamId).result$
+      this.store.delete<TeamsCollection>('teams', teamId).value$
     );
 
     // Delete the `MinimalTeam` from the `Enterprise`.
-    const newTeams = enterprise.teams;
-    delete newTeams[teamId];
+    const newTeams = workspace.teams;
+    newTeams.delete(teamId);
     await firstValueFrom(
-      this.store.update<EnterprisesCollection>('enterprises', enterprise.id, {
+      this.store.update<WorkspacesCollection>('workspaces', workspace.id, {
         teams: newTeams,
-      }).result$
+      }).value$
     );
 
     // Log the event.
     await this.logs.logEvent(LogType.TEAM_DELETE, teamToDelete);
 
-    return { status: 'success' };
+    return { status: 'success', id: teamId };
+  }
+
+  getCurrentUsersTeams() {
+    return this.store.where<TeamsCollection>(
+      'teams',
+      this.users.getCurrentUser().value$.pipe(
+        map((user) => {
+          if (!user) {
+            //TODO: what to do here?
+            return [];
+          }
+          return [where('id', 'in', Array.from(user.joinedTeams.keys()))];
+        })
+      )
+    );
   }
 }

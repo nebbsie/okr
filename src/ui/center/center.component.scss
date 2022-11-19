@@ -1,6 +1,6 @@
-@use "variables";
-@use "breakpoints";
-@use "flex";
+@use "../../variables";
+@use "../../breakpoints";
+@use "../../flex";
 
 :host {
   display: flex;

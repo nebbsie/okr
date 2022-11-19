@@ -18,6 +18,6 @@ export class LoginComponent {
   constructor(private router: Router) {}
 
   async handleLoggedIn() {
-    await this.router.navigate(['/dashboard']);
+    await this.router.navigate(['/']);
   }
 }

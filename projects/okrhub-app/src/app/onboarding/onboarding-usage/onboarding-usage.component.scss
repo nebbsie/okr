@@ -1,0 +1,26 @@
+@use "variables";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Choice {
+  border-radius: variables.$border-radius;
+  border: variables.$colour-light-grey solid 1px;
+  padding: variables.$spacing-small;
+  max-width: 300px;
+  cursor: pointer;
+
+}
+
+.Choice:hover {
+  border: variables.$colour-primary solid 1px;
+}
+
+
+.Selected {
+  border: variables.$colour-primary solid 1px;
+  outline:  variables.$colour-primary solid 1px;
+}

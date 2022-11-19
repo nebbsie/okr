@@ -1,0 +1,7 @@
+@use "../../../variables";
+
+:host {
+  display: flex;
+  width: 100%;
+  padding: variables.$spacing-xsmall;
+}

@@ -1,0 +1,28 @@
+@use "../../variables";
+
+:host {
+  display: block;
+}
+
+.Avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: variables.$colour-orange;
+
+  &[data-size='small'] {
+    width: 24px;
+    height: 24px;
+  }
+
+  &[data-size='mid'] {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.Clickable {
+  cursor: pointer;
+}

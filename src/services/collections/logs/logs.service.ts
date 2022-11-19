@@ -21,7 +21,7 @@ export class LogsService {
             userId,
           }))
         )
-      ).result$
+      ).value$
     );
   }
 }

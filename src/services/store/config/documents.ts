@@ -1,29 +1,46 @@
 import { StoreDocument } from '../store.types';
 import {
-  EnterpriseRole,
   LogType,
+  MinimalBoard,
   MinimalKeyResult,
   MinimalTeam,
+  MinimalWorkspace,
+  UserType,
+  WorkspaceMemberRole,
 } from './types';
 
-export interface User extends StoreDocument {}
+export interface User extends StoreDocument {
+  readonly joinedTeams: Map<string, MinimalTeam>;
+  readonly joinedWorkspaces: Map<string, MinimalWorkspace>;
+  readonly joinedBoards: Map<string, MinimalBoard>;
 
-export interface Enterprise extends StoreDocument {
+  readonly fullName: string;
+  readonly type: UserType;
+  readonly isSetup: boolean;
+  readonly avatarUrl?: string;
+}
+
+export interface Workspace extends StoreDocument {
   readonly name: string;
   readonly creatorId: string;
-  readonly teams: { [id: string]: MinimalTeam };
+  readonly teams: Map<string, MinimalTeam>;
 }
-export interface EnterpriseMember extends StoreDocument {
+export interface WorkspaceMember extends StoreDocument {
   readonly userId: string;
-  readonly role: EnterpriseRole;
+  readonly workspaceId: string;
+  readonly role: WorkspaceMemberRole;
 }
 
-export interface Board extends StoreDocument {}
+export interface Board extends StoreDocument {
+  readonly name: string;
+  readonly teamId: string;
+}
 export interface BoardMember extends StoreDocument {}
 
 export interface Team extends StoreDocument {
-  readonly enterpriseId: string;
+  readonly workspaceId: string;
   readonly name: string;
+  readonly boards: Map<string, MinimalBoard>;
 }
 export interface TeamMember extends StoreDocument {}
 

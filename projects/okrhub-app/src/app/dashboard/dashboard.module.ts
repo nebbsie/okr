@@ -12,11 +12,6 @@ import { ButtonModule } from '@ui/button';
 import { PageModule } from '@ui/page';
 import { DirectivesModule } from '@directives/directives.module';
 import { PipesModule } from '@pipes/pipes.module';
-import { TopBarModule } from '@components/top-bar';
-import { KeyResultListModule } from '@components/key-result-list';
-import { ObjectiveParentCardModule } from '@components/objective-parent-card';
-import { ObjectiveCardListModule } from '@components/objective-card-list';
-import { SidebarNavigationModule } from '@components/sidebar-navigation';
 import { TextModule } from '@ui/text';
 
 @NgModule({
@@ -35,11 +30,6 @@ import { TextModule } from '@ui/text';
     MatButtonModule,
     PipesModule,
     DragDropModule,
-    TopBarModule,
-    KeyResultListModule,
-    ObjectiveParentCardModule,
-    ObjectiveCardListModule,
-    SidebarNavigationModule,
   ],
 })
 export class DashboardModule {}

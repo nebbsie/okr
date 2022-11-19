@@ -1,4 +1,4 @@
-@use "variables";
+@use "../../variables";
 
 :host {
   position: fixed;
@@ -6,7 +6,7 @@
   width: 100%;
   z-index: variables.$bottom-bar-height;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   padding: variables.$spacing-xxxsmall;
   border-top: 1px solid variables.$colour-xlight-grey;

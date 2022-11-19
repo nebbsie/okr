@@ -9,7 +9,6 @@ import {
   Firestore,
   getDoc,
   query,
-  runTransaction,
   serverTimestamp,
   setDoc,
   Timestamp,
@@ -48,7 +47,6 @@ import {
 import { FirebaseError } from './store.errors';
 import { ConvertFirebaseError, StoreConverter } from './store.helpers';
 import { StoreCollection } from './config/collections';
-import { Transaction, TransactionOptions } from '@firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -56,13 +54,6 @@ import { Transaction, TransactionOptions } from '@firebase/firestore';
 export class Store {
   constructor(private firestore: Firestore) {
     enableIndexedDbPersistence(this.firestore).then();
-  }
-
-  runInTransaction<T>(
-    func: (transaction: Transaction) => Promise<T>,
-    options?: TransactionOptions
-  ) {
-    return runTransaction(this.firestore, func, options);
   }
 
   /**
@@ -77,13 +68,13 @@ export class Store {
    */
   create<C extends StoreCollection>(
     collection: C['name'],
-    request: CreateData<C['type']>
+    request: CreateData<C>
   ): CreateResult<C> {
     const errorSubject$ = new Subject<FirebaseError>();
     const loadingSubject$ = new BehaviorSubject(false);
 
     const id = this.getStoreId();
-    const result$ = combineLatest([makeObservable(request)]).pipe(
+    const value$ = combineLatest([makeObservable(request)]).pipe(
       tap(() => loadingSubject$.next(true)),
       switchMap(([_request]) =>
         setDoc(
@@ -98,14 +89,14 @@ export class Store {
       map(() => id),
       tap(() => loadingSubject$.next(false)),
       catchError((err) => {
-        errorSubject$.next(ConvertFirebaseError(err));
+        errorSubject$.next(ConvertFirebaseError(err, collection));
         loadingSubject$.next(false);
         return of(undefined);
       })
     );
 
     return {
-      result$: result$.pipe(shareReplay()),
+      value$: value$.pipe(shareReplay()),
       error$: errorSubject$
         .asObservable()
         .pipe(startWith(undefined), shareReplay()),
@@ -119,34 +110,36 @@ export class Store {
   update<C extends StoreCollection>(
     collection: C['name'],
     id: DocumentId,
-    request: UpdateData<C['type']>
+    request: UpdateData<C>
   ): UpdateResult<C> {
     const errorSubject$ = new Subject<FirebaseError>();
     const loadingSubject$ = new BehaviorSubject(false);
 
-    const result$ = combineLatest([
+    const value$ = combineLatest([
       makeObservable(id),
       makeObservable(request),
     ]).pipe(
       tap(() => loadingSubject$.next(true)),
       switchMap(([_id, _request]) =>
-        updateDoc(
-          doc(this.firestore, collection, _id).withConverter(
-            StoreConverter(collection)
-          ),
-          sanitiseObject(_request as UntypedUpdateData)
-        )
+        _id !== undefined
+          ? updateDoc(
+              doc(this.firestore, collection, _id).withConverter(
+                StoreConverter(collection)
+              ),
+              sanitiseObject(_request as UntypedUpdateData)
+            )
+          : of(undefined)
       ),
       tap(() => loadingSubject$.next(false)),
       catchError((err) => {
-        errorSubject$.next(ConvertFirebaseError(err));
+        errorSubject$.next(ConvertFirebaseError(err, collection));
         loadingSubject$.next(false);
         return of(undefined);
       })
     );
 
     return {
-      result$: result$.pipe(shareReplay()),
+      value$: value$.pipe(shareReplay()),
       error$: errorSubject$
         .asObservable()
         .pipe(startWith(undefined), shareReplay()),
@@ -159,12 +152,12 @@ export class Store {
    */
   set<C extends StoreCollection>(
     collection: C['name'],
-    request: SetData<C['type']>
+    request: SetData<C>
   ): SetResult<C> {
     const errorSubject$ = new Subject<FirebaseError>();
     const loadingSubject$ = new BehaviorSubject(false);
 
-    const result$ = combineLatest([makeObservable(request)]).pipe(
+    const value$ = combineLatest([makeObservable(request)]).pipe(
       tap(() => loadingSubject$.next(true)),
       switchMap(([_request]) =>
         setDoc(
@@ -179,14 +172,14 @@ export class Store {
       ),
       tap(() => loadingSubject$.next(false)),
       catchError((err) => {
-        errorSubject$.next(ConvertFirebaseError(err));
+        errorSubject$.next(ConvertFirebaseError(err, collection));
         loadingSubject$.next(false);
         return of(undefined);
       })
     );
 
     return {
-      result$: result$.pipe(shareReplay()),
+      value$: value$.pipe(shareReplay()),
       error$: errorSubject$
         .asObservable()
         .pipe(startWith(undefined), shareReplay()),
@@ -204,19 +197,23 @@ export class Store {
     const errorSubject$ = new Subject<FirebaseError>();
     const loadingSubject$ = new BehaviorSubject(false);
 
-    const result$ = makeObservable(id).pipe(
+    const value$ = makeObservable(id).pipe(
       tap(() => loadingSubject$.next(true)),
-      switchMap((id) => deleteDoc(doc(this.firestore, collection, id))),
+      switchMap((_id) =>
+        _id !== undefined
+          ? deleteDoc(doc(this.firestore, collection, _id))
+          : of(undefined)
+      ),
       tap(() => loadingSubject$.next(false)),
       catchError((err) => {
-        errorSubject$.next(ConvertFirebaseError(err));
+        errorSubject$.next(ConvertFirebaseError(err, collection));
         loadingSubject$.next(false);
         return of(undefined);
       })
     );
 
     return {
-      result$: result$.pipe(shareReplay()),
+      value$: value$.pipe(shareReplay()),
       error$: errorSubject$
         .asObservable()
         .pipe(startWith(undefined), shareReplay()),
@@ -225,7 +222,7 @@ export class Store {
   }
 
   /**
-   * Gets a value from the store and ensures its up-to-date via a where clause.
+   * Gets a value from the store and ensures it's up-to-date via a where clause.
    */
   where<C extends StoreCollection>(
     col: C['name'],
@@ -234,7 +231,7 @@ export class Store {
     const errorSubject$ = new Subject<FirebaseError>();
     const loadingSubject$ = new BehaviorSubject(false);
 
-    const result$ = combineLatest([makeObservable(constraints)]).pipe(
+    const value$ = combineLatest([makeObservable(constraints)]).pipe(
       tap(() => loadingSubject$.next(true)),
       switchMap(([_constraints]) => {
         return collectionData(
@@ -246,14 +243,14 @@ export class Store {
       }),
       tap(() => loadingSubject$.next(false)),
       catchError((err) => {
-        errorSubject$.next(ConvertFirebaseError(err));
+        errorSubject$.next(ConvertFirebaseError(err, col));
         loadingSubject$.next(false);
         return of(undefined);
       })
     );
 
     return {
-      result$: result$.pipe(shareReplay()),
+      value$: value$.pipe(shareReplay()),
       error$: errorSubject$
         .asObservable()
         .pipe(startWith(undefined), shareReplay()),
@@ -271,25 +268,27 @@ export class Store {
     const errorSubject$ = new Subject<FirebaseError>();
     const loadingSubject$ = new BehaviorSubject(false);
 
-    const result$ = makeObservable(id).pipe(
+    const value$ = makeObservable(id).pipe(
       tap(() => loadingSubject$.next(true)),
       switchMap((_id) =>
-        docData(
-          doc(this.firestore, collection, _id).withConverter(
-            StoreConverter(collection)
-          )
-        )
+        _id !== undefined
+          ? docData(
+              doc(this.firestore, collection, _id).withConverter(
+                StoreConverter(collection)
+              )
+            )
+          : of(undefined)
       ),
       tap(() => loadingSubject$.next(false)),
       catchError((err) => {
-        errorSubject$.next(ConvertFirebaseError(err));
+        errorSubject$.next(ConvertFirebaseError(err, collection));
         loadingSubject$.next(false);
         return of(undefined);
       })
     );
 
     return {
-      result$: result$.pipe(shareReplay()),
+      value$: value$.pipe(shareReplay()),
       error$: errorSubject$
         .asObservable()
         .pipe(startWith(undefined), shareReplay()),
@@ -307,27 +306,29 @@ export class Store {
     const errorSubject$ = new Subject<FirebaseError>();
     const loadingSubject$ = new BehaviorSubject(false);
 
-    const result$ = makeObservable(id).pipe(
+    const value$ = makeObservable(id).pipe(
       tap(() => loadingSubject$.next(true)),
       switchMap((_id) =>
-        from(
-          getDoc(
-            doc(this.firestore, collection, _id).withConverter(
-              StoreConverter(collection)
-            )
-          )
-        ).pipe(map((val) => val.data()))
+        _id !== undefined
+          ? from(
+              getDoc(
+                doc(this.firestore, collection, _id).withConverter(
+                  StoreConverter(collection)
+                )
+              )
+            ).pipe(map((val) => val.data()))
+          : of(undefined)
       ),
       tap(() => loadingSubject$.next(false)),
       catchError((err) => {
-        errorSubject$.next(ConvertFirebaseError(err));
+        errorSubject$.next(ConvertFirebaseError(err, collection));
         loadingSubject$.next(false);
         return of(undefined);
       })
     );
 
     return {
-      result$: result$.pipe(shareReplay()),
+      value$: value$.pipe(shareReplay()),
       error$: errorSubject$
         .asObservable()
         .pipe(startWith(undefined), shareReplay()),

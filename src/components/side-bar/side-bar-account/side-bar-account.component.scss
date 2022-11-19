@@ -1,0 +1,18 @@
+@use "../../../variables";
+
+:host {
+  display: flex;
+  align-items: center;
+}
+
+.AccountSettingsMenu {
+  padding:
+          variables.$spacing-xxsmall
+          variables.$spacing-xlarge
+          variables.$spacing-xxsmall
+          variables.$spacing-mid
+}
+
+.Trigger {
+  cursor: pointer;
+}

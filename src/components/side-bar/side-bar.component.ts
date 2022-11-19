@@ -1,20 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-side-bar',
   template: `
-    <p>
-      side-bar works!
-    </p>
+    <app-side-bar-team-select marginBottom="large"></app-side-bar-team-select>
+
+    <div class="Content"></div>
+
+    <app-side-bar-account class="AccountSection"></app-side-bar-account>
   `,
   styleUrls: ['./side-bar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SideBarComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class SideBarComponent {}

@@ -80,7 +80,8 @@
               "browserTarget": "okrhub-app:build:production"
             },
             "development": {
-              "browserTarget": "okrhub-app:build:development"
+              "browserTarget": "okrhub-app:build:development",
+              "port": 4201
             }
           },
           "defaultConfiguration": "development"
@@ -189,7 +190,8 @@
               "browserTarget": "okrhub-site:build:production"
             },
             "development": {
-              "browserTarget": "okrhub-site:build:development"
+              "browserTarget": "okrhub-site:build:development",
+              "port": 4200
             }
           },
           "defaultConfiguration": "development"

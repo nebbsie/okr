@@ -19,7 +19,7 @@ import { ThemePalette } from '@angular/material/core';
       [attr.data-tall]="tallButton"
       [color]="colour"
       [disabled]="disabled || loading"
-      mat-raised-button
+      mat-flat-button
     >
       <ng-container *ngIf="!loading">
         <ng-container [ngTemplateOutlet]="content"></ng-container>

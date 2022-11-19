@@ -27,7 +27,7 @@ export class LoginGuard implements CanActivate {
       .isLoggedIn()
       .pipe(
         map((isLoggedIn) =>
-          isLoggedIn ? this.router.createUrlTree(['/dashboard']) : true
+          isLoggedIn ? this.router.createUrlTree(['/']) : true
         )
       );
   }

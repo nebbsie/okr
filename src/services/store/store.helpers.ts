@@ -9,21 +9,21 @@ import {
   StoreDocument,
 } from './store.types';
 
-export function ConvertFirebaseError(err: any): FirebaseError {
-  console.error(err);
+export function ConvertFirebaseError(
+  err: any,
+  collection: string
+): FirebaseError {
+  console.error(err, collection);
 
-  const code = err.code as string;
-  const isDefinedError = code in FirebaseError;
-  if (!isDefinedError) {
-    console.error(
-      `Error is currently not defined. You need to add: ${code} to FirebaseError enum.`
-    );
-  }
-
-  switch (code) {
+  switch (err.code) {
     case FirebaseError.PERMISSION_DENIED:
       return FirebaseError.PERMISSION_DENIED;
+    case FirebaseError.NOT_FOUND:
+      return FirebaseError.NOT_FOUND;
+    case FirebaseError.INVALID_ARGUMENT:
+      return FirebaseError.INVALID_ARGUMENT;
     default:
+      console.error(`ERROR not found. Add ${err.code} to store.errors.ts.`);
       return FirebaseError.UNKNOWN;
   }
 }
@@ -71,4 +71,12 @@ export function getServiceLogicError(
   };
   console.error(err);
   return err;
+}
+
+export function FirebaseMapToTypescriptMap<T>(data: any): Map<string, T> {
+  let map = new Map<string, T>();
+  Object.entries(data).forEach((value, index) => {
+    map.set(value[0], value[1] as T);
+  });
+  return map;
 }

@@ -27,8 +27,6 @@ export type TextColour =
   | 'success'
   | 'danger'
   | 'info'
-  | 'warning'
-  | 'achieved'
-  | 'heading-dark-grey';
+  | 'warning';
 
 export type TextAlign = 'center' | 'left' | 'right';

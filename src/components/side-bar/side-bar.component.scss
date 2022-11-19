@@ -1,7 +1,9 @@
-@use "breakpoints";
+@use "../../breakpoints";
+@use "../../variables";
 
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
   width: 0; // The side bar is not shown on mobile.
   height: 100%;
   overflow-y: hidden;
@@ -13,4 +15,39 @@
   @include breakpoints.desktop() {
     width: 250px;
   }
+}
+
+.Content {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+
+.Content::-webkit-scrollbar {
+  display: none;
+}
+
+.EnterpriseSelect {
+  width: 100%;
+
+  &-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 50px;
+  }
+
+  &-menu {
+    padding: variables.$spacing-small;
+  }
+}
+
+.AccountButton {
+  width: 100%;
+}
+
+.AccountSection {
+  margin-top: auto;
+  padding: variables.$spacing-xsmall;
+  border-top: variables.$colour-divider solid 1px;
 }

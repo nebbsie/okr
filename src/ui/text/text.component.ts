@@ -26,6 +26,10 @@ export class TextComponent implements OnChanges {
   @Input()
   type: TextType = 'paragraph';
 
+  @HostBinding('attr.data-clickable')
+  @Input()
+  clickable = false;
+
   @HostBinding('attr.role') role: string | null | undefined;
 
   @Input()

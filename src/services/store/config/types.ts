@@ -7,10 +7,17 @@ export type MinimalObject = {
 // Users
 export type MinimalUser = MinimalObject;
 
-// Enterprises
-export type MinimalEnterprise = MinimalObject;
+export enum UserType {
+  UNSELECTED = 'unselected', // This is the default type.
+  PERSONAL = 'personal',
+  TEAM = 'team',
+  COMPANY = 'company',
+}
 
-export enum EnterpriseRole {
+// Enterprises
+export type MinimalWorkspace = MinimalObject;
+
+export enum WorkspaceMemberRole {
   OWNER = 'owner',
   ADMIN = 'admin',
   MODERATOR = 'moderator',

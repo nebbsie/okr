@@ -1,35 +1,45 @@
-import { transformStoreDocumentFields } from '../store.helpers';
+import {
+  FirebaseMapToTypescriptMap,
+  transformStoreDocumentFields,
+} from '@services/store';
 import {
   Board,
   BoardMember,
   EarlyAccess,
-  Enterprise,
-  EnterpriseMember,
   KeyResult,
   Log,
   Objective,
   Team,
   TeamMember,
   User,
+  Workspace,
+  WorkspaceMember,
 } from './documents';
 
-function TransformUser(data: {}): User {
+function TransformUser(data: any): User {
   return {
+    joinedBoards: FirebaseMapToTypescriptMap(data.joinedBoards),
+    joinedWorkspaces: FirebaseMapToTypescriptMap(data.joinedWorkspaces),
+    joinedTeams: FirebaseMapToTypescriptMap(data.joinedTeams),
+    isSetup: data.isSetup,
+    fullName: data.fullName,
+    type: data.type,
     ...transformStoreDocumentFields(data),
   };
 }
 
-function TransformEnterprise(data: any): Enterprise {
+function TransformWorkspace(data: any): Workspace {
   return {
     name: data.name,
     creatorId: data.createdTime,
-    teams: data.teams,
+    teams: FirebaseMapToTypescriptMap(data.teams),
     ...transformStoreDocumentFields(data),
   };
 }
 
-function TransformEnterpriseMember(data: any): EnterpriseMember {
+function TransformWorkspaceMember(data: any): WorkspaceMember {
   return {
+    workspaceId: data.workspaceId,
     userId: data.userId,
     role: data.role,
     ...transformStoreDocumentFields(data),
@@ -39,7 +49,8 @@ function TransformEnterpriseMember(data: any): EnterpriseMember {
 function TransformTeam(data: any): Team {
   return {
     name: data.name,
-    enterpriseId: data.enterpriseId,
+    boards: FirebaseMapToTypescriptMap(data.boards),
+    workspaceId: data.enterpriseId,
     ...transformStoreDocumentFields(data),
   };
 }
@@ -52,6 +63,8 @@ function TransformTeamMember(data: any): TeamMember {
 
 function TransformBoard(data: any): Board {
   return {
+    teamId: data.teamId,
+    name: data.board,
     ...transformStoreDocumentFields(data),
   };
 }
@@ -95,8 +108,8 @@ function TransformKeyResult(data: any): KeyResult {
 
 export const TransformerMap = {
   users: TransformUser,
-  enterprises: TransformEnterprise,
-  enterpriseMembers: TransformEnterpriseMember,
+  workspaces: TransformWorkspace,
+  workspaceMembers: TransformWorkspaceMember,
   boards: TransformBoard,
   boardMembers: TransformBoardMember,
   teams: TransformTeam,

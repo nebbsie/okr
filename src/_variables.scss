@@ -60,12 +60,14 @@ $colour-accent: #f3555b;
 $colour-dark: #181818;
 $colour-dark-grey: #545454;
 $colour-light-grey: #bbbbbb;
-$colour-xlight-grey: #ececec;
+$colour-xlight-grey: rgba(24, 24, 24, 0.12);
 $colour-white: #f6f6f5;
 $colour-green: #34d39d;
 $colour-red: #f04d62;
 $colour-blue: #01d0ea;
 $colour-orange: #ffbf2f;
+$colour-divider: rgba(24, 24, 24, 0.12);
+$colour-hover: rgba(24, 24, 24, 0.05);
 
 $colour-light-red: #fdedee;
 $colour-light-orange: #fff9e9;
@@ -73,9 +75,8 @@ $colour-light-blue: #e6fafd;
 $colour-light-green: #eafbf6;
 
 $colour-light-bg: #f8f8fa;
+$colour-white-bg: white;
 $colour-light-bars: #f5f5f5;
-$colour-achieved: #1B6215;
-$colour-heading-dark-grey: rgba(0,0,0,.54);
 
 /* Alert Colours */
 $colour-alert-bg-error: $colour-light-red;
@@ -94,5 +95,5 @@ $font-colour-success: $colour-green;
 $font-colour-danger: $colour-red;
 $font-colour-info: $colour-blue;
 $font-colour-warning: $colour-orange;
-$font-colour-achieved: $colour-achieved;
-$font-colour-dark-grey: $colour-heading-dark-grey;
+
+$border: $colour-divider solid 1px;

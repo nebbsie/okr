@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardGuard } from './dashboard/dashboard.guard';
 import { LoginGuard } from './login/login.guard';
 import { RegisterGuard } from './register/register.guard';
+import { OnboardingGuard } from './onboarding/onboarding.guard';
+import { TeamGuard } from './team/team.guard';
+import { ProfileGuard } from './profile/profile.guard';
 
 const routes: Routes = [
   {
@@ -11,6 +14,19 @@ const routes: Routes = [
     data: {},
     loadChildren: () =>
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+  },
+  {
+    path: 'team/:id',
+    canActivate: [TeamGuard],
+    data: {},
+    loadChildren: () => import('./team/team.module').then((m) => m.TeamModule),
+  },
+  {
+    path: 'profile',
+    canActivate: [ProfileGuard],
+    data: {},
+    loadChildren: () =>
+      import('./profile/profile.module').then((m) => m.ProfileModule),
   },
   {
     path: 'login',
@@ -37,6 +53,15 @@ const routes: Routes = [
     },
     loadChildren: () =>
       import('./recover/recover.module').then((m) => m.RecoverModule),
+  },
+  {
+    path: 'onboarding',
+    canActivate: [OnboardingGuard],
+    data: {
+      noShell: true,
+    },
+    loadChildren: () =>
+      import('./onboarding/onboarding.module').then((m) => m.OnboardingModule),
   },
 ];
 

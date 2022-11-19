@@ -19,7 +19,7 @@ import {
 } from 'rxjs';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { LoginResponse } from './auth.types';
-import { isDefined } from '../../utils';
+import { isDefined } from '@utils/utils';
 import { environment } from '@env/environment';
 import { Store } from '../store';
 
@@ -90,6 +90,10 @@ export class AuthService {
     );
   }
 
+  getUserIdPotentiallyUndefined(): Observable<string | undefined> {
+    return this.getAuthState().pipe(map((auth) => auth?.uid));
+  }
+
   /**
    * Logs the user in via an email and password to Firebase.
    */
@@ -100,8 +104,6 @@ export class AuthService {
       (async (): Promise<LoginResponse> => {
         try {
           await signInWithEmailAndPassword(this.auth, email, password);
-
-          await this.checkForUser();
 
           return {
             success: true,
@@ -128,8 +130,6 @@ export class AuthService {
         try {
           await signInWithPopup(this.auth, new GoogleAuthProvider());
 
-          await this.checkForUser();
-
           return {
             success: true,
           };
@@ -144,16 +144,11 @@ export class AuthService {
     );
   }
 
-  async checkForUser() {
-    const user = await firstValueFrom(
-      this.store.get('users', this.getUserId()).result$
+  checkForUser(): Observable<boolean> {
+    return fromPromise(
+      firstValueFrom(this.store.get('users', this.getUserId()).value$).then(
+        (user) => !!user
+      )
     );
-
-    const usersId = await firstValueFrom(this.getUserId());
-
-    // If the user doesn't have a user we need to make one.
-    if (!user) {
-      await firstValueFrom(this.store.set('users', { id: usersId }).result$);
-    }
   }
 }

@@ -5,19 +5,21 @@ import { StoreCollection } from './config/collections';
 
 export type OmittedStoreObjectParams = keyof StoreDocument;
 
-export type UpdateData<T extends StoreDocument> = DualParam<Partial<T>>;
+export type UpdateData<C extends StoreCollection> = DualParam<
+  Partial<C['type']>
+>;
 
 export type WhereConstraints = DualParam<QueryConstraint[]>;
 
-export type SetData<T extends StoreDocument> = DualParam<
-  Omit<T, OmittedStoreObjectParams> & { id: string }
+export type SetData<C extends StoreCollection> = DualParam<
+  Omit<C['type'], OmittedStoreObjectParams> & { id: string }
 >;
 
-export type CreateData<T extends StoreDocument> = DualParam<
-  Omit<T, OmittedStoreObjectParams>
+export type CreateData<C extends StoreCollection> = DualParam<
+  Omit<C['type'], OmittedStoreObjectParams>
 >;
 
-export type DocumentId = DualParam<string>;
+export type DocumentId = DualParam<string | undefined>;
 
 export interface StoreDocument {
   readonly id: string;
@@ -51,7 +53,7 @@ export type StoreResult<
 > = {
   readonly loading$: Observable<boolean>;
   readonly error$: Observable<FirebaseError | undefined>;
-  readonly result$: Observable<T | undefined>;
+  readonly value$: Observable<T | undefined>;
 };
 
 export type CreateResult<C extends StoreCollection> = StoreResult<string>;
@@ -72,8 +74,9 @@ export type ListenResult<C extends StoreCollection> = StoreResult<
   C['type'] | undefined
 >;
 
-export type SuccessRequestResult = {
+export type SuccessCreateResult = {
   readonly status: 'success';
+  readonly id: string;
 };
 
 export type ErrorRequestResult = {
@@ -82,12 +85,14 @@ export type ErrorRequestResult = {
   readonly code: ErrorCode;
 };
 
-export type RequestResult = SuccessRequestResult | ErrorRequestResult;
+export type RequestResult = ErrorRequestResult | SuccessCreateResult;
 
 export enum ErrorCode {
-  ENTERPRISE_NOT_FOUND,
+  WORKSPACE_NOT_FOUND,
   TEAM_NOT_FOUND,
   CREATE_FAILED,
+  USER_NOT_FOUND,
+  BOARD_NOT_FOUND,
 }
 
 export enum DocumentState {

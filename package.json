@@ -4,8 +4,8 @@
   "scripts": {
     "check-size": "source-map-explorer dist/okrhub/**/*.js",
     "deploy:rules": "firebase deploy --only firestore:rules",
-    "start:app": "ng serve okrhub-app --port 4201",
-    "start:site": "ng serve okrhub-site --port 4200",
+    "start:app": "ng serve okrhub-app",
+    "start:site": "ng serve okrhub-site",
     "build:app": "ng build okrhub-app --configuration production",
     "build:site": "ng build okrhub-site --configuration production"
   },

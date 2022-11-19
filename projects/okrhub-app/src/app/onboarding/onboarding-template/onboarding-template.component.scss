@@ -1,0 +1,11 @@
+@use "variables";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ContinueButton {
+  padding-top: variables.$spacing-small;
+}
