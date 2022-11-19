@@ -2,7 +2,8 @@
   "name": "okrhub",
   "version": "0.0.0",
   "scripts": {
-    "check-size": "source-map-explorer dist/okrhub/**/*.js",
+    "check-size:app": "source-map-explorer dist/okrhub-app/**/*.js",
+    "check-size:site": "source-map-explorer dist/okrhub-site/**/*.js",
     "deploy:rules": "firebase deploy --only firestore:rules",
     "start:app": "ng serve okrhub-app",
     "start:site": "ng serve okrhub-site",

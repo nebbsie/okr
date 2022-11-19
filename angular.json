@@ -21,6 +21,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "sourceMap": true,
             "outputPath": "dist/okrhub-app",
             "index": "projects/okrhub-app/src/index.html",
             "main": "projects/okrhub-app/src/main.ts",
@@ -46,7 +47,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "1.25mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -131,6 +132,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "sourceMap": true,
             "outputPath": "dist/okrhub-site",
             "index": "projects/okrhub-site/src/index.html",
             "main": "projects/okrhub-site/src/main.ts",
