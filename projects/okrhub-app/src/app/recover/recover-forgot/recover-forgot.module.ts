@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RecoverForgotRoutingModule } from './recover-forgot-routing.module';
 import { RecoverForgotComponent } from './recover-forgot.component';
-import { PageModule } from '@ui/page';
+import { PageComponent } from '@ui/page';
 import { DirectivesModule } from '@directives/directives.module';
 import { ForgotPasswordComponent } from '@components/forgot-password';
 
@@ -12,7 +12,7 @@ import { ForgotPasswordComponent } from '@components/forgot-password';
   imports: [
     CommonModule,
     RecoverForgotRoutingModule,
-    PageModule,
+    PageComponent,
     DirectivesModule,
     ForgotPasswordComponent,
   ],

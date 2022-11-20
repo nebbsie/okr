@@ -30,9 +30,9 @@ import { firstValueFrom } from 'rxjs';
       <ui-button type="stroked" (click)="closeModal(undefined)">
         Cancel
       </ui-button>
-      <ui-button colour="primary" (click)="handleCreateTeam()"
-        >Create</ui-button
-      >
+      <ui-button colour="primary" (click)="handleCreateTeam()">
+        Create
+      </ui-button>
     </ui-flex>
   `,
   styleUrls: ['./create-team-modal.component.scss'],

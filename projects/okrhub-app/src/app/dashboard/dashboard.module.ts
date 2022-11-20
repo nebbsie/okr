@@ -8,20 +8,19 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ButtonModule } from '@ui/button';
-import { PageModule } from '@ui/page';
 import { DirectivesModule } from '@directives/directives.module';
 import { PipesModule } from '@pipes/pipes.module';
-import { TextModule } from '@ui/text';
+import { ButtonComponent } from '@ui/button';
+import { PageComponent } from '@ui/page';
+import { TextComponent } from '@ui/text';
 
 @NgModule({
   declarations: [DashboardComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    ButtonModule,
-    PageModule,
-    TextModule,
+    PageComponent,
+    TextComponent,
     MatIconModule,
     MatSidenavModule,
     DirectivesModule,
@@ -30,6 +29,7 @@ import { TextModule } from '@ui/text';
     MatButtonModule,
     PipesModule,
     DragDropModule,
+    ButtonComponent,
   ],
 })
 export class DashboardModule {}

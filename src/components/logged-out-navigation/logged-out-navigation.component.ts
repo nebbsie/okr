@@ -1,18 +1,18 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TextModule } from '@ui/text';
 import { RouterLink } from '@angular/router';
-import { ButtonModule } from '@ui/button';
 import { DirectivesModule } from '@directives/directives.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { ButtonComponent } from '@ui/button';
+import { TextComponent } from '@ui/text';
 
 @Component({
   selector: 'app-logged-out-navigation',
   standalone: true,
   imports: [
-    TextModule,
+    TextComponent,
     RouterLink,
-    ButtonModule,
+    ButtonComponent,
     DirectivesModule,
     MatMenuModule,
     MatIconModule,

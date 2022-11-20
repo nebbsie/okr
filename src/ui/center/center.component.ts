@@ -8,6 +8,8 @@ import { AlignItems, FlexDirection, JustifyContent } from '../flex/flex.types';
 
 @Component({
   selector: 'ui-center',
+  standalone: true,
+  imports: [],
   template: `
     <div
       class="Center"

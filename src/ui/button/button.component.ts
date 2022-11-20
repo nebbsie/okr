@@ -6,9 +6,14 @@ import {
   OnInit,
 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'ui-button',
+  standalone: true,
+  imports: [MatButtonModule, NgTemplateOutlet, MatIconModule, NgIf],
   template: `
     <button
       *ngIf="type === 'normal'"
@@ -79,8 +84,10 @@ import { ThemePalette } from '@angular/material/core';
 export class ButtonComponent implements OnInit {
   @Input() colour?: ThemePalette = undefined;
   @Input() type: 'normal' | 'icon' | 'stroked' = 'normal';
-
   @Input() icon?: string;
+  @Input() loading? = false;
+  @Input() disabled? = false;
+  @Input() tallButton = false;
 
   @Input()
   @HostBinding('attr.data-full-width')
@@ -93,11 +100,6 @@ export class ButtonComponent implements OnInit {
   @Input()
   @HostBinding('attr.data-full-width-desktop')
   fullWidthDesktop = false;
-
-  @Input() loading? = false;
-  @Input() disabled? = false;
-
-  @Input() tallButton = false;
 
   lightStyle = false;
 

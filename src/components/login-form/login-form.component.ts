@@ -9,29 +9,29 @@ import { FormControl } from '@angular/forms';
 import { BehaviorSubject, firstValueFrom, map, Observable } from 'rxjs';
 import { AuthService } from '../../services';
 import { ActivatedRoute } from '@angular/router';
-import { TextModule } from '@ui/text';
-import { AlertModule } from '@ui/alert';
+import { AlertComponent } from '@ui/alert';
 import { PipesModule } from '@pipes/pipes.module';
 import { DirectivesModule } from '@directives/directives.module';
-import { InputModule } from '@ui/input';
-import { ButtonModule } from '@ui/button';
-import { LinkModule } from '@ui/link';
-import { DividerTextModule } from '@ui/divider-text';
+import { DividerTextComponent } from '@ui/divider-text';
 import { GoogleAuthButtonComponent } from '@components/google-auth-button';
+import { ButtonComponent } from '@ui/button';
+import { InputComponent } from '@ui/input';
+import { LinkComponent } from '@ui/link';
+import { TextComponent } from '@ui/text';
 
 @Component({
   selector: 'app-login-form',
   standalone: true,
   imports: [
-    TextModule,
-    AlertModule,
+    TextComponent,
     PipesModule,
     DirectivesModule,
-    InputModule,
-    ButtonModule,
-    LinkModule,
-    DividerTextModule,
+    LinkComponent,
+    ButtonComponent,
     GoogleAuthButtonComponent,
+    AlertComponent,
+    DividerTextComponent,
+    InputComponent,
   ],
   template: `
     <ui-text align="center" weight="bold" size="xxlarge" marginBottom="mid">

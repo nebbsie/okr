@@ -1,21 +1,21 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CenterModule } from '@ui/center/center.module';
-import { TextModule } from '@ui/text';
 import { MatIconModule } from '@angular/material/icon';
-import { IconModule } from '@ui/icon';
-import { FlexModule } from '@ui/flex';
+import { FlexComponent } from '@ui/flex';
 import { DirectivesModule } from '@directives/directives.module';
+import { CenterComponent } from '@ui/center/center.component';
+import { IconComponent } from '@ui/icon';
+import { TextComponent } from '@ui/text';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
   imports: [
-    CenterModule,
-    TextModule,
+    TextComponent,
     MatIconModule,
-    IconModule,
-    FlexModule,
     DirectivesModule,
+    CenterComponent,
+    FlexComponent,
+    IconComponent,
   ],
   template: `
     <footer class="Footer">

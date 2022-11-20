@@ -8,6 +8,7 @@ import { AlignItems, FlexDirection, JustifyContent } from './flex.types';
 
 @Component({
   selector: 'ui-flex',
+  standalone: true,
   template: ` <ng-content></ng-content> `,
   styleUrls: ['./flex.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

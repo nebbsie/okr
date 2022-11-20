@@ -4,13 +4,17 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { AvatarSize } from '@ui/avatar/avatar.types';
 import { Store, UsersCollection } from '@services/store';
 import { filter, map, Observable } from 'rxjs';
 import { isDefined } from '@utils/utils';
+import { PipesModule } from '@pipes/pipes.module';
+import { TextComponent } from '@ui/text';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'ui-avatar',
+  standalone: true,
+  imports: [TextComponent, PipesModule, NgIf],
   template: `
     <img
       *ngIf="hasAvatar$ | Async; else emptyAvatar"
@@ -34,7 +38,7 @@ import { isDefined } from '@utils/utils';
 })
 export class AvatarComponent implements OnInit {
   @Input() userId$!: Observable<string>;
-  @Input() size: AvatarSize = 'small';
+  @Input() size: 'small' | 'mid' = 'small';
   @Input() clickable = false;
 
   hasAvatar$!: Observable<boolean>;

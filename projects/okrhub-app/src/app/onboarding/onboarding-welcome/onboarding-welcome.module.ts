@@ -3,24 +3,24 @@ import { CommonModule } from '@angular/common';
 
 import { OnboardingWelcomeRoutingModule } from './onboarding-welcome-routing.module';
 import { OnboardingWelcomeComponent } from './onboarding-welcome.component';
-import { TextModule } from '@ui/text';
-import { InputModule } from '@ui/input';
 import { DirectivesModule } from '@directives/directives.module';
-import { ButtonModule } from '@ui/button';
 import { PipesModule } from '@pipes/pipes.module';
 import { OnboardingTemplateModule } from '../onboarding-template/onboarding-template.module';
+import { ButtonComponent } from '@ui/button';
+import { InputComponent } from '@ui/input';
+import { TextComponent } from '@ui/text';
 
 @NgModule({
   declarations: [OnboardingWelcomeComponent],
   imports: [
     CommonModule,
     OnboardingWelcomeRoutingModule,
-    TextModule,
-    InputModule,
+    TextComponent,
     DirectivesModule,
-    ButtonModule,
+    ButtonComponent,
     PipesModule,
     OnboardingTemplateModule,
+    InputComponent,
   ],
 })
 export class OnboardingWelcomeModule {}

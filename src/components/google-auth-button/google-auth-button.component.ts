@@ -5,13 +5,13 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { ButtonModule } from '@ui/button';
 import { DirectivesModule } from '@directives/directives.module';
+import { ButtonComponent } from '@ui/button';
 
 @Component({
   selector: 'app-google-auth-button',
   standalone: true,
-  imports: [ButtonModule, DirectivesModule],
+  imports: [ButtonComponent, DirectivesModule],
   template: `
     <ui-button [loading]="loading" [fullWidth]="true" (click)="submit.emit()">
       <img

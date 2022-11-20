@@ -3,28 +3,28 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { AuthService } from '../../services';
 import { Router } from '@angular/router';
-import { TextModule } from '@ui/text';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ButtonModule } from '@ui/button';
 import { DirectivesModule } from '@directives/directives.module';
 import { PipesModule } from '@pipes/pipes.module';
-import { LinkModule } from '@ui/link';
+import { LinkComponent } from '@ui/link';
+import { ButtonComponent } from '@ui/button';
+import { TextComponent } from '@ui/text';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
   imports: [
-    TextModule,
+    TextComponent,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatIconModule,
     MatInputModule,
-    ButtonModule,
+    ButtonComponent,
     DirectivesModule,
     PipesModule,
-    LinkModule,
+    LinkComponent,
   ],
   template: `
     <ui-text align="center" weight="bold" size="xlarge" marginBottom="mid">

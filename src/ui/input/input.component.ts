@@ -8,11 +8,27 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { startWith, Subscription } from 'rxjs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { DirectivesModule } from '@directives/directives.module';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'ui-input',
+  standalone: true,
+  imports: [
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    DirectivesModule,
+    NgIf,
+  ],
   template: `
     <mat-form-field class="Input" appearance="outline">
       <mat-label>{{ label }}</mat-label>
@@ -65,11 +81,7 @@ export class InputComponent implements OnInit, OnDestroy {
   @Input() type!: 'text' | 'password' | 'email';
   @Input() control!: FormControl;
   @Input() disabled?: boolean = false;
-
-  hidePassword = true;
-
   @Input() icon?: string;
-
   @Input() submitAction?: string;
   @Input() loading?: boolean = false;
 
@@ -77,6 +89,7 @@ export class InputComponent implements OnInit, OnDestroy {
 
   subscription?: Subscription;
   error?: string;
+  hidePassword = true;
 
   constructor(private ref: ChangeDetectorRef) {}
 

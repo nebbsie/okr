@@ -1,8 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TextColour, TextSize } from '../index';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'ui-icon',
+  standalone: true,
+  imports: [MatIconModule, RouterLink],
   template: `
     <mat-icon
       class="Icon"
@@ -23,13 +27,7 @@ import { TextColour, TextSize } from '../index';
 export class IconComponent {
   @Input() link?: string;
   @Input() colour: TextColour = 'dark';
-
-  @Input()
-  size: TextSize = 'xlarge';
-
-  @Input()
-  sizeTablet?: TextSize;
-
-  @Input()
-  sizeDesktop?: TextSize;
+  @Input() size: TextSize = 'xlarge';
+  @Input() sizeTablet?: TextSize;
+  @Input() sizeDesktop?: TextSize;
 }

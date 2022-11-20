@@ -1,8 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ContentDirection } from './page.types';
+import { TextComponent } from '@ui/text';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'ui-page',
+  standalone: true,
+  imports: [TextComponent, NgIf],
   template: `
     <div class="PageTitle" *ngIf="title">
       <ui-text>{{ title }}</ui-text>
@@ -21,10 +24,6 @@ import { ContentDirection } from './page.types';
 })
 export class PageComponent {
   @Input() title!: string;
-
-  @Input()
-  center?: boolean = false;
-
-  @Input()
-  contentDirection?: ContentDirection = 'column';
+  @Input() center?: boolean = false;
+  @Input() contentDirection?: 'row' | 'column' = 'column';
 }

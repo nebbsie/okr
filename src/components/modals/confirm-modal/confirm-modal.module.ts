@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConfirmModalComponent } from './confirm-modal.component';
-import { TextModule } from '@ui/text';
 import { DirectivesModule } from '@directives/directives.module';
-import { ButtonModule } from '@ui/button';
 import { PipesModule } from '@pipes/pipes.module';
-import { FlexModule } from '@ui/flex';
+import { FlexComponent } from '@ui/flex';
+import { ButtonComponent } from '@ui/button';
+import { TextComponent } from '@ui/text';
 
 @NgModule({
   declarations: [ConfirmModalComponent],
   imports: [
     CommonModule,
-    TextModule,
+    TextComponent,
     DirectivesModule,
-    ButtonModule,
+    ButtonComponent,
     PipesModule,
-    FlexModule,
+    FlexComponent,
   ],
 })
 export class ConfirmModalModule {}

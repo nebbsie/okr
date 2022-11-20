@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateTeamModalComponent } from './create-team-modal.component';
-import { TextModule } from '@ui/text';
 import { DirectivesModule } from '@directives/directives.module';
-import { InputModule } from '@ui/input';
-import { FlexModule } from '@ui/flex';
-import { ButtonModule } from '@ui/button';
+import { FlexComponent } from '@ui/flex';
+import { ButtonComponent } from '@ui/button';
+import { InputComponent } from '@ui/input';
+import { TextComponent } from '@ui/text';
 
 @NgModule({
   declarations: [CreateTeamModalComponent],
   imports: [
     CommonModule,
-    TextModule,
+    TextComponent,
     DirectivesModule,
-    InputModule,
-    FlexModule,
-    ButtonModule,
+    ButtonComponent,
+    FlexComponent,
+    InputComponent,
   ],
 })
 export class CreateTeamModalModule {}

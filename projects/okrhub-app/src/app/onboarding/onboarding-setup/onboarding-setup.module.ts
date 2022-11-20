@@ -6,7 +6,7 @@ import { OnboardingSetupPersonalComponent } from './onboarding-setup-personal/on
 import { OnboardingSetupTeamComponent } from './onboarding-setup-team/onboarding-setup-team.component';
 import { OnboardingSetupCompanyComponent } from './onboarding-setup-company/onboarding-setup-company.component';
 import { OnboardingTemplateModule } from '../onboarding-template/onboarding-template.module';
-import { InputModule } from '@ui/input';
+import { InputComponent } from '@ui/input';
 import { PipesModule } from '@pipes/pipes.module';
 
 @NgModule({
@@ -19,8 +19,8 @@ import { PipesModule } from '@pipes/pipes.module';
     CommonModule,
     OnboardingSetupRoutingModule,
     OnboardingTemplateModule,
-    InputModule,
     PipesModule,
+    InputComponent,
   ],
 })
 export class OnboardingSetupModule {}

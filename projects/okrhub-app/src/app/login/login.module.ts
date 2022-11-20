@@ -11,11 +11,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { DirectivesModule } from '@directives/directives.module';
-import { ButtonModule } from '@ui/button';
-import { LinkModule } from '@ui/link';
-import { PageModule } from '@ui/page';
-import { TextModule } from '@ui/text';
 import { LoginFormComponent } from '@components/login-form/login-form.component';
+import { ButtonComponent } from '@ui/button';
+import { LinkComponent } from '@ui/link';
+import { PageComponent } from '@ui/page';
+import { TextComponent } from '@ui/text';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -28,14 +28,14 @@ import { LoginFormComponent } from '@components/login-form/login-form.component'
     MatButtonModule,
     MatDividerModule,
     DirectivesModule,
-    TextModule,
-    ButtonModule,
-    LinkModule,
+    TextComponent,
+    ButtonComponent,
     MatProgressBarModule,
     ReactiveFormsModule,
     MatIconModule,
-    PageModule,
+    PageComponent,
     LoginFormComponent,
+    LinkComponent,
   ],
 })
 export class LoginModule {}

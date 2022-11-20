@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OnboardingTemplateComponent } from './onboarding-template.component';
-import { TextModule } from '@ui/text';
 import { DirectivesModule } from '@directives/directives.module';
-import { ButtonModule } from '@ui/button';
+import { ButtonComponent } from '@ui/button';
+import { TextComponent } from '@ui/text';
 
 @NgModule({
   declarations: [OnboardingTemplateComponent],
-  imports: [CommonModule, TextModule, DirectivesModule, ButtonModule],
+  imports: [CommonModule, TextComponent, DirectivesModule, ButtonComponent],
   exports: [OnboardingTemplateComponent],
 })
 export class OnboardingTemplateModule {}

@@ -11,7 +11,7 @@ import {
   UserType,
 } from '@services/store';
 import { AuthService } from '@services/auth';
-import { UsersService } from '../../../../../../src/services/collections/users';
+import { UsersService } from '@services/collections/users';
 
 @Component({
   selector: 'app-onboarding-welcome',

@@ -8,29 +8,29 @@ import { FormControl } from '@angular/forms';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { AuthService } from '../../services';
 import { isEmail, isValidPassword } from '@utils/validators';
-import { TextModule } from '@ui/text';
 import { DirectivesModule } from '@directives/directives.module';
-import { InputModule } from '@ui/input';
-import { ButtonModule } from '@ui/button';
 import { PipesModule } from '@pipes/pipes.module';
-import { AlertModule } from '@ui/alert';
-import { DividerTextModule } from '@ui/divider-text';
+import { DividerTextComponent } from '@ui/divider-text';
 import { GoogleAuthButtonComponent } from '@components/google-auth-button';
-import { LinkModule } from '@ui/link';
+import { AlertComponent } from '@ui/alert';
+import { ButtonComponent } from '@ui/button';
+import { InputComponent } from '@ui/input';
+import { LinkComponent } from '@ui/link';
+import { TextComponent } from '@ui/text';
 
 @Component({
   selector: 'app-register-form',
   standalone: true,
   imports: [
-    TextModule,
+    TextComponent,
     DirectivesModule,
-    InputModule,
-    ButtonModule,
+    ButtonComponent,
     PipesModule,
-    AlertModule,
-    DividerTextModule,
     GoogleAuthButtonComponent,
-    LinkModule,
+    LinkComponent,
+    AlertComponent,
+    DividerTextComponent,
+    InputComponent,
   ],
   template: `
     <ui-text align="center" weight="bold" size="xxlarge" marginBottom="mid">

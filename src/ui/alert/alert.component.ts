@@ -5,11 +5,14 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { AlertType } from './alert.types';
-import { TextColour } from '../index';
+import { TextColour, TextComponent } from '../index';
+import { DirectivesModule } from '@directives/directives.module';
+import { IconComponent } from '@ui/icon';
 
 @Component({
   selector: 'ui-alert',
+  standalone: true,
+  imports: [DirectivesModule, TextComponent, IconComponent],
   template: `
     <ui-icon [colour]="iconColour" marginRight="mid">
       {{ iconType }}
@@ -25,7 +28,7 @@ import { TextColour } from '../index';
 export class AlertComponent implements OnInit {
   @HostBinding('attr.alert-type')
   @Input()
-  type: AlertType = 'info';
+  type: 'warning' | 'info' | 'success' | 'error' = 'info';
 
   iconType!: string;
   iconColour!: TextColour;

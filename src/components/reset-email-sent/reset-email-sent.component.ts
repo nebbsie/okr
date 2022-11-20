@@ -1,14 +1,20 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TextModule } from '@ui/text';
-import { ButtonModule } from '@ui/button';
+import { ButtonComponent } from '@ui/button';
 import { DirectivesModule } from '@directives/directives.module';
 import { RouterLink } from '@angular/router';
-import { LinkModule } from '@ui/link';
+import { LinkComponent } from '@ui/link';
+import { TextComponent } from '@ui/text';
 
 @Component({
   selector: 'app-reset-email-sent',
   standalone: true,
-  imports: [TextModule, ButtonModule, DirectivesModule, RouterLink, LinkModule],
+  imports: [
+    TextComponent,
+    DirectivesModule,
+    RouterLink,
+    ButtonComponent,
+    LinkComponent,
+  ],
   template: `
     <ui-text align="center" weight="bold" size="xlarge" marginBottom="mid">
       Check your email
