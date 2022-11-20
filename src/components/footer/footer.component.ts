@@ -1,7 +1,22 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CenterModule } from '@ui/center/center.module';
+import { TextModule } from '@ui/text';
+import { MatIconModule } from '@angular/material/icon';
+import { IconModule } from '@ui/icon';
+import { FlexModule } from '@ui/flex';
+import { DirectivesModule } from '@directives/directives.module';
 
 @Component({
   selector: 'app-footer',
+  standalone: true,
+  imports: [
+    CenterModule,
+    TextModule,
+    MatIconModule,
+    IconModule,
+    FlexModule,
+    DirectivesModule,
+  ],
   template: `
     <footer class="Footer">
       <ui-center justify="space-between" align="center">

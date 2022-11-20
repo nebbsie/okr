@@ -10,9 +10,26 @@ import {
 } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services';
+import { TextModule } from '@ui/text';
+import { DirectivesModule } from '@directives/directives.module';
+import { InputModule } from '@ui/input';
+import { ButtonModule } from '@ui/button';
+import { PipesModule } from '@pipes/pipes.module';
+import { LinkModule } from '@ui/link';
+import { AlertModule } from '@ui/alert';
 
 @Component({
   selector: 'app-reset-password',
+  standalone: true,
+  imports: [
+    TextModule,
+    DirectivesModule,
+    InputModule,
+    ButtonModule,
+    PipesModule,
+    LinkModule,
+    AlertModule,
+  ],
   template: `
     <ui-text align="center" weight="bold" size="xlarge" marginBottom="mid">
       Create new password

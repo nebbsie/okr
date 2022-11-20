@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-recover-reset',
@@ -10,8 +10,4 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./recover-reset.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecoverResetComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class RecoverResetComponent {}

@@ -4,8 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CenterModule } from '@ui/center/center.module';
-import { LoggedOutNavigationModule } from '@components/logged-out-navigation';
-import { FooterModule } from '@components/footer';
+import {
+  LoggedOutNavigationComponent,
+  LoggedOutNavigationModule,
+} from '@components/logged-out-navigation';
+import { FooterComponent } from '@components/footer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,7 +17,8 @@ import { FooterModule } from '@components/footer';
     AppRoutingModule,
     CenterModule,
     LoggedOutNavigationModule,
-    FooterModule,
+    FooterComponent,
+    LoggedOutNavigationComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

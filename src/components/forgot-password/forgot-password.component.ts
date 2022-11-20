@@ -1,11 +1,31 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { AuthService } from '../../services';
 import { Router } from '@angular/router';
+import { TextModule } from '@ui/text';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { ButtonModule } from '@ui/button';
+import { DirectivesModule } from '@directives/directives.module';
+import { PipesModule } from '@pipes/pipes.module';
+import { LinkModule } from '@ui/link';
 
 @Component({
   selector: 'app-forgot-password',
+  standalone: true,
+  imports: [
+    TextModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatInputModule,
+    ButtonModule,
+    DirectivesModule,
+    PipesModule,
+    LinkModule,
+  ],
   template: `
     <ui-text align="center" weight="bold" size="xlarge" marginBottom="mid">
       Forgot password?

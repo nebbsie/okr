@@ -13,9 +13,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { DirectivesModule } from '@directives/directives.module';
 import { ButtonModule } from '@ui/button';
 import { LinkModule } from '@ui/link';
-import { LoginFormModule } from '@components/login-form';
 import { PageModule } from '@ui/page';
 import { TextModule } from '@ui/text';
+import { LoginFormComponent } from '@components/login-form/login-form.component';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -34,8 +34,8 @@ import { TextModule } from '@ui/text';
     MatProgressBarModule,
     ReactiveFormsModule,
     MatIconModule,
-    LoginFormModule,
     PageModule,
+    LoginFormComponent,
   ],
 })
 export class LoginModule {}

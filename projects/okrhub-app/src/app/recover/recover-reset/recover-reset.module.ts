@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RecoverResetRoutingModule } from './recover-reset-routing.module';
 import { RecoverResetComponent } from './recover-reset.component';
-import { ResetPasswordModule } from '@components/reset-password';
+import { ResetPasswordComponent } from '@components/reset-password';
 import { PageModule } from '@ui/page';
 import { DirectivesModule } from '@directives/directives.module';
 
@@ -13,8 +13,8 @@ import { DirectivesModule } from '@directives/directives.module';
     CommonModule,
     RecoverResetRoutingModule,
     PageModule,
-    ResetPasswordModule,
     DirectivesModule,
+    ResetPasswordComponent,
   ],
 })
 export class RecoverResetModule {}

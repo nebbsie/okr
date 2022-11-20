@@ -9,9 +9,30 @@ import { FormControl } from '@angular/forms';
 import { BehaviorSubject, firstValueFrom, map, Observable } from 'rxjs';
 import { AuthService } from '../../services';
 import { ActivatedRoute } from '@angular/router';
+import { TextModule } from '@ui/text';
+import { AlertModule } from '@ui/alert';
+import { PipesModule } from '@pipes/pipes.module';
+import { DirectivesModule } from '@directives/directives.module';
+import { InputModule } from '@ui/input';
+import { ButtonModule } from '@ui/button';
+import { LinkModule } from '@ui/link';
+import { DividerTextModule } from '@ui/divider-text';
+import { GoogleAuthButtonComponent } from '@components/google-auth-button';
 
 @Component({
   selector: 'app-login-form',
+  standalone: true,
+  imports: [
+    TextModule,
+    AlertModule,
+    PipesModule,
+    DirectivesModule,
+    InputModule,
+    ButtonModule,
+    LinkModule,
+    DividerTextModule,
+    GoogleAuthButtonComponent,
+  ],
   template: `
     <ui-text align="center" weight="bold" size="xxlarge" marginBottom="mid">
       okrhub

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MarginDirective } from './margin.directive';
-import { HideDirective } from './hide.directive';
+import { MarginDirective } from './margin/margin.directive';
+import { HideDirective } from './hide/hide.directive';
 
 @NgModule({
   declarations: [MarginDirective, HideDirective],

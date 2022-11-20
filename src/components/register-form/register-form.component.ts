@@ -7,10 +7,31 @@ import {
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { AuthService } from '../../services';
-import { isEmail, isValidPassword } from '../../utils/validators';
+import { isEmail, isValidPassword } from '@utils/validators';
+import { TextModule } from '@ui/text';
+import { DirectivesModule } from '@directives/directives.module';
+import { InputModule } from '@ui/input';
+import { ButtonModule } from '@ui/button';
+import { PipesModule } from '@pipes/pipes.module';
+import { AlertModule } from '@ui/alert';
+import { DividerTextModule } from '@ui/divider-text';
+import { GoogleAuthButtonComponent } from '@components/google-auth-button';
+import { LinkModule } from '@ui/link';
 
 @Component({
   selector: 'app-register-form',
+  standalone: true,
+  imports: [
+    TextModule,
+    DirectivesModule,
+    InputModule,
+    ButtonModule,
+    PipesModule,
+    AlertModule,
+    DividerTextModule,
+    GoogleAuthButtonComponent,
+    LinkModule,
+  ],
   template: `
     <ui-text align="center" weight="bold" size="xxlarge" marginBottom="mid">
       okrhub

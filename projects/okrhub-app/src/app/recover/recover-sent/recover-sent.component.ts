@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'page-recover-sent',
@@ -10,8 +10,4 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./recover-sent.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecoverSentComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class RecoverSentComponent {}

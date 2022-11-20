@@ -1,7 +1,14 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TextModule } from '@ui/text';
+import { ButtonModule } from '@ui/button';
+import { DirectivesModule } from '@directives/directives.module';
+import { RouterLink } from '@angular/router';
+import { LinkModule } from '@ui/link';
 
 @Component({
   selector: 'app-reset-email-sent',
+  standalone: true,
+  imports: [TextModule, ButtonModule, DirectivesModule, RouterLink, LinkModule],
   template: `
     <ui-text align="center" weight="bold" size="xlarge" marginBottom="mid">
       Check your email
@@ -27,8 +34,4 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./reset-email-sent.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ResetEmailSentComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class ResetEmailSentComponent {}

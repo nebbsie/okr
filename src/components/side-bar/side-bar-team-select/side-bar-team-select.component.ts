@@ -70,15 +70,26 @@ export class SideBarTeamSelectComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const selectedTeamId$ = this.localStorage
-      .get('selectedTeam')
-      .pipe(filter(isDefined));
+    const selectedTeamId$ = this.localStorage.get('selectedTeam');
 
     const currentUserResult$ = this.users.listenCurrentUser();
     const user$ = currentUserResult$.value$;
 
     this.selectedTeam$ = combineLatest([user$, selectedTeamId$]).pipe(
-      map(([user, selectedTeamId]) => user?.joinedTeams?.get(selectedTeamId)),
+      map(([user, selectedTeamId]) => {
+        if (!user) {
+          return undefined;
+        }
+
+        // If the user hasn't set a selectedTeam, select the first one they are currently part of.
+        if (!selectedTeamId) {
+          const [firstTeam] = user.joinedTeams.values();
+          this.localStorage.set('selectedTeam', firstTeam.id);
+          return undefined;
+        }
+
+        return user.joinedTeams.get(selectedTeamId);
+      }),
       filter(isDefined)
     );
 

@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { RecoverSentRoutingModule } from './recover-sent-routing.module';
 import { RecoverSentComponent } from './recover-sent.component';
 import { PageModule } from '@ui/page';
-import { ResetEmailSentModule } from '@components/reset-email-sent';
 import { DirectivesModule } from '@directives/directives.module';
+import { ResetEmailSentComponent } from '@components/reset-email-sent';
 
 @NgModule({
   declarations: [RecoverSentComponent],
@@ -13,8 +13,8 @@ import { DirectivesModule } from '@directives/directives.module';
     CommonModule,
     RecoverSentRoutingModule,
     PageModule,
-    ResetEmailSentModule,
     DirectivesModule,
+    ResetEmailSentComponent,
   ],
 })
 export class RecoverSentModule {}
