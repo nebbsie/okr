@@ -80,3 +80,12 @@ export function FirebaseMapToTypescriptMap<T>(data: any): Map<string, T> {
   });
   return map;
 }
+
+/**
+ * Convert's a Map to Array of values.
+ * @param map
+ * @constructor
+ */
+export function MapToArray<T>(map?: Map<string, T>): T[] {
+  return Array.from(map?.values() ?? []);
+}

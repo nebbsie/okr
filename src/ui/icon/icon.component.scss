@@ -14,6 +14,10 @@
       cursor: pointer;
       filter: brightness(80%);
       transition: all 200ms cubic-bezier(.03,.76,.83,.67);
+
+      &[data-font-colour='dark'] {
+        color: darkgrey;
+      }
     }
   }
 

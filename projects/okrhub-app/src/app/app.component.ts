@@ -1,9 +1,17 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { combineLatest, map, Observable } from 'rxjs';
+import {
+  combineLatest,
+  firstValueFrom,
+  map,
+  Observable,
+  startWith,
+} from 'rxjs';
 import { AuthService } from '@services/auth';
 import { ActivatedRoute } from '@angular/router';
 import { Config, ConfigService } from '@services/config';
 import { ScreenSizeService } from '@services/screen-size';
+import { LocalStorageService } from '@services/local-storage/local-storage.service';
+import { UsersService } from '@services/collections/users';
 
 @Component({
   selector: 'app-root',
@@ -42,8 +50,10 @@ export class AppComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private config: ConfigService,
+    private localStorage: LocalStorageService,
     private route: ActivatedRoute,
-    private screen: ScreenSizeService
+    private screen: ScreenSizeService,
+    private users: UsersService
   ) {}
 
   ngOnInit() {
@@ -70,6 +80,32 @@ export class AppComponent implements OnInit {
       map(
         ([isMobile, config, isLoggedIn]) =>
           isMobile && config.noShell !== true && isLoggedIn
+      )
+    );
+
+    firstValueFrom(
+      combineLatest([
+        this.localStorage.get('selectedWorkspace').pipe(startWith(false)),
+        this.localStorage.get('selectedTeam').pipe(startWith(false)),
+        this.users.getCurrentUser().value$,
+      ]).pipe(
+        map(([selectedWorkspace, selectedTeam, user]) => {
+          // Users selected workspace has been lost, select the default one.
+          if (
+            selectedWorkspace !== false &&
+            selectedWorkspace === undefined &&
+            user
+          ) {
+            const [firstWorkspace] = user.joinedWorkspaces.values();
+            this.localStorage.set('selectedWorkspace', firstWorkspace.id);
+          }
+
+          // Users selected team has been lost, select the default one.
+          if (selectedTeam !== false && selectedTeam === undefined && user) {
+            const [firstTeam] = user.joinedTeams.values();
+            this.localStorage.set('selectedTeam', firstTeam.id);
+          }
+        })
       )
     );
   }

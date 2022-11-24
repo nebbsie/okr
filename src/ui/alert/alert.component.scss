@@ -2,10 +2,16 @@
 
 :host {
   display: flex;
-  padding: variables.$spacing-mid variables.$spacing-mid;
   align-items: center;
   border-radius: 5px;
 
+  &[padding="small"] {
+    padding: variables.$spacing-small variables.$spacing-small;
+  }
+
+  &[padding="mid"] {
+    padding: variables.$spacing-mid variables.$spacing-mid;
+  }
 
   &[alert-type='error'] {
     background-color: variables.$colour-alert-bg-error;
@@ -17,6 +23,7 @@
 
   &[alert-type='info'] {
     background-color: variables.$colour-alert-bg-info;
+    border: darken(variables.$colour-alert-bg-info, 5%) 1px solid;
   }
 
   &[alert-type='success'] {

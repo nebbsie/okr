@@ -5,7 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { TextColour, TextComponent } from '../index';
+import { TextColour, TextComponent, TextSize } from '../index';
 import { DirectivesModule } from '@directives/directives.module';
 import { IconComponent } from '@ui/icon';
 
@@ -14,11 +14,11 @@ import { IconComponent } from '@ui/icon';
   standalone: true,
   imports: [DirectivesModule, TextComponent, IconComponent],
   template: `
-    <ui-icon [colour]="iconColour" marginRight="mid">
+    <ui-icon [colour]="iconColour" [marginRight]="padding ? 'xsmall' : 'mid'">
       {{ iconType }}
     </ui-icon>
 
-    <ui-text>
+    <ui-text [size]="textSize">
       <ng-content></ng-content>
     </ui-text>
   `,
@@ -29,6 +29,13 @@ export class AlertComponent implements OnInit {
   @HostBinding('attr.alert-type')
   @Input()
   type: 'warning' | 'info' | 'success' | 'error' = 'info';
+
+  @HostBinding('attr.padding')
+  @Input()
+  padding: 'small' | 'mid' = 'mid';
+
+  @Input()
+  textSize: TextSize = 'mid';
 
   iconType!: string;
   iconColour!: TextColour;

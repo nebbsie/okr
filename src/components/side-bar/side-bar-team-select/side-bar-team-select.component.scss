@@ -18,10 +18,15 @@
 }
 
 .MatMenuHeader {
-  padding: variables.$spacing-xxxsmall variables.$spacing-xsmall variables.$spacing-none;
+  padding: variables.$spacing-xxsmall variables.$spacing-small variables.$spacing-xsmall;
 }
 
-.MenuItem {
-  display: flex;
-  align-items: center;
+.TeamSelectList {
+  max-height: 300px;
+  overflow-y: auto;
 }
+
+.AddButton {
+  padding-right: variables.$spacing-xsmall;
+}
+

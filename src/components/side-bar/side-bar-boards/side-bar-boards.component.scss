@@ -1,0 +1,32 @@
+@use "../../../variables";
+
+:host {
+  border-bottom: variables.$border;
+  display: block;
+}
+
+.Title {
+  padding: variables.$spacing-xsmall variables.$spacing-small;
+}
+
+.Loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 variables.$spacing-small;
+  min-height: variables.$spacing-xxlarge;
+}
+
+.Empty {
+  margin: 0 variables.$spacing-small;
+  min-height: variables.$spacing-xxlarge;
+}
+
+.BoardsList {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.SideBarActive {
+  background-color: variables.$colour-active !important;
+}

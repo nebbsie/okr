@@ -6,14 +6,24 @@ import {
   MinimalObject,
   RequestResult,
   Store,
+  Team,
   TeamsCollection,
   WorkspacesCollection,
 } from '../../store';
-import { firstValueFrom, map } from 'rxjs';
+import {
+  combineLatest,
+  distinctUntilChanged,
+  filter,
+  firstValueFrom,
+  map,
+  Observable,
+  switchMap,
+} from 'rxjs';
 import { LogsService } from '../logs/logs.service';
 import { AuthService } from '@services/auth';
 import { UsersService } from '@services/collections/users';
 import { where } from '@angular/fire/firestore';
+import { isDefined } from '@utils/utils';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +55,8 @@ export class TeamsService {
         ErrorCode.CREATE_FAILED
       );
     }
+
+    console.log(workspaceId);
 
     // Get the enterprise that the team will be added to.
     const workspaceToAddTo = await firstValueFrom(
@@ -141,17 +153,29 @@ export class TeamsService {
   }
 
   getCurrentUsersTeams() {
-    return this.store.where<TeamsCollection>(
-      'teams',
-      this.users.getCurrentUser().value$.pipe(
-        map((user) => {
-          if (!user) {
-            //TODO: what to do here?
-            return [];
-          }
-          return [where('id', 'in', Array.from(user.joinedTeams.keys()))];
-        })
-      )
+    const joinedTeamIds$ = this.users.listenCurrentUser().value$.pipe(
+      filter(isDefined),
+      map((user) => user.joinedTeams.keys()),
+      distinctUntilChanged()
+    );
+
+    return joinedTeamIds$.pipe(
+      switchMap((teamIds) => {
+        const ids = Array.from(teamIds);
+        const pages = Math.ceil(ids.length / 10);
+        const responses: Observable<Team[] | undefined>[] = [];
+        for (let i = 0; i < pages; i++) {
+          const slice = ids.slice(i * 10, i * 10 + 10);
+          responses.push(
+            this.store.where<TeamsCollection>('teams', [
+              where('id', 'in', slice),
+            ]).value$
+          );
+        }
+        return combineLatest(responses).pipe(
+          map((res) => res.filter(isDefined).flat(1))
+        );
+      })
     );
   }
 }

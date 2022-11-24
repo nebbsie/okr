@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { firstValueFrom } from 'rxjs';
 import { ConfirmModalComponent } from '@components/modals/confirm-modal';
 import { CreateTeamModalComponent } from '@components/modals/create-team-modal';
+import { CreateBoardModalComponent } from '@components/modals/create-board-modal';
 
 @Injectable()
 export class ModalService {
@@ -28,4 +29,7 @@ export class ModalService {
 /**
  * WARNING: MAKE SURE YOU ADD EACH COMPONENT THAT IS GOING TO BE USED AS A MODAL HERE, OR THEY WON'T WORK!
  */
-export type ModalComponents = ConfirmModalComponent | CreateTeamModalComponent;
+export type ModalComponents =
+  | ConfirmModalComponent
+  | CreateTeamModalComponent
+  | CreateBoardModalComponent;

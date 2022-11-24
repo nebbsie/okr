@@ -18,6 +18,7 @@ import {
   BehaviorSubject,
   catchError,
   combineLatest,
+  distinctUntilChanged,
   from,
   map,
   of,
@@ -96,11 +97,13 @@ export class Store {
     );
 
     return {
-      value$: value$.pipe(shareReplay()),
+      value$: value$.pipe(shareReplay(1), distinctUntilChanged()),
       error$: errorSubject$
         .asObservable()
-        .pipe(startWith(undefined), shareReplay()),
-      loading$: loadingSubject$.asObservable().pipe(shareReplay()),
+        .pipe(startWith(undefined), shareReplay(1), distinctUntilChanged()),
+      loading$: loadingSubject$
+        .asObservable()
+        .pipe(shareReplay(1), distinctUntilChanged()),
     };
   }
 
@@ -139,11 +142,13 @@ export class Store {
     );
 
     return {
-      value$: value$.pipe(shareReplay()),
+      value$: value$.pipe(shareReplay(1), distinctUntilChanged()),
       error$: errorSubject$
         .asObservable()
-        .pipe(startWith(undefined), shareReplay()),
-      loading$: loadingSubject$.asObservable().pipe(shareReplay()),
+        .pipe(startWith(undefined), shareReplay(1), distinctUntilChanged()),
+      loading$: loadingSubject$
+        .asObservable()
+        .pipe(shareReplay(1), distinctUntilChanged()),
     };
   }
 
@@ -179,11 +184,13 @@ export class Store {
     );
 
     return {
-      value$: value$.pipe(shareReplay()),
+      value$: value$.pipe(shareReplay(1), distinctUntilChanged()),
       error$: errorSubject$
         .asObservable()
-        .pipe(startWith(undefined), shareReplay()),
-      loading$: loadingSubject$.asObservable().pipe(shareReplay()),
+        .pipe(startWith(undefined), shareReplay(1), distinctUntilChanged()),
+      loading$: loadingSubject$
+        .asObservable()
+        .pipe(shareReplay(1), distinctUntilChanged()),
     };
   }
 
@@ -213,11 +220,13 @@ export class Store {
     );
 
     return {
-      value$: value$.pipe(shareReplay()),
+      value$: value$.pipe(shareReplay(1), distinctUntilChanged()),
       error$: errorSubject$
         .asObservable()
-        .pipe(startWith(undefined), shareReplay()),
-      loading$: loadingSubject$.asObservable().pipe(shareReplay()),
+        .pipe(startWith(undefined), shareReplay(1), distinctUntilChanged()),
+      loading$: loadingSubject$
+        .asObservable()
+        .pipe(shareReplay(1), distinctUntilChanged()),
     };
   }
 
@@ -250,11 +259,13 @@ export class Store {
     );
 
     return {
-      value$: value$.pipe(shareReplay()),
+      value$: value$.pipe(shareReplay(1), distinctUntilChanged()),
       error$: errorSubject$
         .asObservable()
-        .pipe(startWith(undefined), shareReplay()),
-      loading$: loadingSubject$.asObservable().pipe(shareReplay()),
+        .pipe(startWith(undefined), shareReplay(1), distinctUntilChanged()),
+      loading$: loadingSubject$
+        .asObservable()
+        .pipe(shareReplay(1), distinctUntilChanged()),
     };
   }
 
@@ -288,11 +299,13 @@ export class Store {
     );
 
     return {
-      value$: value$.pipe(shareReplay()),
+      value$: value$.pipe(shareReplay(1), distinctUntilChanged()),
       error$: errorSubject$
         .asObservable()
-        .pipe(startWith(undefined), shareReplay()),
-      loading$: loadingSubject$.asObservable().pipe(shareReplay()),
+        .pipe(startWith(undefined), shareReplay(1), distinctUntilChanged()),
+      loading$: loadingSubject$
+        .asObservable()
+        .pipe(shareReplay(1), distinctUntilChanged()),
     };
   }
 
@@ -328,11 +341,13 @@ export class Store {
     );
 
     return {
-      value$: value$.pipe(shareReplay()),
+      value$: value$.pipe(shareReplay(1), distinctUntilChanged()),
       error$: errorSubject$
         .asObservable()
-        .pipe(startWith(undefined), shareReplay()),
-      loading$: loadingSubject$.asObservable().pipe(shareReplay()),
+        .pipe(startWith(undefined), shareReplay(1), distinctUntilChanged()),
+      loading$: loadingSubject$
+        .asObservable()
+        .pipe(shareReplay(1), distinctUntilChanged()),
     };
   }
 }

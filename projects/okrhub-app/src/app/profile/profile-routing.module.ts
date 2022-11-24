@@ -6,7 +6,15 @@ const routes: Routes = [
   {
     path: '',
     component: ProfileComponent,
-    children: [],
+    children: [
+      {
+        path: 'teams',
+        loadChildren: () =>
+          import('./profile-teams/profile-teams.module').then(
+            (m) => m.ProfileTeamsModule
+          ),
+      },
+    ],
   },
 ];
 

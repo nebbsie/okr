@@ -14,6 +14,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { AvatarComponent } from '@ui/avatar';
 import { LinkComponent } from '@ui/link';
 import { ModalModule } from '@services/modal/modal.module';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AlertComponent } from '@ui/alert';
+import { SpinnerComponent } from '@ui/spinner/spinner.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { SideBarBoardsComponent } from './side-bar-boards/side-bar-boards.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +26,7 @@ import { ModalModule } from '@services/modal/modal.module';
     SideBarAccountComponent,
     SideBarItemComponent,
     SideBarTeamSelectComponent,
+    SideBarBoardsComponent,
   ],
   exports: [SideBarComponent],
   imports: [
@@ -37,6 +43,11 @@ import { ModalModule } from '@services/modal/modal.module';
     LinkComponent,
     SlicePipe,
     ModalModule,
+    RouterLink,
+    RouterLinkActive,
+    AlertComponent,
+    SpinnerComponent,
+    MatTooltipModule,
   ],
 })
 export class SideBarModule {}

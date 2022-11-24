@@ -50,7 +50,7 @@ function TransformTeam(data: any): Team {
   return {
     name: data.name,
     boards: FirebaseMapToTypescriptMap(data.boards),
-    workspaceId: data.enterpriseId,
+    workspaceId: data.workspaceId,
     ...transformStoreDocumentFields(data),
   };
 }
@@ -64,7 +64,7 @@ function TransformTeamMember(data: any): TeamMember {
 function TransformBoard(data: any): Board {
   return {
     teamId: data.teamId,
-    name: data.board,
+    name: data.name,
     ...transformStoreDocumentFields(data),
   };
 }

@@ -1,7 +1,74 @@
+@use "../../text";
+@use "../../breakpoints";
+@use "../../variables";
+
 :host {
-  display: inline;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  word-break: break-word;
+  text-decoration: none;
+  width: fit-content;
+  cursor: pointer;
+
+  &[data-type='span'] {
+    display: inline-block;
+  }
 }
 
 .Link {
   text-decoration: none;
+
+  &[data-text-display='inline-block'] {
+    display: inline-block;
+  }
+
+  &[data-text-truncate='true'] {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+
+  &[data-text-align='center'] {
+    text-align: center;
+    width: 100%;
+  }
+
+  &[data-text-align='left'] {
+    text-align: left;
+  }
+
+  &[data-text-align='right'] {
+    text-align: right;
+  }
+
+  &[data-text-truncate='true'] {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+  }
+
+  @include text.TextWeightGenerator();
+  @include text.TextColourGenerator();
+  @include text.TextTransformGenerator();
+  @include text.TextSizeGenerator();
+
+  @include breakpoints.tablet() {
+    @include text.TextSizeGenerator(tablet);
+  }
+
+  @include breakpoints.desktop() {
+    @include text.TextSizeGenerator(desktop);
+  }
+
+  &:hover {
+    transition: all 200ms cubic-bezier(.03,.76,.83,.67);
+    filter: brightness(80%);
+
+    &[data-font-colour='dark'] {
+      color: darkgrey;
+    }
+  }
 }

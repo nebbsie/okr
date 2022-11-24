@@ -6,6 +6,7 @@ import { RegisterGuard } from './register/register.guard';
 import { OnboardingGuard } from './onboarding/onboarding.guard';
 import { TeamGuard } from './team/team.guard';
 import { ProfileGuard } from './profile/profile.guard';
+import { BoardGuard } from './board/board.guard';
 
 const routes: Routes = [
   {
@@ -20,6 +21,13 @@ const routes: Routes = [
     canActivate: [TeamGuard],
     data: {},
     loadChildren: () => import('./team/team.module').then((m) => m.TeamModule),
+  },
+  {
+    path: 'board/:id',
+    canActivate: [BoardGuard],
+    data: {},
+    loadChildren: () =>
+      import('./board/board.module').then((m) => m.BoardModule),
   },
   {
     path: 'profile',

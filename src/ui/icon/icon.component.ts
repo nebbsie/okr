@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
       class="Icon"
       aria-hidden="false"
       [routerLink]="link"
-      [class.Icon-Link]="!!link"
+      [class.Icon-Link]="!!link || clickable"
       [attr.data-font-colour]="colour"
       [attr.data-size]="size"
       [attr.data-size-tablet]="sizeTablet"
@@ -30,4 +30,5 @@ export class IconComponent {
   @Input() size: TextSize = 'xlarge';
   @Input() sizeTablet?: TextSize;
   @Input() sizeDesktop?: TextSize;
+  @Input() clickable: boolean = false;
 }

@@ -7,6 +7,7 @@ import { TeamsService } from '@services/collections/teams';
 import { UsersService } from '@services/collections/users';
 import { ModalService } from '@services/modal';
 import { CreateTeamModalComponent } from '@components/modals/create-team-modal';
+import { trackById } from '@services/utils';
 
 @Component({
   selector: 'app-side-bar-team-select',
@@ -15,40 +16,43 @@ import { CreateTeamModalComponent } from '@components/modals/create-team-modal';
       class="TeamSelectTrigger"
       align="center"
       justify="space-between"
-      [matMenuTriggerFor]="teamSelectActions"
+      (click)="menuTrigger.openMenu()"
     >
       <ui-text>{{ teamName$ | Async }}</ui-text>
-      <ui-icon>unfold_more</ui-icon>
+      <ui-icon
+        #menuTrigger="matMenuTrigger"
+        [matMenuTriggerFor]="teamSelectActions"
+      >
+        unfold_more
+      </ui-icon>
     </ui-flex>
 
-    <mat-menu #teamSelectActions="matMenu">
+    <mat-menu xPosition="before" #teamSelectActions="matMenu">
       <ng-container *ngIf="unselectedTeams$ | Async as unselectedTeams">
-        <ui-text
-          *ngIf="unselectedTeams.length > 0"
-          class="MatMenuHeader"
-          colour="mid"
-          size="small"
-          weight="medium"
-          marginBottom="small"
-          transform="uppercase"
-        >
-          Switch Teams
-        </ui-text>
+        <ui-flex class="MatMenuHeader" align="center" justify="space-between">
+          <ui-text weight="medium" marginRight="small"> Teams </ui-text>
+          <ui-icon
+            matTooltip="Create team"
+            [clickable]="true"
+            (click)="handleCreateTeam()"
+          >
+            add
+          </ui-icon>
+        </ui-flex>
 
-        <div
-          *ngFor="let team of unselectedTeams; trackBy: trackByMinimalTeam"
-          mat-menu-item
-          marginBottom="xxsmall"
-          (click)="handleSelectTeam(team.id)"
-        >
-          <ui-text>{{ team.name }}</ui-text>
-        </div>
-
-        <mat-divider marginBottom="xxsmall"></mat-divider>
-
-        <div class="MenuItem" mat-menu-item (click)="handleCreateTeam()">
-          <ui-icon>add</ui-icon>
-          <ui-text>Create new team</ui-text>
+        <div class="TeamSelectList">
+          <div
+            *ngFor="
+              let team of unselectedTeams;
+              let isLast = last;
+              trackBy: trackById
+            "
+            mat-menu-item
+            [marginBottom]="isLast ? 'none' : 'xxsmall'"
+            (click)="handleSelectTeam(team.id)"
+          >
+            <ui-text>{{ team.name }}</ui-text>
+          </div>
         </div>
       </ng-container>
     </mat-menu>
@@ -57,9 +61,10 @@ import { CreateTeamModalComponent } from '@components/modals/create-team-modal';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SideBarTeamSelectComponent implements OnInit {
+  trackById = trackById;
+
   selectedTeam$!: Observable<MinimalTeam>;
   teamName$!: Observable<string>;
-
   unselectedTeams$!: Observable<MinimalTeam[]>;
 
   constructor(
@@ -70,35 +75,24 @@ export class SideBarTeamSelectComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const selectedTeamId$ = this.localStorage.get('selectedTeam');
+    const selectedTeamId$ = this.localStorage
+      .get('selectedTeam')
+      .pipe(filter(isDefined));
 
     const currentUserResult$ = this.users.listenCurrentUser();
     const user$ = currentUserResult$.value$;
 
     this.selectedTeam$ = combineLatest([user$, selectedTeamId$]).pipe(
-      map(([user, selectedTeamId]) => {
-        if (!user) {
-          return undefined;
-        }
-
-        // If the user hasn't set a selectedTeam, select the first one they are currently part of.
-        if (!selectedTeamId) {
-          const [firstTeam] = user.joinedTeams.values();
-          this.localStorage.set('selectedTeam', firstTeam.id);
-          return undefined;
-        }
-
-        return user.joinedTeams.get(selectedTeamId);
-      }),
+      map(([user, selectedTeamId]) => user?.joinedTeams.get(selectedTeamId)),
       filter(isDefined)
     );
 
     this.unselectedTeams$ = combineLatest([user$, selectedTeamId$]).pipe(
-      map(([user, selectedTeamId]) => {
-        return Array.from(user?.joinedTeams.values() ?? []).filter(
+      map(([user, selectedTeamId]) =>
+        Array.from(user?.joinedTeams.values() ?? []).filter(
           (team) => team.id !== selectedTeamId
-        );
-      })
+        )
+      )
     );
 
     this.teamName$ = this.selectedTeam$.pipe(map((team) => team.name));
@@ -112,10 +106,6 @@ export class SideBarTeamSelectComponent implements OnInit {
 
       this.handleSelectTeam(teamId);
     });
-  }
-
-  trackByMinimalTeam(index: number, team: MinimalTeam) {
-    return team.id;
   }
 
   handleSelectTeam(teamId: string) {

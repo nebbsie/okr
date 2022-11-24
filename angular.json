@@ -11,7 +11,7 @@
           "changeDetection": "OnPush",
           "displayBlock": true,
           "inlineTemplate": true,
-          "skipTests": true
+          "skipTests": true,
         }
       },
       "root": "projects/okrhub-app",

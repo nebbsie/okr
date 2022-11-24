@@ -18,6 +18,7 @@ import { ButtonComponent } from '@ui/button';
 import { InputComponent } from '@ui/input';
 import { LinkComponent } from '@ui/link';
 import { TextComponent } from '@ui/text';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login-form',
@@ -32,6 +33,7 @@ import { TextComponent } from '@ui/text';
     AlertComponent,
     DividerTextComponent,
     InputComponent,
+    NgIf,
   ],
   template: `
     <ui-text align="center" weight="bold" size="xxlarge" marginBottom="mid">

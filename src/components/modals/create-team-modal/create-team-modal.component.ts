@@ -7,7 +7,7 @@ import {
 import { TeamsService } from '@services/collections/teams';
 import { FormControl } from '@angular/forms';
 import { LocalStorageService } from '@services/local-storage/local-storage.service';
-import { firstValueFrom } from 'rxjs';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-create-team-modal',
@@ -27,10 +27,18 @@ import { firstValueFrom } from 'rxjs';
     ></ui-input>
 
     <ui-flex justify="space-between" align="center">
-      <ui-button type="stroked" (click)="closeModal(undefined)">
+      <ui-button
+        type="stroked"
+        [disabled]="loadingCreatingTeam$ | Async"
+        (click)="closeModal(undefined)"
+      >
         Cancel
       </ui-button>
-      <ui-button colour="primary" (click)="handleCreateTeam()">
+      <ui-button
+        colour="primary"
+        [loading]="loadingCreatingTeam$ | Async"
+        (click)="handleCreateTeam()"
+      >
         Create
       </ui-button>
     </ui-flex>
@@ -44,6 +52,9 @@ export class CreateTeamModalComponent extends ModalComponent<
 > {
   nameControl = new FormControl<string | null>(null);
 
+  private loadingCreatingTeamSubject$ = new BehaviorSubject<boolean>(false);
+  loadingCreatingTeam$ = this.loadingCreatingTeamSubject$.asObservable();
+
   constructor(
     private teams: TeamsService,
     private localStorage: LocalStorageService
@@ -54,23 +65,29 @@ export class CreateTeamModalComponent extends ModalComponent<
   ngOnInit(): void {}
 
   async handleCreateTeam() {
+    this.loadingCreatingTeamSubject$.next(true);
+
     const workspaceId = await firstValueFrom(
       this.localStorage.get('selectedWorkspace')
     );
     if (!workspaceId) {
-      // TODO: handle this.
+      // TODO: handle this, it shouldn't happen though as selectedWorkspace is
+      // always set.
+      this.loadingCreatingTeamSubject$.next(false);
       return;
     }
 
     const name = this.nameControl.value;
     if (!name) {
       // TODO: handle this.
+      this.loadingCreatingTeamSubject$.next(false);
       return;
     }
 
     const teamCreateResult = await this.teams.createTeam(name, workspaceId);
     if (teamCreateResult.status === 'error') {
       // TODO: handle this.
+      this.loadingCreatingTeamSubject$.next(false);
       return;
     }
 

@@ -4,13 +4,7 @@ import { AuthService } from '@services/auth';
 import { UsersService } from '@services/collections/users';
 import { isDefined } from '@utils/utils';
 import { Router } from '@angular/router';
-import {
-  Store,
-  TeamsCollection,
-  WhereResult,
-  Workspace,
-  WorkspacesCollection,
-} from '@services/store';
+import { Store, Team, Workspace, WorkspacesCollection } from '@services/store';
 import { TeamsService } from '@services/collections/teams';
 
 @Component({
@@ -81,7 +75,7 @@ import { TeamsService } from '@services/collections/teams';
           Teams
         </ui-text>
 
-        <ng-container *ngIf="teamsResult$.value$ | Async as teams">
+        <ng-container *ngIf="teams$ | Async as teams">
           <ui-link
             *ngFor="let team of teams | slice: 0:3; let last = last"
             [link]="'/team/' + team.id"
@@ -124,20 +118,20 @@ export class SideBarAccountComponent implements OnInit {
   userId$!: Observable<string>;
   name$!: Observable<string>;
   currentWorkspace$!: Observable<Workspace>;
-  teamsResult$!: WhereResult<TeamsCollection>;
+  teams$!: Observable<Team[]>;
 
   expanded = false;
 
   constructor(
     private auth: AuthService,
-    private users: UsersService,
     private router: Router,
     private store: Store,
-    private teams: TeamsService
+    private teams: TeamsService,
+    private users: UsersService
   ) {}
 
   ngOnInit(): void {
-    this.teamsResult$ = this.teams.getCurrentUsersTeams();
+    this.teams$ = this.teams.getCurrentUsersTeams();
 
     this.userId$ = this.auth.getUserId();
 
