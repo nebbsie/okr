@@ -1,0 +1,22 @@
+@use "../../../variables";
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.EmptyObjective {
+  padding: variables.$spacing-mid variables.$spacing-mid;
+  border: variables.$border;
+  border-radius: variables.$border-radius;
+  cursor: pointer;
+
+  &:hover {
+    background-color: variables.$colour-hover
+  }
+}
+
+.Active {
+  background-color: variables.$colour-white !important;
+  cursor: default;
+}

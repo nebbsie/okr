@@ -1,0 +1,9 @@
+@use "../../../variables";
+
+:host {
+  display: block;
+}
+
+.SideBarActive {
+  background-color: variables.$colour-active !important;
+}

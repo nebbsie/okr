@@ -18,9 +18,9 @@
 }
 
 .Content {
-  height: 100%;
   overflow-y: scroll;
-
+  height: 100%;
+  transition: margin 700ms;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -32,10 +32,39 @@
   border-top: variables.$border;
 }
 
+.PushToBottom {
+  flex-grow: 1;
+  transition: all 250ms ease-in-out;
+}
 
+.PushToTop {
+  flex-grow: 0;
+  transition: all 250ms ease-in-out;
+}
 
-.BoardsSection {
+.MoveItems {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
 
+.BoardsMenu {
+  animation: fadeInFromNone 150ms ease-out;
+}
 
+@keyframes fadeInFromNone {
+  0% {
+    display: none;
+    opacity: 0;
+  }
 
+  1% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 1;
+  }
 }

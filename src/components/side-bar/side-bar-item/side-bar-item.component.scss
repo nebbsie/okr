@@ -6,7 +6,6 @@
   width: 100%;
   cursor: pointer;
   padding: variables.$spacing-xsmall variables.$spacing-small;
-  min-height: 50px;
 
   &[data-top-border="true"] {
     border-top: variables.$border;

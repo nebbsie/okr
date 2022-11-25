@@ -1,12 +1,15 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnDestroy,
   OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { startWith, Subscription } from 'rxjs';
@@ -39,6 +42,7 @@ import { NgIf } from '@angular/common';
         [formControl]="control"
         [disabled]="disabled ?? false"
         matInput
+        #input
       />
 
       <mat-icon *ngIf="icon" matSuffix>{{ icon }}</mat-icon>
@@ -66,16 +70,14 @@ import { NgIf } from '@angular/common';
       </button>
 
       <span *ngIf="loading" class="Loading" matSuffix> </span>
-
       <mat-hint *ngIf="hint" marginBottom="mid">{{ hint }}</mat-hint>
-
       <mat-error *ngIf="error">{{ error }}</mat-error>
     </mat-form-field>
   `,
   styleUrls: ['./input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputComponent implements OnInit, OnDestroy {
+export class InputComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() label!: string;
   @Input() hint?: string;
   @Input() type!: 'text' | 'password' | 'email';
@@ -84,8 +86,11 @@ export class InputComponent implements OnInit, OnDestroy {
   @Input() icon?: string;
   @Input() submitAction?: string;
   @Input() loading?: boolean = false;
+  @Input() autoFocus: boolean = false;
 
   @Output() submit = new EventEmitter();
+
+  @ViewChild('input') private inputElement!: ElementRef;
 
   subscription?: Subscription;
   error?: string;
@@ -100,6 +105,13 @@ export class InputComponent implements OnInit, OnDestroy {
         [this.error] = Object.values(this.control.errors || {});
         this.ref.markForCheck();
       });
+  }
+
+  ngAfterViewInit() {
+    if (this.autoFocus) {
+      this.inputElement.nativeElement.focus();
+      this.ref.detectChanges();
+    }
   }
 
   handleSubmit(event: MouseEvent): void {

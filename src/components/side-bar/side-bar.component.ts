@@ -1,14 +1,39 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, map, Observable, startWith } from 'rxjs';
+import { ConfigService } from '@services/config';
+import { isDefined } from '@utils/utils';
 
 @Component({
   selector: 'app-side-bar',
   template: `
     <app-side-bar-team-select></app-side-bar-team-select>
 
-    <div class="Content">
-      <app-side-bar-boards></app-side-bar-boards>
-    </div>
+    <ui-flex class="Content" direction="column">
+      <app-side-bar-board-menu
+        *ngIf="onBoardPage$ | Async"
+        class="BoardsMenu"
+        [currentBoardId]="currentBoardId$ | Async"
+      ></app-side-bar-board-menu>
+
+      <ui-flex class="MoveItems" direction="column">
+        <span
+          [class.PushToBottom]="onBoardPage$ | Async"
+          [class.PushToTop]="!(onBoardPage$ | Async)"
+        ></span>
+        <app-side-bar-item
+          [topBorder]="onBoardPage$ | Async"
+          [bottomBorder]="true"
+          routerLink="/profile"
+        >
+          My Profile
+        </app-side-bar-item>
+
+        <app-side-bar-boards
+          [borderBottom]="!(onBoardPage$ | Async)"
+        ></app-side-bar-boards>
+      </ui-flex>
+    </ui-flex>
 
     <app-side-bar-account class="AccountSection"></app-side-bar-account>
   `,
@@ -16,7 +41,36 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SideBarComponent implements OnInit {
-  constructor(private router: Router) {}
+  onBoardPage$!: Observable<boolean>;
 
-  ngOnInit() {}
+  currentBoardId$!: Observable<string>;
+
+  constructor(
+    private router: Router,
+    private config: ConfigService,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit() {
+    const url$ = this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      startWith(this.router.url),
+      map((_) => this.router.url)
+    );
+
+    this.currentBoardId$ = url$.pipe(
+      map((url) => {
+        const urlSplit = url.split('/');
+        if (urlSplit[1] === 'board') {
+          return urlSplit[2];
+        }
+        return undefined;
+      }),
+      filter(isDefined)
+    );
+
+    const config$ = this.config.getConfig(this.route);
+
+    this.onBoardPage$ = config$.pipe(map((config) => !!config?.isBoard));
+  }
 }

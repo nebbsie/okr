@@ -53,4 +53,8 @@ export class FlexComponent {
   @Input()
   @HostBinding('attr.data-flex-align-desktop')
   alignDesktop?: AlignItems;
+
+  @Input()
+  @HostBinding('attr.data-full-width')
+  fullWidth?: boolean;
 }

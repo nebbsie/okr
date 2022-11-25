@@ -6,7 +6,29 @@ const routes: Routes = [
   {
     path: '',
     component: BoardComponent,
-    children: [],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./board-home/board-home.module').then(
+            (m) => m.BoardHomeModule
+          ),
+      },
+      {
+        path: 'members',
+        loadChildren: () =>
+          import('./board-members/board-members.module').then(
+            (m) => m.BoardMembersModule
+          ),
+      },
+      {
+        path: 'settings',
+        loadChildren: () =>
+          import('./board-settings/board-settings.module').then(
+            (m) => m.BoardSettingsModule
+          ),
+      },
+    ],
   },
 ];
 

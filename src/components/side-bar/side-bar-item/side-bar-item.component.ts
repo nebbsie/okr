@@ -8,7 +8,9 @@ import {
 @Component({
   selector: 'app-side-bar-item',
   template: `
-    <ui-text>
+    <ui-icon *ngIf="icon" marginRight="small" size="large">{{ icon }}</ui-icon>
+
+    <ui-text size="small">
       <ng-content></ng-content>
     </ui-text>
   `,
@@ -18,9 +20,11 @@ import {
 export class SideBarItemComponent {
   @HostBinding('attr.data-top-border')
   @Input()
-  topBorder = false;
+  topBorder? = false;
 
   @HostBinding('attr.data-bottom-border')
   @Input()
-  bottomBorder = false;
+  bottomBorder? = false;
+
+  @Input() icon?: string;
 }

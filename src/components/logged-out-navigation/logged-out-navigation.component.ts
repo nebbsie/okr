@@ -30,7 +30,7 @@ import { TextComponent } from '@ui/text';
     </ui-text>
 
     <div class="Actions" [hideMobile]="true">
-      <ui-button class="EarlyAccessButton" type="stroked" [tallButton]="true">
+      <ui-button class="EarlyAccessButton" type="stroked" [tall]="true">
         REQUEST EARLY ACCESS
       </ui-button>
     </div>

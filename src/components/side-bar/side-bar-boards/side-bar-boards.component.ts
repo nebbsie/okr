@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostBinding,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { filter, firstValueFrom, map, Observable } from 'rxjs';
 import {
   MapToArray,
@@ -74,6 +80,14 @@ export class SideBarBoardsComponent implements OnInit {
   teamBoards$!: Observable<MinimalBoard[]>;
   hasNoBoards$!: Observable<boolean>;
   loadingBoards$!: Observable<boolean>;
+
+  @HostBinding('attr.data-border-top')
+  @Input()
+  borderTop? = false;
+
+  @HostBinding('attr.data-border-bottom')
+  @Input()
+  borderBottom? = false;
 
   constructor(
     private localStorage: LocalStorageService,

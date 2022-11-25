@@ -1,8 +1,15 @@
 @use "../../../variables";
 
 :host {
-  border-bottom: variables.$border;
   display: block;
+
+  &[data-border-top="true"] {
+    border-top: variables.$border;
+  }
+
+  &[data-border-bottom="true"] {
+    border-bottom: variables.$border;
+  }
 }
 
 .Title {

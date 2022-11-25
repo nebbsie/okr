@@ -1,0 +1,62 @@
+@use "variables";
+
+@mixin BackgroundColourGenerator {
+  &[data-background-colour='primary'] {
+    color: variables.$font-colour-white;
+    background-color: variables.$colour-primary;
+
+    &:hover {
+      background-color: darken(variables.$colour-primary, 2%);
+    }
+  }
+
+  &[data-background-colour='accent'] {
+    color: variables.$font-colour-white;
+    background-color: variables.$colour-accent;
+
+    &:hover {
+      background-color: darken(variables.$colour-accent, 2%);
+    }
+  }
+
+  &[data-background-colour='danger'] {
+    color: variables.$font-colour-white;
+    background-color: variables.$colour-red;
+
+    &:hover {
+      background-color: darken(variables.$colour-red, 2%);
+    }
+  }
+
+  &[data-background-colour='success'] {
+    color: variables.$font-colour-white;
+    background-color: variables.$colour-green;
+
+    &:hover {
+      background-color: darken(variables.$colour-green, 2%);
+    }
+  }
+
+  &[data-background-colour='transparent'] {
+    color: variables.$font-colour-dark;
+    background-color: transparent;
+  }
+
+  &[data-background-colour='info'] {
+    color: variables.$font-colour-white;
+    background-color: variables.$colour-blue;
+
+    &:hover {
+      background-color: darken(variables.$colour-blue, 2%);
+    }
+  }
+
+  &[data-background-colour='warning'] {
+    color: variables.$font-colour-white;
+    background-color: variables.$colour-orange;
+
+    &:hover {
+      background-color: darken(variables.$colour-orange, 2%);
+    }
+  }
+}

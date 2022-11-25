@@ -9,7 +9,7 @@ import { MatTabsModule } from '@angular/material/tabs';
   imports: [TextComponent, NgIf, MatTabsModule, NgForOf],
   template: `
     <div class="PageTitle" *ngIf="title">
-      <ui-text>{{ title }}</ui-text>
+      <ui-text weight="medium">{{ title }}</ui-text>
     </div>
 
     <div

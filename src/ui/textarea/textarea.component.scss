@@ -1,0 +1,23 @@
+@use "../../variables";
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.TextArea {
+  width: 100%;
+  resize: none;
+  background-color: transparent;
+  font-family: Roboto, 'Helvetica Neue', sans-serif !important;
+  box-sizing: border-box;
+  border: variables.$border;
+  border-radius: variables.$border-radius;
+  padding: variables.$spacing-xsmall;
+  font-size: variables.$font-mid;
+
+
+  &:focus-visible {
+    outline: none;
+  }
+}

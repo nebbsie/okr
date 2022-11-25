@@ -8,6 +8,7 @@ import { UsersService } from '@services/collections/users';
 import { ModalService } from '@services/modal';
 import { CreateTeamModalComponent } from '@components/modals/create-team-modal';
 import { trackById } from '@services/utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-bar-team-select',
@@ -18,10 +19,11 @@ import { trackById } from '@services/utils';
       justify="space-between"
       (click)="menuTrigger.openMenu()"
     >
-      <ui-text>{{ teamName$ | Async }}</ui-text>
+      <ui-text weight="medium">{{ teamName$ | Async }}</ui-text>
       <ui-icon
         #menuTrigger="matMenuTrigger"
         [matMenuTriggerFor]="teamSelectActions"
+        [clickable]="true"
       >
         unfold_more
       </ui-icon>
@@ -40,7 +42,19 @@ import { trackById } from '@services/utils';
           </ui-icon>
         </ui-flex>
 
-        <div class="TeamSelectList">
+        <div
+          class="TeamSelectList"
+          [class.Empty]="unselectedTeams.length === 0"
+        >
+          <ui-alert
+            *ngIf="unselectedTeams.length === 0"
+            class="EmptyTeams"
+            padding="xsmall"
+            textSize="xsmall"
+          >
+            You are only part of 1 team.
+          </ui-alert>
+
           <div
             *ngFor="
               let team of unselectedTeams;
@@ -71,7 +85,8 @@ export class SideBarTeamSelectComponent implements OnInit {
     private localStorage: LocalStorageService,
     private teams: TeamsService,
     private users: UsersService,
-    private modal: ModalService
+    private modal: ModalService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -105,6 +120,8 @@ export class SideBarTeamSelectComponent implements OnInit {
       }
 
       this.handleSelectTeam(teamId);
+
+      this.router.navigate(['/']);
     });
   }
 

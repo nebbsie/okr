@@ -9,7 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { IconComponent } from '@ui/icon';
 import { TextComponent } from '@ui/text';
 import { PipesModule } from '@pipes/pipes.module';
-import { NgForOf, NgIf, SlicePipe } from '@angular/common';
+import { JsonPipe, NgForOf, NgIf, SlicePipe } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 import { AvatarComponent } from '@ui/avatar';
 import { LinkComponent } from '@ui/link';
@@ -19,6 +19,7 @@ import { AlertComponent } from '@ui/alert';
 import { SpinnerComponent } from '@ui/spinner/spinner.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SideBarBoardsComponent } from './side-bar-boards/side-bar-boards.component';
+import { SideBarBoardMenuComponent } from './side-bar-board-menu/side-bar-board-menu.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SideBarBoardsComponent } from './side-bar-boards/side-bar-boards.compon
     SideBarItemComponent,
     SideBarTeamSelectComponent,
     SideBarBoardsComponent,
+    SideBarBoardMenuComponent,
   ],
   exports: [SideBarComponent],
   imports: [
@@ -48,6 +50,7 @@ import { SideBarBoardsComponent } from './side-bar-boards/side-bar-boards.compon
     AlertComponent,
     SpinnerComponent,
     MatTooltipModule,
+    JsonPipe,
   ],
 })
 export class SideBarModule {}

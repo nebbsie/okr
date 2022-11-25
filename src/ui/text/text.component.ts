@@ -31,6 +31,10 @@ export class TextComponent implements OnChanges {
   @Input()
   clickable = false;
 
+  @HostBinding('attr.data-unselectable')
+  @Input()
+  unselectable = false;
+
   @HostBinding('attr.role') role: string | null | undefined;
 
   @Input()

@@ -25,7 +25,9 @@ const routes: Routes = [
   {
     path: 'board/:id',
     canActivate: [BoardGuard],
-    data: {},
+    data: {
+      isBoard: true,
+    },
     loadChildren: () =>
       import('./board/board.module').then((m) => m.BoardModule),
   },

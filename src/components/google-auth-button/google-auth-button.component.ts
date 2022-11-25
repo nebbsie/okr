@@ -13,7 +13,12 @@ import { ButtonComponent } from '@ui/button';
   standalone: true,
   imports: [ButtonComponent, DirectivesModule],
   template: `
-    <ui-button [loading]="loading" [fullWidth]="true" (click)="submit.emit()">
+    <ui-button
+      colour="white"
+      [loading]="loading"
+      [fullWidth]="true"
+      (click)="submit.emit()"
+    >
       <img
         marginRight="small"
         width="24"
@@ -29,6 +34,5 @@ import { ButtonComponent } from '@ui/button';
 })
 export class GoogleAuthButtonComponent {
   @Input() loading? = false;
-
   @Output() submit = new EventEmitter<void>();
 }

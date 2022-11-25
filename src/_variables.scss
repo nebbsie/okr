@@ -13,8 +13,8 @@ $font-xlarge: 24px; // headline
 $font-large: 20px; // title
 $font-xmid: 16px; //subheading
 $font-mid: 14px; //body
-$font-small: 12px; // caption
-$font-xsmall: 8px;
+$font-small: 13px; // caption
+$font-xsmall: 12px;
 $font-input: auto;
 
 /* Spacing */
@@ -41,9 +41,6 @@ $logged-out-nav-height: 50px;
 $logged-out-nav-height-desktop: 70px;
 $logged-out-footer-height: 50px;
 
-/* Radius */
-$border-radius: 10px;
-
 /* Widths */
 $page-width:  100%;
 $page-width-tablet: 95%;
@@ -61,7 +58,7 @@ $colour-dark: #181818;
 $colour-dark-grey: #545454;
 $colour-light-grey: #bbbbbb;
 $colour-xlight-grey: rgba(24, 24, 24, 0.12);
-$colour-white: #f6f6f5;
+$colour-white: white;
 $colour-green: #34d39d;
 $colour-red: #f04d62;
 $colour-blue: #01d0ea;
@@ -76,7 +73,6 @@ $colour-light-blue: #e6fafd;
 $colour-light-green: #eafbf6;
 
 $colour-light-bg: #f8f8fa;
-$colour-white-bg: white;
 $colour-light-bars: #f5f5f5;
 
 /* Alert Colours */
@@ -97,4 +93,7 @@ $font-colour-danger: $colour-red;
 $font-colour-info: $colour-blue;
 $font-colour-warning: $colour-orange;
 
+/* Borders */
+$border-radius: 5px;
 $border: $colour-divider solid 1px;
+$border-dashed: $colour-divider dashed 2px;

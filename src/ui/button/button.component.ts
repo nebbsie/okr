@@ -5,10 +5,10 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { TextColour } from '@ui/text';
 
 @Component({
   selector: 'ui-button',
@@ -21,8 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
       [attr.data-full-width]="fullWidth"
       [attr.data-full-width-tablet]="fullWidthTablet"
       [attr.data-full-width-desktop]="fullWidthDesktop"
-      [attr.data-tall]="tallButton"
-      [color]="colour"
+      [attr.data-background-colour]="colour"
+      [attr.data-tall]="tall"
       [disabled]="disabled || loading"
       mat-flat-button
     >
@@ -30,11 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
         <ng-container [ngTemplateOutlet]="content"></ng-container>
       </ng-container>
 
-      <span
-        *ngIf="loading"
-        [class.LightStyle]="lightStyle"
-        [class.DarkStyle]="!lightStyle"
-      ></span>
+      <span *ngIf="loading" class="Loading"></span>
     </button>
 
     <button
@@ -43,8 +39,8 @@ import { MatIconModule } from '@angular/material/icon';
       [attr.data-full-width]="fullWidth"
       [attr.data-full-width-tablet]="fullWidthTablet"
       [attr.data-full-width-desktop]="fullWidthDesktop"
-      [attr.data-tall]="tallButton"
-      [color]="colour"
+      [attr.data-background-colour]="colour"
+      [attr.data-tall]="tall"
       [disabled]="disabled || loading"
       mat-stroked-button
     >
@@ -62,16 +58,11 @@ import { MatIconModule } from '@angular/material/icon';
     <button
       *ngIf="type === 'icon'"
       mat-icon-button
-      [color]="colour"
-      aria-label="Example icon button with a menu icon"
+      [attr.data-background-colour]="colour"
     >
       <mat-icon>{{ icon }}</mat-icon>
 
-      <span
-        *ngIf="loading"
-        [class.LightStyle]="lightStyle"
-        [class.DarkStyle]="!lightStyle"
-      ></span>
+      <span *ngIf="loading" class="Loading"></span>
     </button>
 
     <ng-template #content>
@@ -82,12 +73,11 @@ import { MatIconModule } from '@angular/material/icon';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent implements OnInit {
-  @Input() colour?: ThemePalette = undefined;
   @Input() type: 'normal' | 'icon' | 'stroked' = 'normal';
   @Input() icon?: string;
   @Input() loading? = false;
   @Input() disabled? = false;
-  @Input() tallButton = false;
+  @Input() tall = false;
 
   @Input()
   @HostBinding('attr.data-full-width')
@@ -101,9 +91,11 @@ export class ButtonComponent implements OnInit {
   @HostBinding('attr.data-full-width-desktop')
   fullWidthDesktop = false;
 
+  @Input() colour: TextColour | 'transparent' = 'transparent';
+
   lightStyle = false;
 
   ngOnInit() {
-    this.lightStyle = this.colour === 'primary';
+    this.lightStyle = this.colour !== 'transparent';
   }
 }

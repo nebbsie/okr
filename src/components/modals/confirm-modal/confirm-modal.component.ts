@@ -26,7 +26,7 @@ import { BehaviorSubject, firstValueFrom } from 'rxjs';
         marginRight="small"
         [disabled]="loading$ | Async"
         [loading]="loading$ | Async"
-        [colour]="type === ConfirmationModalType.WARNING ? 'warn' : 'primary'"
+        [colour]="type === ConfirmationModalType.WARNING ? 'danger' : 'primary'"
         (click)="handleSelection(true)"
       >
         Yes

@@ -7,7 +7,7 @@
 
 .PageContainer {
   display: flex;
-  padding: variables.$spacing-mid variables.$spacing-mid variables.$spacing-xxlarge;
+  padding: variables.$spacing-xsmall variables.$spacing-xsmall variables.$spacing-xxlarge;
 
   &[data-flex-direction='column'] {
     flex-direction: column;
@@ -35,7 +35,7 @@
   display: flex;
   position: sticky;
   align-items: center;
-  background-color: variables.$colour-white-bg;
+  background-color: variables.$colour-white;
   border-bottom: variables.$border;
   min-height: 60px;
   padding: variables.$spacing-small;

@@ -5,6 +5,10 @@
   align-items: center;
   border-radius: 5px;
 
+  &[padding="xsmall"] {
+    padding: variables.$spacing-xxsmall variables.$spacing-xxsmall;
+  }
+
   &[padding="small"] {
     padding: variables.$spacing-small variables.$spacing-small;
   }

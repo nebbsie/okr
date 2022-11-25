@@ -14,7 +14,12 @@ import { IconComponent } from '@ui/icon';
   standalone: true,
   imports: [DirectivesModule, TextComponent, IconComponent],
   template: `
-    <ui-icon [colour]="iconColour" [marginRight]="padding ? 'xsmall' : 'mid'">
+    <ui-icon
+      [colour]="iconColour"
+      [marginRight]="
+        padding === 'xsmall' || padding === 'small' ? 'xxsmall' : 'mid'
+      "
+    >
       {{ iconType }}
     </ui-icon>
 
@@ -32,7 +37,7 @@ export class AlertComponent implements OnInit {
 
   @HostBinding('attr.padding')
   @Input()
-  padding: 'small' | 'mid' = 'mid';
+  padding: 'xsmall' | 'small' | 'mid' = 'mid';
 
   @Input()
   textSize: TextSize = 'mid';
