@@ -7,3 +7,7 @@
 .SideBarActive {
   background-color: variables.$colour-active !important;
 }
+
+.Title {
+  padding: variables.$spacing-xsmall variables.$spacing-small;
+}

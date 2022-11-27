@@ -12,23 +12,33 @@ import { MobileBottomBarComponent } from '@components/mobile-bottom-bar';
 import { DirectivesModule } from '@directives/directives.module';
 import { SideBarModule } from '@components/side-bar';
 import { PipesModule } from '@pipes/pipes.module';
+import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    provideAuth(() => getAuth()),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
-    provideAuth(() => getAuth()),
+    AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    AppRoutingModule,
-    MatSidenavModule,
     DirectivesModule,
+    MatSidenavModule,
+    MobileBottomBarComponent,
     PipesModule,
     SideBarModule,
-    MobileBottomBarComponent,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
+      useValue: {
+        showDelay: 500,
+        hideDelay: 0,
+        touchendHideDelay: 1000,
+      },
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

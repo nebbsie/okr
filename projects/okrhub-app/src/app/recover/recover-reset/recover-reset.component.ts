@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 @Component({
   selector: 'app-recover-reset',
   template: `
-    <ui-page [center]="true">
+    <ui-page direction="row" justify="center">
       <app-reset-password class="Form"></app-reset-password>
     </ui-page>
   `,

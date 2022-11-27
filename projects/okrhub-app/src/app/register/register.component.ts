@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   template: `
-    <ui-page [center]="true">
+    <ui-page direction="row" justify="center">
       <app-register-form
         class="Form"
         (successfullySignedUp)="handleSignedUp()"

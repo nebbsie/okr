@@ -22,6 +22,8 @@ export function ConvertFirebaseError(
       return FirebaseError.NOT_FOUND;
     case FirebaseError.INVALID_ARGUMENT:
       return FirebaseError.INVALID_ARGUMENT;
+    case FirebaseError.FAILED_PRECONDITION:
+      return FirebaseError.FAILED_PRECONDITION;
     default:
       console.error(`ERROR not found. Add ${err.code} to store.errors.ts.`);
       return FirebaseError.UNKNOWN;

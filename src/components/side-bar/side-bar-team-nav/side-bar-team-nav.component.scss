@@ -1,0 +1,21 @@
+@use "../../../variables";
+
+:host {
+  display: block;
+
+  &[data-border-top="true"] {
+    border-top: variables.$border;
+  }
+
+  &[data-border-bottom="true"] {
+    border-bottom: variables.$border;
+  }
+}
+
+.Title {
+  padding: variables.$spacing-xsmall variables.$spacing-small;
+}
+
+.SideBarActive {
+  background-color: variables.$colour-active !important;
+}

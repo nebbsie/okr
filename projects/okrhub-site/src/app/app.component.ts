@@ -3,10 +3,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-    <ui-center class="Navigation">
+    <ui-flex class="Navigation">
       <app-logged-out-navigation></app-logged-out-navigation>
       <div class="NavArea"></div>
-    </ui-center>
+    </ui-flex>
 
     <router-outlet></router-outlet>
 

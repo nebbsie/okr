@@ -12,7 +12,7 @@
   &-Link {
     &:hover {
       cursor: pointer;
-      filter: brightness(80%);
+      filter: brightness(20%);
       transition: all 200ms cubic-bezier(.03,.76,.83,.67);
 
       &[data-font-colour='dark'] {

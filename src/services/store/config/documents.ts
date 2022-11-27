@@ -54,11 +54,17 @@ export interface EarlyAccess extends StoreDocument {
   readonly email: string;
 }
 
-export interface Objective extends StoreDocument {
+export interface Objective extends PositionableObject {
   readonly title: string;
+  readonly boardId: string;
+  readonly desc?: string;
   readonly keyResults: MinimalKeyResult[];
 }
 
 export interface KeyResult extends StoreDocument {
   readonly title: string;
+}
+
+export interface PositionableObject extends StoreDocument {
+  readonly position: number;
 }

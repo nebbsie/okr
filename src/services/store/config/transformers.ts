@@ -94,7 +94,10 @@ function TransformEarlyAccess(data: any): EarlyAccess {
 function TransformObjective(data: any): Objective {
   return {
     title: data.title,
+    boardId: data.boardId,
     keyResults: data.keyResults,
+    desc: data.desc,
+    position: data.position,
     ...transformStoreDocumentFields(data),
   };
 }

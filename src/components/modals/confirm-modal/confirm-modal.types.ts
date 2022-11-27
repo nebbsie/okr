@@ -5,8 +5,8 @@ export enum ConfirmationModalType {
   NORMAL = 'normal',
 }
 
-export interface ConfirmationModalInput {
+export type ConfirmationModalInput = {
   readonly type?: ConfirmationModalType;
   readonly message: string;
   readonly action?: () => Observable<any>;
-}
+};

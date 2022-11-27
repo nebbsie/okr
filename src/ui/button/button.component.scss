@@ -30,6 +30,7 @@
 
 .Button {
   display: inherit;
+  width: 100%;
 
   @include colours.BackgroundColourGenerator();
 

@@ -5,7 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { TextColour, TextComponent, TextSize } from '../index';
+import { TextColour, TextComponent, TextSize } from '../text';
 import { DirectivesModule } from '@directives/directives.module';
 import { IconComponent } from '@ui/icon';
 

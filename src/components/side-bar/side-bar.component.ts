@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, Observable, startWith } from 'rxjs';
 import { ConfigService } from '@services/config';
 import { isDefined } from '@utils/utils';
+import { LocalStorageService } from '@services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -21,15 +22,14 @@ import { isDefined } from '@utils/utils';
           [class.PushToBottom]="onBoardPage$ | Async"
           [class.PushToTop]="!(onBoardPage$ | Async)"
         ></span>
-        <app-side-bar-item
-          [topBorder]="onBoardPage$ | Async"
-          [bottomBorder]="true"
-          routerLink="/profile"
-        >
-          My Profile
-        </app-side-bar-item>
+
+        <app-side-bar-team-nav
+          [currentTeamId]="currentTeamId$ | Async"
+          [borderTop]="onBoardPage$ | Async"
+        ></app-side-bar-team-nav>
 
         <app-side-bar-boards
+          [borderTop]="true"
           [borderBottom]="!(onBoardPage$ | Async)"
         ></app-side-bar-boards>
       </ui-flex>
@@ -44,14 +44,20 @@ export class SideBarComponent implements OnInit {
   onBoardPage$!: Observable<boolean>;
 
   currentBoardId$!: Observable<string>;
+  currentTeamId$!: Observable<string>;
 
   constructor(
     private router: Router,
     private config: ConfigService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private localStorage: LocalStorageService
   ) {}
 
   ngOnInit() {
+    this.currentTeamId$ = this.localStorage
+      .get('selectedTeam')
+      .pipe(filter(isDefined));
+
     const url$ = this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
       startWith(this.router.url),

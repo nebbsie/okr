@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexComponent } from '@ui/flex';
 import { DirectivesModule } from '@directives/directives.module';
-import { CenterComponent } from '@ui/center/center.component';
 import { IconComponent } from '@ui/icon';
 import { TextComponent } from '@ui/text';
 
@@ -13,13 +12,12 @@ import { TextComponent } from '@ui/text';
     TextComponent,
     MatIconModule,
     DirectivesModule,
-    CenterComponent,
     FlexComponent,
     IconComponent,
   ],
   template: `
     <footer class="Footer">
-      <ui-center justify="space-between" align="center">
+      <ui-flex justify="space-between" align="center">
         <ui-flex direction="column" align="flex-start">
           <ui-text
             weight="bold"
@@ -43,7 +41,7 @@ import { TextComponent } from '@ui/text';
           </ui-icon>
           <ui-icon colour="white">mail</ui-icon>
         </ui-flex>
-      </ui-center>
+      </ui-flex>
     </footer>
   `,
   styleUrls: ['./footer.component.scss'],

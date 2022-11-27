@@ -1,0 +1,13 @@
+@use "../../variables";
+
+:host {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: variables.$spacing-small;
+}
+
+.Content {
+  flex-grow: 1;
+}

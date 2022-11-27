@@ -127,5 +127,6 @@ export class SideBarTeamSelectComponent implements OnInit {
 
   handleSelectTeam(teamId: string) {
     this.localStorage.set('selectedTeam', teamId);
+    this.router.navigate([`/team/${teamId}`]);
   }
 }

@@ -1,0 +1,9 @@
+@use "../../../variables";
+
+:host {
+  border-radius: variables.$border-radius;
+  border: variables.$border;
+  display: block;
+  height: variables.$objective-item-height;
+  margin-bottom: variables.$spacing-small;
+}

@@ -20,6 +20,7 @@ import { SpinnerComponent } from '@ui/spinner/spinner.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SideBarBoardsComponent } from './side-bar-boards/side-bar-boards.component';
 import { SideBarBoardMenuComponent } from './side-bar-board-menu/side-bar-board-menu.component';
+import { SideBarTeamNavComponent } from './side-bar-team-nav/side-bar-team-nav.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { SideBarBoardMenuComponent } from './side-bar-board-menu/side-bar-board-
     SideBarTeamSelectComponent,
     SideBarBoardsComponent,
     SideBarBoardMenuComponent,
+    SideBarTeamNavComponent,
   ],
   exports: [SideBarComponent],
   imports: [

@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 @Component({
   selector: 'app-landing',
   template: `
-    <ui-center direction="column">
+    <ui-flex direction="column" justify="center">
       <app-landing-blade
         marginBottom="large"
         marginBottomTablet="xlarge"
@@ -12,7 +12,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         marginBottom="large"
         marginBottomTablet="xxxlarge"
       ></app-landing-video>
-    </ui-center>
+    </ui-flex>
   `,
   styleUrls: ['./landing.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

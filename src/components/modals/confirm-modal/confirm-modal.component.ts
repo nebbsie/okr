@@ -19,17 +19,16 @@ import { BehaviorSubject, firstValueFrom } from 'rxjs';
         [disabled]="loading$ | Async"
         (click)="handleSelection(false)"
       >
-        No
+        Cancel
       </ui-button>
 
       <ui-button
-        marginRight="small"
         [disabled]="loading$ | Async"
         [loading]="loading$ | Async"
         [colour]="type === ConfirmationModalType.WARNING ? 'danger' : 'primary'"
         (click)="handleSelection(true)"
       >
-        Yes
+        Confirm
       </ui-button>
     </ui-flex>
   `,

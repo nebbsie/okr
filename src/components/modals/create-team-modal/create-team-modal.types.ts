@@ -1,2 +1,2 @@
-export interface CreateTeamModalInput {}
+export type CreateTeamModalInput = {};
 export type CreateTeamModalOutput = string | undefined;

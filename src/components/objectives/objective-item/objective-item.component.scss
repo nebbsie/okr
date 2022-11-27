@@ -1,0 +1,23 @@
+@use "../../../variables";
+
+:host {
+  display: block;
+
+}
+
+.Objective {
+  align-items: center;
+  background-color: variables.$colour-white !important;
+  border-radius: variables.$border-radius;
+  border: variables.$border;
+  cursor: pointer;
+  display: flex;
+  height: variables.$objective-item-height;
+  padding: variables.$spacing-mid;
+  width: 100%;
+
+  &[blue-outline="true"] {
+    border-color: variables.$colour-blue !important;
+  }
+
+}

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   BoardsCollection,
+  DocumentId,
   ErrorCode,
   getServiceLogicError,
   RequestResult,
@@ -14,6 +15,8 @@ import { firstValueFrom } from 'rxjs';
 })
 export class BoardsService {
   constructor(private store: Store) {}
+
+  getObjectivesForBoard(id: DocumentId) {}
 
   async createBoard(boardName: string, teamId: string): Promise<RequestResult> {
     // Get the team to add the board to.

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-onboarding',
   template: `
-    <ui-page [center]="true">
+    <ui-page direction="column" align="center" justify="center">
       <ui-text
         align="center"
         weight="bold"

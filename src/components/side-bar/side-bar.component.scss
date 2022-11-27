@@ -2,10 +2,11 @@
 @use "../../variables";
 
 :host {
+  background-color: variables.$colour-white;
   display: flex;
   flex-direction: column;
   width: 0; // The side bar is not shown on mobile.
-  height: 100%;
+  height: 100vh;
   overflow-y: hidden;
 
   @include breakpoints.tablet() {
@@ -21,6 +22,7 @@
   overflow-y: scroll;
   height: 100%;
   transition: margin 700ms;
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -68,3 +70,5 @@
     opacity: 1;
   }
 }
+
+

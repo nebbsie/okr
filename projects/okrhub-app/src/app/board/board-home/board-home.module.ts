@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
+import { CommonModule, NgForOf } from '@angular/common';
 import { BoardHomeRoutingModule } from './board-home-routing.module';
 import { BoardHomeComponent } from './board-home.component';
 import { MatCardModule } from '@angular/material/card';
@@ -10,10 +9,14 @@ import { DirectivesModule } from '@directives/directives.module';
 import { InputComponent } from '@ui/input';
 import { ButtonComponent } from '@ui/button';
 import { FlexComponent } from '@ui/flex';
-import { A11yModule } from '@angular/cdk/a11y';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TextareaComponent } from '@ui/textarea/textarea.component';
 import { ObjectiveCreateFormComponent } from '@components/objectives/objective-create-form/objective-create-form.component';
+import { PipesModule } from '@pipes/pipes.module';
+import { DivComponent } from '@ui/div';
+import { ObjectiveItemComponent } from '@components/objectives/objective-item/objective-item.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ObjectiveItemDropAreaComponent } from '@components/objectives/objective-item-drop-area/objective-item-drop-area.component';
 
 @NgModule({
   declarations: [BoardHomeComponent],
@@ -27,10 +30,15 @@ import { ObjectiveCreateFormComponent } from '@components/objectives/objective-c
     InputComponent,
     ButtonComponent,
     FlexComponent,
-    A11yModule,
     ReactiveFormsModule,
     TextareaComponent,
     ObjectiveCreateFormComponent,
+    PipesModule,
+    DivComponent,
+    NgForOf,
+    ObjectiveItemComponent,
+    DragDropModule,
+    ObjectiveItemDropAreaComponent,
   ],
 })
 export class BoardHomeModule {}

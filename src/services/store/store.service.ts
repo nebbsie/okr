@@ -259,13 +259,13 @@ export class Store {
     );
 
     return {
-      value$: value$.pipe(shareReplay(1), distinctUntilChanged()),
+      value$: value$.pipe(distinctUntilChanged(), shareReplay(1)),
       error$: errorSubject$
         .asObservable()
-        .pipe(startWith(undefined), shareReplay(1), distinctUntilChanged()),
+        .pipe(startWith(undefined), distinctUntilChanged(), shareReplay(1)),
       loading$: loadingSubject$
         .asObservable()
-        .pipe(shareReplay(1), distinctUntilChanged()),
+        .pipe(distinctUntilChanged(), shareReplay(1)),
     };
   }
 

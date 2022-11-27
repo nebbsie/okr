@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   template: `
-    <ui-page [center]="true">
+    <ui-page direction="row" justify="center">
       <app-login-form
         class="Form"
         (successfullyLoggedIn)="handleLoggedIn()"

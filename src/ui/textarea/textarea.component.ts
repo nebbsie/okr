@@ -1,17 +1,19 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { A11yModule } from '@angular/cdk/a11y';
+import { DirectivesModule } from '@directives/directives.module';
 
 @Component({
   selector: 'ui-textarea',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, A11yModule, DirectivesModule],
   template: `
     <textarea
       class="TextArea"
-      autofocus
-      [rows]="rows"
-      [placeholder]="placeholder"
+      [autoFocus]="autofocus"
       [formControl]="control"
+      [placeholder]="placeholder"
+      [rows]="rows"
     ></textarea>
   `,
   styleUrls: ['./textarea.component.scss'],
@@ -21,4 +23,5 @@ export class TextareaComponent {
   @Input() rows = 1;
   @Input() control!: FormControl;
   @Input() placeholder!: string;
+  @Input() autofocus?: boolean;
 }

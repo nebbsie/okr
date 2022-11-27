@@ -28,11 +28,11 @@ import { Router } from '@angular/router';
       justify="space-between"
       marginBottom="xxxsmall"
     >
-      <ui-text weight="medium">Boards</ui-text>
+      <ui-text weight="medium">Team Boards</ui-text>
       <ui-icon
         matTooltip="Create board"
-        [clickable]="true"
         size="xmid"
+        [clickable]="true"
         (click)="openCreateBoardModal()"
       >
         add
@@ -46,8 +46,8 @@ import { Router } from '@angular/router';
           trackBy: trackById;
           let isLast = last
         "
-        [routerLink]="'/board/' + board.id"
         routerLinkActive="SideBarActive"
+        [routerLink]="'/board/' + board.id"
         [marginBottom]="isLast ? 'small' : 'none'"
       >
         {{ board.name }}

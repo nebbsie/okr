@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { TextColour, TextSize } from '../index';
+import { TextColour, TextSize } from '../text';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 
@@ -11,12 +11,12 @@ import { RouterLink } from '@angular/router';
     <mat-icon
       class="Icon"
       aria-hidden="false"
-      [routerLink]="link"
-      [class.Icon-Link]="!!link || clickable"
       [attr.data-font-colour]="colour"
-      [attr.data-size]="size"
-      [attr.data-size-tablet]="sizeTablet"
       [attr.data-size-desktop]="sizeDesktop"
+      [attr.data-size-tablet]="sizeTablet"
+      [attr.data-size]="size"
+      [class.Icon-Link]="!!link || clickable"
+      [routerLink]="link"
     >
       <ng-content></ng-content>
     </mat-icon>
@@ -25,10 +25,10 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconComponent {
-  @Input() link?: string;
-  @Input() colour: TextColour = 'dark';
-  @Input() size: TextSize = 'xlarge';
-  @Input() sizeTablet?: TextSize;
-  @Input() sizeDesktop?: TextSize;
   @Input() clickable: boolean = false;
+  @Input() colour: TextColour = 'dark';
+  @Input() link?: string;
+  @Input() size: TextSize = 'xlarge';
+  @Input() sizeDesktop?: TextSize;
+  @Input() sizeTablet?: TextSize;
 }

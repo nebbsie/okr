@@ -6,7 +6,29 @@ const routes: Routes = [
   {
     path: '',
     component: TeamComponent,
-    children: [],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./team-dashboard/team-dashboard.module').then(
+            (m) => m.TeamDashboardModule
+          ),
+      },
+      {
+        path: 'members',
+        loadChildren: () =>
+          import('./team-members/team-members.module').then(
+            (m) => m.TeamMembersModule
+          ),
+      },
+      {
+        path: 'settings',
+        loadChildren: () =>
+          import('./team-settings/team-settings.module').then(
+            (m) => m.TeamSettingsModule
+          ),
+      },
+    ],
   },
 ];
 

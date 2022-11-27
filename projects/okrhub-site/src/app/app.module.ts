@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoggedOutNavigationComponent } from '@components/logged-out-navigation';
 import { FooterComponent } from '@components/footer';
-import { CenterComponent } from '@ui/center/center.component';
+import { FlexComponent } from '@ui/flex';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,7 +14,7 @@ import { CenterComponent } from '@ui/center/center.component';
     AppRoutingModule,
     FooterComponent,
     LoggedOutNavigationComponent,
-    CenterComponent,
+    FlexComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
