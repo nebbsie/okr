@@ -1,19 +1,26 @@
 @use '../../text';
 @use '../../breakpoints';
+@use '../../variables';
 
 :host {
   display: flex;
+  align-items: center;
 }
 
 .Icon {
-  width: unset !important;
-  height: unset !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: variables.$spacing-small;
+  margin: 0;
+  border-radius: 50%;
 
   &-Link {
     &:hover {
       cursor: pointer;
       filter: brightness(20%);
       transition: all 200ms cubic-bezier(.03,.76,.83,.67);
+      background-color: variables.$colour-hover;
 
       &[data-font-colour='dark'] {
         color: darkgrey;

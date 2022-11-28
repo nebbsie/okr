@@ -15,8 +15,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     <ng-content></ng-content>
 
     <ui-icon
-      colour="mid"
       matTooltip="Close"
+      colour="grey"
       [clickable]="true"
       (click)="close.emit()"
     >

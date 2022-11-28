@@ -10,7 +10,9 @@ import { FormControl } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, DirectivesModule, IconComponent, TextareaComponent],
   template: `
-    <ui-icon class="Icon" marginRight="xxsmall">description</ui-icon>
+    <ui-icon class="Icon" colour="mid" marginRight="xxsmall">
+      description
+    </ui-icon>
     <ui-textarea
       [control]="control"
       [rows]="4"

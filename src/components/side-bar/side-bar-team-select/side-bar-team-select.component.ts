@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { combineLatest, filter, map, Observable } from 'rxjs';
 import { MinimalTeam } from '@services/store';
-import { LocalStorageService } from '@services/local-storage/local-storage.service';
+import { LocalStorageService } from '@services/local-storage';
 import { isDefined } from '@utils/utils';
 import { TeamsService } from '@services/collections/teams';
 import { UsersService } from '@services/collections/users';
@@ -23,7 +23,6 @@ import { Router } from '@angular/router';
       <ui-icon
         #menuTrigger="matMenuTrigger"
         [matMenuTriggerFor]="teamSelectActions"
-        [clickable]="true"
       >
         unfold_more
       </ui-icon>
@@ -35,6 +34,7 @@ import { Router } from '@angular/router';
           <ui-text weight="medium" marginRight="small"> Teams </ui-text>
           <ui-icon
             matTooltip="Create team"
+            colour="grey"
             [clickable]="true"
             (click)="handleCreateTeam()"
           >
@@ -83,10 +83,10 @@ export class SideBarTeamSelectComponent implements OnInit {
 
   constructor(
     private localStorage: LocalStorageService,
-    private teams: TeamsService,
-    private users: UsersService,
     private modal: ModalService,
-    private router: Router
+    private router: Router,
+    private teams: TeamsService,
+    private users: UsersService
   ) {}
 
   ngOnInit(): void {
@@ -114,19 +114,17 @@ export class SideBarTeamSelectComponent implements OnInit {
   }
 
   handleCreateTeam(): void {
-    this.modal.open(CreateTeamModalComponent, {}).then((teamId) => {
+    this.modal.open(CreateTeamModalComponent, {}).then(async (teamId) => {
       if (!teamId) {
         return;
       }
 
-      this.handleSelectTeam(teamId);
-
-      this.router.navigate(['/']);
+      await this.handleSelectTeam(teamId);
     });
   }
 
-  handleSelectTeam(teamId: string) {
+  async handleSelectTeam(teamId: string) {
     this.localStorage.set('selectedTeam', teamId);
-    this.router.navigate([`/team/${teamId}`]);
+    await this.router.navigate([`/team/${teamId}`]);
   }
 }

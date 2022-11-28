@@ -21,6 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SideBarBoardsComponent } from './side-bar-boards/side-bar-boards.component';
 import { SideBarBoardMenuComponent } from './side-bar-board-menu/side-bar-board-menu.component';
 import { SideBarTeamNavComponent } from './side-bar-team-nav/side-bar-team-nav.component';
+import { DivComponent } from '@ui/div';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { SideBarTeamNavComponent } from './side-bar-team-nav/side-bar-team-nav.c
     SpinnerComponent,
     MatTooltipModule,
     JsonPipe,
+    DivComponent,
   ],
 })
 export class SideBarModule {}

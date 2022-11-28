@@ -12,6 +12,8 @@ import { SpinnerComponent } from '@ui/spinner';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MoreOptionsComponent } from '@components/more-options/more-options.component';
+import { MoreOptionsItemComponent } from '@components/more-options-item/more-options-item.component';
 
 @NgModule({
   declarations: [ObjectiveModalComponent],
@@ -28,6 +30,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatMenuModule,
     MatIconModule,
     MatTooltipModule,
+    MoreOptionsComponent,
+    MoreOptionsItemComponent,
   ],
 })
 export class ObjectiveModalModule {}

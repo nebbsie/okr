@@ -9,29 +9,21 @@ import {
   selector: 'app-side-bar-team-nav',
   template: `
     <ui-text class="Title" weight="medium">Team</ui-text>
-    <app-side-bar-item
-      routerLinkActive="SideBarActive"
-      icon="dashboard"
-      [routerLink]="'/team/' + currentTeamId"
-      [routerLinkActiveOptions]="{ exact: true }"
-    >
+
+    <app-side-bar-item icon="dashboard" [link]="'/team/' + currentTeamId">
       Dashboard
     </app-side-bar-item>
 
     <app-side-bar-item
-      routerLinkActive="SideBarActive"
       icon="groups"
-      [routerLink]="'/team/' + currentTeamId + '/members'"
-      [routerLinkActiveOptions]="{ exact: true }"
+      [link]="'/team/' + currentTeamId + '/members'"
     >
       Members
     </app-side-bar-item>
 
     <app-side-bar-item
-      routerLinkActive="SideBarActive"
       icon="settings"
-      [routerLink]="'/team/' + currentTeamId + '/settings'"
-      [routerLinkActiveOptions]="{ exact: true }"
+      [link]="'/team/' + currentTeamId + '/settings'"
     >
       Settings
     </app-side-bar-item>

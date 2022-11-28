@@ -27,22 +27,11 @@ import {
   selector: 'app-objective-modal',
   template: `
     <app-modal-header (close)="close()">
-      <ui-icon
-        colour="mid"
-        marginRight="xxsmall"
-        matTooltip="More options"
-        [matMenuTriggerFor]="menu"
-        [clickable]="true"
-      >
-        more_horiz
-      </ui-icon>
-
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="handleDeleteItem()">
-          <mat-icon>delete</mat-icon>
-          <span>Delete</span>
-        </button>
-      </mat-menu>
+      <app-more-options>
+        <app-more-options-item icon="delete" (click)="handleDeleteItem()">
+          Delete
+        </app-more-options-item>
+      </app-more-options>
     </app-modal-header>
 
     <ui-spinner

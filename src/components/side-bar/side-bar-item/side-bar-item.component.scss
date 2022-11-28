@@ -1,22 +1,21 @@
 @use "../../../variables";
 
 :host {
+  display: block;
+}
+
+.Item {
   display: flex;
   align-items: center;
   width: 100%;
   cursor: pointer;
   padding: variables.$spacing-xsmall variables.$spacing-small;
 
-  &[data-top-border="true"] {
-    border-top: variables.$border;
-  }
-
-  &[data-bottom-border="true"] {
-    border-bottom: variables.$border;
-  }
-
   &:hover {
     background-color: variables.$colour-hover;
   }
 }
 
+.Active {
+  background-color: variables.$colour-active !important;
+}

@@ -32,6 +32,7 @@ import { Router } from '@angular/router';
       <ui-icon
         matTooltip="Create board"
         size="xmid"
+        colour="grey"
         [clickable]="true"
         (click)="openCreateBoardModal()"
       >
@@ -46,9 +47,9 @@ import { Router } from '@angular/router';
           trackBy: trackById;
           let isLast = last
         "
-        routerLinkActive="SideBarActive"
-        [routerLink]="'/board/' + board.id"
+        [link]="'/board/' + board.id"
         [marginBottom]="isLast ? 'small' : 'none'"
+        [exactLink]="false"
       >
         {{ board.name }}
       </app-side-bar-item>

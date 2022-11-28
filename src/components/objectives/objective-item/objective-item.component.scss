@@ -1,11 +1,6 @@
 @use "../../../variables";
 
 :host {
-  display: block;
-
-}
-
-.Objective {
   align-items: center;
   background-color: variables.$colour-white !important;
   border-radius: variables.$border-radius;
@@ -15,9 +10,13 @@
   height: variables.$objective-item-height;
   padding: variables.$spacing-mid;
   width: 100%;
+  justify-content: space-between;
 
   &[blue-outline="true"] {
     border-color: variables.$colour-blue !important;
   }
 
+  &:hover {
+    background-color: darken(variables.$colour-white, 1%) !important;
+  }
 }

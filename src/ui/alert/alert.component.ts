@@ -39,8 +39,7 @@ export class AlertComponent implements OnInit {
   @Input()
   padding: 'xsmall' | 'small' | 'mid' = 'mid';
 
-  @Input()
-  textSize: TextSize = 'mid';
+  @Input() textSize: TextSize = 'mid';
 
   iconType!: string;
   iconColour!: TextColour;

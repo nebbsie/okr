@@ -7,9 +7,7 @@
 
 .TeamSelectTrigger {
   border-bottom: variables.$border;
-  padding-left: variables.$spacing-small;
-  padding-right: variables.$spacing-small;
-  min-height: 60px;
+  padding: variables.$spacing-xsmall;
   cursor: pointer;
 }
 

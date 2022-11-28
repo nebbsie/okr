@@ -11,6 +11,8 @@ import { JsonPipe, NgForOf } from '@angular/common';
 import { FlexComponent } from '@ui/flex';
 import { DirectivesModule } from '@directives/directives.module';
 import { IconComponent } from '@ui/icon';
+import { MoreOptionsComponent } from '@components/more-options/more-options.component';
+import { MoreOptionsItemComponent } from '@components/more-options-item/more-options-item.component';
 
 @Component({
   selector: 'app-objective-item',
@@ -23,11 +25,15 @@ import { IconComponent } from '@ui/icon';
     JsonPipe,
     NgForOf,
     TextComponent,
+    MoreOptionsComponent,
+    MoreOptionsItemComponent,
   ],
   template: `
-    <ui-flex class="Objective">
-      {{ objective.title }} | {{ objective.position }}
-    </ui-flex>
+    <ui-text>{{ objective.title }}</ui-text>
+
+    <app-more-options>
+      <app-more-options-item icon="add"> Add Key Result </app-more-options-item>
+    </app-more-options>
   `,
   styleUrls: ['./objective-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
