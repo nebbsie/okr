@@ -1,5 +1,6 @@
 @use "../../breakpoints";
 @use "../../flex";
+@use "../../colours";
 
 :host {
   display: flex;
@@ -15,6 +16,10 @@
   &[data-center='true'] {
     margin-right: auto;
     margin-left: auto;
+  }
+
+  &[data-clickable='true'] {
+    cursor: pointer;
   }
 
   @include flex.FlexDirectionGenerator();

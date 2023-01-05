@@ -6,11 +6,7 @@
 }
 
 .AccountSettingsMenu {
-  padding:
-          variables.$spacing-xxsmall
-          variables.$spacing-xlarge
-          variables.$spacing-xxsmall
-          variables.$spacing-mid
+  padding: variables.$spacing-small variables.$spacing-mid;
 }
 
 .Trigger {

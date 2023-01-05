@@ -1,20 +1,17 @@
 @use "../../../variables";
 
 :host {
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.Objective {
   background-color: variables.$colour-white !important;
   border-radius: variables.$border-radius;
   border: variables.$border;
-  cursor: pointer;
-  display: flex;
   height: variables.$objective-item-height;
   padding: variables.$spacing-mid;
-  width: 100%;
-  justify-content: space-between;
-
-  &[blue-outline="true"] {
-    border-color: variables.$colour-blue !important;
-  }
 
   &:hover {
     background-color: darken(variables.$colour-white, 1%) !important;

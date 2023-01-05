@@ -10,7 +10,7 @@ import { FormControl } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, IconComponent, DirectivesModule, TextareaComponent],
   template: `
-    <ui-icon colour="mid" marginRight="xxsmall">local_offer</ui-icon>
+    <ui-icon marginRight="xsmall">local_offer</ui-icon>
     <ui-textarea
       [control]="control"
       [autofocus]="true"

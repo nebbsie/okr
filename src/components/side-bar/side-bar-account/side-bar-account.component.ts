@@ -58,20 +58,6 @@ import { TeamsService } from '@services/collections/teams';
           transform="uppercase"
           weight="medium"
         >
-          Workspaces
-        </ui-text>
-
-        <ui-text [clickable]="true" marginBottom="mid">
-          Switch workspace
-        </ui-text>
-
-        <ui-text
-          colour="mid"
-          marginBottom="xxsmall"
-          size="small"
-          transform="uppercase"
-          weight="medium"
-        >
           Teams
         </ui-text>
 
@@ -102,8 +88,6 @@ import { TeamsService } from '@services/collections/teams';
         >
           Actions
         </ui-text>
-
-        <ui-link link="/upgrade" marginBottom="xsmall"> Upgrade </ui-link>
 
         <ui-text [clickable]="true" colour="danger" (click)="logout()">
           Log Out

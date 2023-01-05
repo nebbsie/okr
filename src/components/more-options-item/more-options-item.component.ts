@@ -10,8 +10,8 @@ import { TextComponent } from '@ui/text';
   imports: [MatMenuModule, MatIconModule, IconComponent, TextComponent],
   template: `
     <button class="Button" mat-menu-item>
-      <ui-icon colour="grey">{{ icon }}</ui-icon>
-      <ui-text>
+      <ui-icon size="xmid">{{ icon }}</ui-icon>
+      <ui-text colour="dark">
         <ng-content></ng-content>
       </ui-text>
     </button>

@@ -6,7 +6,7 @@ import { StoreCollection } from './config/collections';
 export type OmittedStoreObjectParams = keyof StoreDocument;
 
 export type UpdateData<C extends StoreCollection> = DualParam<
-  Partial<C['type']>
+  Omit<Partial<C['type']>, 'id'>
 >;
 
 export type WhereConstraints = DualParam<QueryConstraint[]>;

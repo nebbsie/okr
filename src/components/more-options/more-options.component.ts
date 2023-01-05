@@ -22,7 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
       colour="grey"
       [matMenuTriggerFor]="menu"
       [clickable]="true"
-      (click)="handleClick($event)"
+      (click)="$event.stopImmediatePropagation()"
     >
       more_horiz
     </ui-icon>
@@ -34,8 +34,4 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrls: ['./more-options.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MoreOptionsComponent {
-  handleClick(event: MouseEvent) {
-    event.stopImmediatePropagation();
-  }
-}
+export class MoreOptionsComponent {}

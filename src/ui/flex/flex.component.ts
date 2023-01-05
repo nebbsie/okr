@@ -61,4 +61,8 @@ export class FlexComponent {
   @Input()
   @HostBinding('attr.data-full-width')
   fullWidth?: boolean;
+
+  @Input()
+  @HostBinding('attr.data-clickable')
+  clickable?: boolean;
 }

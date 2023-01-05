@@ -1,0 +1,15 @@
+@use "../../../variables";
+
+:host {
+  display: flex;
+  margin-top: variables.$spacing-small;
+  align-items: center;
+}
+
+.Container {
+  border-radius: variables.$border-radius;
+  border: variables.$border;
+  min-height: variables.$objective-item-height;
+  padding: variables.$spacing-mid;
+  background-color: variables.$colour-white;
+}

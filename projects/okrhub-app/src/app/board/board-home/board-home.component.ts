@@ -22,12 +22,18 @@ import { ObjectiveModalComponent } from '@components/modals/objective-modal';
       <app-objective-item
         *ngFor="let objective of objectives$ | Async; trackBy: trackById"
         cdkDrag
-        marginBottom="small"
+        marginBottom="mid"
         [cdkDragDisabled]="draggingDisabled$ | Async"
         [cdkDragStartDelay]="(touchDelay$ | Async) ?? 0"
         [objective]="objective"
-        (click)="handleClick(objective)"
+        (clicked)="handleClick(objective)"
       >
+        <app-objective-item
+          *cdkDragPreview
+          [objective]="objective"
+          [dragging]="true"
+        ></app-objective-item>
+
         <app-objective-item-drop-area
           *cdkDragPlaceholder
         ></app-objective-item-drop-area>

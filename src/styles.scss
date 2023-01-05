@@ -336,3 +336,12 @@ input:-webkit-autofill:active {
     background: rgba(0, 0, 0, .5);
   }
 }
+
+.mat-menu-content {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.mat-menu-panel {
+  min-height: 24px !important;
+}

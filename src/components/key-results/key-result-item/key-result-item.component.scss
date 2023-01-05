@@ -1,0 +1,19 @@
+@use "../../../variables";
+
+:host {
+  display: flex;
+  align-items: center;
+  margin-top: variables.$spacing-small;
+}
+
+.Container {
+  border-radius: variables.$border-radius;
+  border: variables.$border;
+  min-height: variables.$key-result-item-height;
+  padding: variables.$spacing-small variables.$spacing-mid;
+  background-color: darken(variables.$colour-white, 3%);
+
+  &:hover {
+    background-color: darken(variables.$colour-white, 4%) !important;
+  }
+}
