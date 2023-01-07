@@ -1,5 +1,6 @@
 @use "../../../variables";
 @use "../../../mixins";
+@use "../../../breakpoints";
 
 :host {
   display: flex;
@@ -7,7 +8,11 @@
   width: 100%;
 
   &[data-dragging="true"] {
-    width: 50%;
+    width: 90%;
+
+    @include breakpoints.tablet() {
+      width: 50%;
+    }
   }
 }
 

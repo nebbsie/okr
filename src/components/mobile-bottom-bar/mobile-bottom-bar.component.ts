@@ -11,6 +11,11 @@ import { ButtonComponent } from '@ui/button';
   template: `
     <ui-button [routerLink]="'/'" type="icon" icon="home"></ui-button>
     <ui-button [routerLink]="'/profile'" type="icon" icon="person"></ui-button>
+    <ui-button
+      [routerLink]="'/boards'"
+      type="icon"
+      icon="grid_view"
+    ></ui-button>
   `,
   styleUrls: ['./mobile-bottom-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

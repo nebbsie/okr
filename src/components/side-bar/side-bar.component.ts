@@ -47,10 +47,10 @@ export class SideBarComponent implements OnInit {
   currentTeamId$!: Observable<string>;
 
   constructor(
-    private router: Router,
     private config: ConfigService,
+    private localStorage: LocalStorageService,
     private route: ActivatedRoute,
-    private localStorage: LocalStorageService
+    private router: Router
   ) {}
 
   ngOnInit() {

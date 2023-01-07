@@ -4,6 +4,7 @@ import {
   EventEmitter,
   HostBinding,
   Input,
+  OnInit,
   Output,
 } from '@angular/core';
 import {
@@ -25,7 +26,9 @@ import { KeyResultCreateFormComponent } from '@components/key-results/key-result
 import { GetNewDragDropPosition, trackById } from '@services/utils';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { KeyResultItemDropAreaComponent } from '@components/key-results/key-result-item-drop-area/key-result-item-drop-area.component';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, map, Observable } from 'rxjs';
+import { PipesModule } from '@pipes/pipes.module';
+import { ScreenSizeService } from '@services/screen-size';
 
 @Component({
   selector: 'app-objective-item',
@@ -45,6 +48,7 @@ import { firstValueFrom } from 'rxjs';
     TextComponent,
     DragDropModule,
     KeyResultItemDropAreaComponent,
+    PipesModule,
   ],
   template: `
     <ui-flex
@@ -55,6 +59,8 @@ import { firstValueFrom } from 'rxjs';
       [clickable]="true"
       (mouseenter)="mouseOver.emit()"
       (mouseleave)="mouseOut.emit()"
+      (touchstart)="mouseOver.emit()"
+      (touchend)="mouseOut.emit()"
       (click)="clicked.emit()"
     >
       <ui-text>{{ objective.title }}</ui-text>
@@ -85,6 +91,7 @@ import { firstValueFrom } from 'rxjs';
             let last = last
           "
           cdkDrag
+          [cdkDragStartDelay]="(touchDelay$ | Async) ?? 0"
           [minimalKeyResult]="minimalKeyResult"
           [objective]="objective"
           [marginBottom]="last ? 'none' : 'xsmall'"
@@ -113,7 +120,7 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['./objective-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ObjectiveItemComponent {
+export class ObjectiveItemComponent implements OnInit {
   trackById = trackById;
 
   @Input() objective!: Objective;
@@ -128,7 +135,15 @@ export class ObjectiveItemComponent {
 
   showCreateKeyResult = false;
 
-  constructor(private store: Store) {}
+  touchDelay$!: Observable<number>;
+
+  constructor(private store: Store, private screenSize: ScreenSizeService) {}
+
+  ngOnInit() {
+    this.touchDelay$ = this.screenSize
+      .isMobile()
+      .pipe(map((isMobile) => (isMobile ? 150 : 0)));
+  }
 
   async handleMovedObjective(event: CdkDragDrop<MinimalKeyResult[]>) {
     // The item wasn't moved.

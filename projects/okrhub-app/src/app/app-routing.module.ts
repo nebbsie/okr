@@ -32,6 +32,16 @@ const routes: Routes = [
       import('./board/board.module').then((m) => m.BoardModule),
   },
   {
+    path: 'boards',
+    data: {
+      isBoard: true,
+    },
+    loadChildren: () =>
+      import('./mobile/mobile-boards/mobile-boards.module').then(
+        (m) => m.MobileBoardsModule
+      ),
+  },
+  {
     path: 'profile',
     canActivate: [ProfileGuard],
     data: {},
