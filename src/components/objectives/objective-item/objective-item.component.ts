@@ -79,7 +79,6 @@ import { Margin } from '@directives/margin';
     </ui-flex>
 
     <ui-div
-      *ngIf="!dragging"
       cdkDropList
       class="KeyBoundary"
       [cdkDropListLockAxis]="'y'"
