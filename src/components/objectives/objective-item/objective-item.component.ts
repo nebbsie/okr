@@ -103,6 +103,7 @@ import { Margin } from '@directives/margin';
       >
         <ng-template cdkDragPreview matchSize>
           <app-key-result-item
+            class="KeyResultDragItem"
             [objective]="objective"
             [minimalKeyResult]="minimalKeyResult"
             [dragging]="true"

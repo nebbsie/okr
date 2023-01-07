@@ -26,9 +26,13 @@ import { AlignItems, FlexDirection, JustifyContent } from '@ui/flex/flex.types';
     FlexComponent,
   ],
   template: `
-    <ui-div class="PageTitle" *ngIf="(isMobile$ | Async) && title">
+    <ui-flex
+      class="PageTitle"
+      *ngIf="(isMobile$ | Async) && title"
+      align="center"
+    >
       <ui-text weight="medium">{{ title }}</ui-text>
-    </ui-div>
+    </ui-flex>
 
     <ui-flex
       class="PageContainer"

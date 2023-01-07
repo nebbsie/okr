@@ -345,3 +345,15 @@ input:-webkit-autofill:active {
 .mat-menu-panel {
   min-height: 24px !important;
 }
+
+@include breakpoints.mobile() {
+  * {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
+
+.cdk-drag {
+  z-index: 1 !important;
+}

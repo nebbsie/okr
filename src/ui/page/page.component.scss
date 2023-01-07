@@ -31,12 +31,11 @@
 }
 
 .PageTitle {
-  display: flex;
   position: sticky;
-  align-items: center;
   background-color: variables.$colour-white;
   border-bottom: variables.$border;
   min-height: 60px;
   padding: variables.$spacing-small;
   top: 0;
+  z-index: variables.$mobile-top-bar;
 }

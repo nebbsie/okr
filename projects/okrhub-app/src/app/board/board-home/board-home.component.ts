@@ -20,6 +20,8 @@ import { Margin } from '@directives/margin';
       cdkDropList
       [cdkDropListLockAxis]="'y'"
       [cdkDropListData]="objectives"
+      [cdkDropListAutoScrollDisabled]="false"
+      [cdkDropListAutoScrollStep]="35"
       (cdkDropListDropped)="handleMovedObjective($event)"
     >
       <app-objective-item
