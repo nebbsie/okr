@@ -354,6 +354,6 @@ input:-webkit-autofill:active {
   }
 }
 
-.cdk-drag {
-  z-index: 1 !important;
+.cdk-overlay-container {
+  z-index: variables.$modal-z-index !important;
 }

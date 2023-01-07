@@ -1,19 +1,10 @@
 @use "../../../variables";
 @use "../../../mixins";
-@use "../../../breakpoints";
 
 :host {
   display: flex;
   align-items: center;
   width: 100%;
-
-  &[data-dragging="true"] {
-    width: 90%;
-
-    @include breakpoints.tablet() {
-      width: 50%;
-    }
-  }
 }
 
 .Container {

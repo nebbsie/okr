@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { filter, firstValueFrom, map, Observable } from 'rxjs';
+import { filter, firstValueFrom, map, Observable, Subject } from 'rxjs';
 import { Objective, ObjectivesCollection, Store } from '@services/store';
 import { ActivatedRoute } from '@angular/router';
 import { isDefined } from '@utils/utils';
@@ -32,7 +32,10 @@ import { Margin } from '@directives/margin';
         [cdkDragDisabled]="
           (draggingDisabled$ | Async) || mouseOverObjectiveId !== objective.id
         "
-        [cdkDragStartDelay]="(touchDelay$ | Async) ?? 0"
+        [cdkDragStartDelay]="{ mouse: 0, touch: 200 }"
+        [dragging]="(draggingId$ | Async) === objective.id"
+        (touchstart)="handleTouchStart(objective.id)"
+        (touchend)="handleTouchEnd()"
         [objective]="objective"
         (mouseOver)="mouseOverObjectiveId = objective.id"
         (mouseOut)="mouseOverObjectiveId = undefined"
@@ -45,10 +48,11 @@ import { Margin } from '@directives/margin';
           ></app-objective-item>
         </ng-template>
 
-        <app-objective-item-drop-area
-          *cdkDragPlaceholder
-          [marginBottom]="OBJECTIVE_MARGIN"
-        ></app-objective-item-drop-area>
+        <ng-template cdkDragPlaceholder>
+          <app-objective-item-drop-area
+            [marginBottom]="OBJECTIVE_MARGIN"
+          ></app-objective-item-drop-area>
+        </ng-template>
       </app-objective-item>
     </ui-div>
 
@@ -66,13 +70,17 @@ export class BoardHomeComponent implements OnInit {
 
   trackById = trackById;
 
-  touchDelay$!: Observable<number>;
+  private draggingIdSubject$ = new Subject<string | undefined>();
+  draggingId$ = this.draggingIdSubject$.asObservable();
+
   draggingDisabled$!: Observable<boolean>;
   mouseOverObjectiveId?: string;
 
   boardId$!: Observable<string>;
   lastBoardPosition$!: Observable<number | undefined>;
   objectives$!: Observable<Objective[]>;
+
+  timeout?: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -103,10 +111,6 @@ export class BoardHomeComponent implements OnInit {
       map((objectives) => objectives.pop()?.position)
     );
 
-    this.touchDelay$ = this.screenSize
-      .isMobile()
-      .pipe(map((isMobile) => (isMobile ? 150 : 0)));
-
     this.draggingDisabled$ = this.objectives$.pipe(
       map((objectives) => objectives.length < 2)
     );
@@ -132,6 +136,18 @@ export class BoardHomeComponent implements OnInit {
     );
 
     await firstValueFrom(updateResult.value$);
+  }
+
+  handleTouchStart(id: string): void {
+    this.timeout = window.setTimeout(() => {
+      console.log('ready');
+      this.draggingIdSubject$.next(id);
+    }, 200);
+  }
+
+  handleTouchEnd(): void {
+    window.clearTimeout(this.timeout);
+    this.draggingIdSubject$.next(undefined);
   }
 
   handleClick(objective: Objective): void {

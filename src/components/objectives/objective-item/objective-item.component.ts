@@ -4,7 +4,6 @@ import {
   EventEmitter,
   HostBinding,
   Input,
-  OnInit,
   Output,
 } from '@angular/core';
 import {
@@ -26,9 +25,8 @@ import { KeyResultCreateFormComponent } from '@components/key-results/key-result
 import { GetNewDragDropPosition, trackById } from '@services/utils';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { KeyResultItemDropAreaComponent } from '@components/key-results/key-result-item-drop-area/key-result-item-drop-area.component';
-import { firstValueFrom, map, Observable } from 'rxjs';
+import { firstValueFrom, Subject } from 'rxjs';
 import { PipesModule } from '@pipes/pipes.module';
-import { ScreenSizeService } from '@services/screen-size';
 import { Margin } from '@directives/margin';
 
 @Component({
@@ -96,10 +94,13 @@ import { Margin } from '@directives/margin';
         "
         cdkDrag
         cdkDragBoundary=".KeyBoundary"
-        [cdkDragStartDelay]="(touchDelay$ | Async) ?? 0"
+        [cdkDragStartDelay]="{ mouse: 0, touch: 150 }"
+        [dragging]="(draggingId$ | Async) === minimalKeyResult.id"
+        [marginBottom]="last ? 'none' : KEY_RESULT_MARGIN"
         [minimalKeyResult]="minimalKeyResult"
         [objective]="objective"
-        [marginBottom]="last ? 'none' : KEY_RESULT_MARGIN"
+        (touchend)="handleTouchEnd()"
+        (touchstart)="handleTouchStart(minimalKeyResult.id)"
       >
         <ng-template cdkDragPreview matchSize>
           <app-key-result-item
@@ -127,7 +128,7 @@ import { Margin } from '@directives/margin';
   styleUrls: ['./objective-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ObjectiveItemComponent implements OnInit {
+export class ObjectiveItemComponent {
   KEY_RESULT_MARGIN: Margin = 'xxxsmall';
 
   trackById = trackById;
@@ -143,15 +144,12 @@ export class ObjectiveItemComponent implements OnInit {
   @Output() mouseOut = new EventEmitter<void>();
 
   showCreateKeyResult = false;
-  touchDelay$!: Observable<number>;
+  timeout?: number;
 
-  constructor(private store: Store, private screenSize: ScreenSizeService) {}
+  private draggingIdSubject$ = new Subject<string | undefined>();
+  draggingId$ = this.draggingIdSubject$.asObservable();
 
-  ngOnInit() {
-    this.touchDelay$ = this.screenSize
-      .isMobile()
-      .pipe(map((isMobile) => (isMobile ? 150 : 0)));
-  }
+  constructor(private store: Store) {}
 
   async handleMovedObjective(event: CdkDragDrop<MinimalKeyResult[]>) {
     // The item wasn't moved.
@@ -180,5 +178,16 @@ export class ObjectiveItemComponent implements OnInit {
     );
 
     await firstValueFrom(updateResult.value$);
+  }
+
+  handleTouchStart(id: string): void {
+    this.timeout = window.setTimeout(() => {
+      this.draggingIdSubject$.next(id);
+    }, 200);
+  }
+
+  handleTouchEnd(): void {
+    window.clearTimeout(this.timeout);
+    this.draggingIdSubject$.next(undefined);
   }
 }
