@@ -29,6 +29,7 @@ import { KeyResultItemDropAreaComponent } from '@components/key-results/key-resu
 import { firstValueFrom, map, Observable } from 'rxjs';
 import { PipesModule } from '@pipes/pipes.module';
 import { ScreenSizeService } from '@services/screen-size';
+import { Margin } from '@directives/margin';
 
 @Component({
   selector: 'app-objective-item',
@@ -55,7 +56,10 @@ import { ScreenSizeService } from '@services/screen-size';
       class="Objective"
       justify="space-between"
       align="center"
-      [marginBottom]="objective.keyResults.length > 0 ? 'xsmall' : 'none'"
+      [attr.data-dragging]="dragging"
+      [marginBottom]="
+        objective.keyResults.length > 0 ? KEY_RESULT_MARGIN : 'none'
+      "
       [clickable]="true"
       (mouseenter)="mouseOver.emit()"
       (mouseleave)="mouseOut.emit()"
@@ -69,58 +73,62 @@ import { ScreenSizeService } from '@services/screen-size';
         <app-more-options-item icon="add" (click)="showCreateKeyResult = true">
           Add Key Result
         </app-more-options-item>
-
         <app-more-options-item icon="edit" (click)="clicked.emit()">
           Edit
         </app-more-options-item>
-
         <app-more-options-item icon="delete"> Delete </app-more-options-item>
       </app-more-options>
     </ui-flex>
 
-    <ng-container *ngIf="!dragging">
-      <ui-div
-        cdkDropList
-        [cdkDropListData]="objective.keyResults"
-        (cdkDropListDropped)="handleMovedObjective($event)"
+    <ui-div
+      *ngIf="!dragging"
+      cdkDropList
+      class="KeyBoundary"
+      [cdkDropListLockAxis]="'y'"
+      [cdkDropListData]="objective.keyResults"
+      (cdkDropListDropped)="handleMovedObjective($event)"
+    >
+      <app-key-result-item
+        *ngFor="
+          let minimalKeyResult of objective.keyResults;
+          trackBy: trackById;
+          let last = last
+        "
+        cdkDrag
+        cdkDragBoundary=".KeyBoundary"
+        [cdkDragStartDelay]="(touchDelay$ | Async) ?? 0"
+        [minimalKeyResult]="minimalKeyResult"
+        [objective]="objective"
+        [marginBottom]="last ? 'none' : KEY_RESULT_MARGIN"
       >
-        <app-key-result-item
-          *ngFor="
-            let minimalKeyResult of objective.keyResults;
-            trackBy: trackById;
-            let last = last
-          "
-          cdkDrag
-          [cdkDragStartDelay]="(touchDelay$ | Async) ?? 0"
-          [minimalKeyResult]="minimalKeyResult"
-          [objective]="objective"
-          [marginBottom]="last ? 'none' : 'xsmall'"
-        >
+        <ng-template cdkDragPreview matchSize>
           <app-key-result-item
-            *cdkDragPreview
             [objective]="objective"
             [minimalKeyResult]="minimalKeyResult"
             [dragging]="true"
           ></app-key-result-item>
+        </ng-template>
 
+        <ng-template cdkDragPlaceholder>
           <app-key-result-item-drop-area
-            *cdkDragPlaceholder
-            [marginBottom]="last ? 'none' : 'xsmall'"
+            [marginBottom]="last ? 'none' : KEY_RESULT_MARGIN"
           ></app-key-result-item-drop-area>
-        </app-key-result-item>
-      </ui-div>
+        </ng-template>
+      </app-key-result-item>
+    </ui-div>
 
-      <app-key-result-create-form
-        *ngIf="showCreateKeyResult"
-        [objective]="objective"
-        (closed)="showCreateKeyResult = false"
-      ></app-key-result-create-form>
-    </ng-container>
+    <app-key-result-create-form
+      *ngIf="showCreateKeyResult && !dragging"
+      [objective]="objective"
+      (closed)="showCreateKeyResult = false"
+    ></app-key-result-create-form>
   `,
   styleUrls: ['./objective-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ObjectiveItemComponent implements OnInit {
+  KEY_RESULT_MARGIN: Margin = 'xxxsmall';
+
   trackById = trackById;
 
   @Input() objective!: Objective;
@@ -134,7 +142,6 @@ export class ObjectiveItemComponent implements OnInit {
   @Output() mouseOut = new EventEmitter<void>();
 
   showCreateKeyResult = false;
-
   touchDelay$!: Observable<number>;
 
   constructor(private store: Store, private screenSize: ScreenSizeService) {}

@@ -12,7 +12,7 @@ import {
   ObjectivesCollection,
   Store,
 } from '@services/store';
-import { JsonPipe, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { FlexComponent } from '@ui/flex';
 import { IconComponent } from '@ui/icon';
 import { MoreOptionsComponent } from '@components/more-options/more-options.component';
@@ -26,7 +26,6 @@ import { PromiseToObservable } from '@services/utils';
   selector: 'app-key-result-item',
   standalone: true,
   imports: [
-    JsonPipe,
     FlexComponent,
     IconComponent,
     MoreOptionsComponent,
@@ -34,12 +33,13 @@ import { PromiseToObservable } from '@services/utils';
     NgIf,
   ],
   template: `
-    <ui-icon *ngIf="!dragging" size="xmid">subdirectory_arrow_right</ui-icon>
+    <!--    <ui-icon *ngIf="!dragging" size="xmid">subdirectory_arrow_right</ui-icon>-->
 
     <ui-flex
       class="Container"
       justify="space-between"
       align="center"
+      [attr.data-dragging]="dragging"
       [clickable]="true"
       [fullWidth]="true"
     >

@@ -18,9 +18,13 @@
 
 .Container {
   @include mixins.BoxBorder();
-  @include mixins.Clickable(darken(variables.$colour-white, 4%));
+  @include mixins.Clickable();
 
   height: variables.$key-result-item-height;
   padding: variables.$spacing-small variables.$spacing-mid;
-  background-color: darken(variables.$colour-white, 3%);
+  background-color: variables.$key-result-bg-colour;
+
+  &[data-dragging="true"] {
+    border: variables.$border-dragging;
+  }
 }

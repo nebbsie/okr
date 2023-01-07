@@ -9,20 +9,24 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { ScreenSizeService } from '@services/screen-size';
 import { ModalService } from '@services/modal';
 import { ObjectiveModalComponent } from '@components/modals/objective-modal';
+import { Margin } from '@directives/margin';
 
 @Component({
   selector: 'app-board-home',
   template: `
     <ui-div
       *ngIf="objectives$ | Async as objectives"
+      class="ObjectiveBoundary"
       cdkDropList
+      [cdkDropListLockAxis]="'y'"
       [cdkDropListData]="objectives"
       (cdkDropListDropped)="handleMovedObjective($event)"
     >
       <app-objective-item
         *ngFor="let objective of objectives$ | Async; trackBy: trackById"
         cdkDrag
-        marginBottom="mid"
+        cdkDragBoundary=".ObjectiveBoundary"
+        [marginBottom]="OBJECTIVE_MARGIN"
         [cdkDragDisabled]="
           (draggingDisabled$ | Async) || mouseOverObjectiveId !== objective.id
         "
@@ -32,15 +36,16 @@ import { ObjectiveModalComponent } from '@components/modals/objective-modal';
         (mouseOut)="mouseOverObjectiveId = undefined"
         (clicked)="handleClick(objective)"
       >
-        <app-objective-item
-          *cdkDragPreview
-          [objective]="objective"
-          [dragging]="true"
-        ></app-objective-item>
+        <ng-template cdkDragPreview matchSize>
+          <app-objective-item
+            [objective]="objective"
+            [dragging]="true"
+          ></app-objective-item>
+        </ng-template>
 
         <app-objective-item-drop-area
           *cdkDragPlaceholder
-          marginBottom="mid"
+          [marginBottom]="OBJECTIVE_MARGIN"
         ></app-objective-item-drop-area>
       </app-objective-item>
     </ui-div>
@@ -55,6 +60,8 @@ import { ObjectiveModalComponent } from '@components/modals/objective-modal';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardHomeComponent implements OnInit {
+  OBJECTIVE_MARGIN: Margin = 'small';
+
   trackById = trackById;
 
   touchDelay$!: Observable<number>;

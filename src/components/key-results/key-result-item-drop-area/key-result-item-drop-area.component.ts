@@ -6,10 +6,7 @@ import { FlexComponent } from '@ui/flex';
   selector: 'app-key-result-item-drop-area',
   standalone: true,
   imports: [IconComponent, FlexComponent],
-  template: `
-    <ui-icon size="xmid">subdirectory_arrow_right</ui-icon>
-    <ui-flex class="Container" [fullWidth]="true"> </ui-flex>
-  `,
+  template: ``,
   styleUrls: ['./key-result-item-drop-area.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

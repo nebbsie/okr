@@ -1,26 +1,21 @@
 @use "../../../variables";
 @use "../../../mixins";
-@use "../../../breakpoints";
 
 :host {
   display: flex;
   flex-direction: column;
   width: 100%;
-
-  &[data-dragging="true"] {
-    width: 80%;
-
-    @include breakpoints.tablet() {
-      width: 50%;
-    }
-  }
 }
 
 .Objective {
-  background-color: variables.$colour-white !important;
+  @include mixins.BoxBorder();
+  @include mixins.Clickable();
+
+  &[data-dragging="true"] {
+    @include mixins.BoxBorderDragging();
+  }
+
+  background-color: variables.$objective-bg-colour;
   height: variables.$objective-item-height;
   padding: variables.$spacing-mid;
-
-  @include mixins.BoxBorder();
-  @include mixins.Clickable(darken(variables.$colour-white, 1%));
 }

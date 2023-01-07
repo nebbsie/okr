@@ -5,6 +5,11 @@
   border: variables.$border;
 }
 
+@mixin BoxBorderDragging() {
+  border-radius: variables.$border-radius;
+  border: variables.$border-dragging;
+}
+
 @mixin Clickable($backgroundColour: '') {
   cursor: pointer;
 

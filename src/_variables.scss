@@ -94,8 +94,13 @@ $font-colour-warning: $colour-orange;
 /* Borders */
 $border-radius: 5px;
 $border: $colour-divider solid 1px;
+$border-dragging: $font-colour-info solid 1px;
 $border-dashed: $colour-divider dashed 2px
 
 /* Objectives */;
 $objective-item-height: 70px;
 $key-result-item-height: 50px;
+$objective-bg-colour: $colour-white;
+$objective-bg-colour-hover: darken($colour-white, 1%);
+$key-result-bg-colour: $colour-light-bars;
+$key-result-bg-colour-hover: darken($colour-light-bars, 1%);
