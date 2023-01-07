@@ -1,0 +1,17 @@
+@use "variables";
+
+@mixin BoxBorder() {
+  border-radius: variables.$border-radius;
+  border: variables.$border;
+}
+
+@mixin Clickable($backgroundColour: '') {
+  cursor: pointer;
+
+  @if $backgroundColour != '' {
+    &:hover {
+      background-color: $backgroundColour !important;
+    }
+  }
+
+}

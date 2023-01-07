@@ -63,6 +63,7 @@ export interface Objective extends PositionableObject {
 
 export interface KeyResult extends StoreDocument {
   readonly title: string;
+  readonly objectiveId: string;
 }
 
 export interface PositionableObject extends StoreDocument {

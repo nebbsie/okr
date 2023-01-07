@@ -4,7 +4,7 @@ import { Objective, ObjectivesCollection, Store } from '@services/store';
 import { ActivatedRoute } from '@angular/router';
 import { isDefined } from '@utils/utils';
 import { orderBy, where } from '@angular/fire/firestore';
-import { trackById } from '@services/utils';
+import { GetNewDragDropPosition, trackById } from '@services/utils';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { ScreenSizeService } from '@services/screen-size';
 import { ModalService } from '@services/modal';
@@ -23,9 +23,13 @@ import { ObjectiveModalComponent } from '@components/modals/objective-modal';
         *ngFor="let objective of objectives$ | Async; trackBy: trackById"
         cdkDrag
         marginBottom="mid"
-        [cdkDragDisabled]="draggingDisabled$ | Async"
+        [cdkDragDisabled]="
+          (draggingDisabled$ | Async) || mouseOverObjectiveId !== objective.id
+        "
         [cdkDragStartDelay]="(touchDelay$ | Async) ?? 0"
         [objective]="objective"
+        (mouseOver)="mouseOverObjectiveId = objective.id"
+        (mouseOut)="mouseOverObjectiveId = undefined"
         (clicked)="handleClick(objective)"
       >
         <app-objective-item
@@ -36,6 +40,7 @@ import { ObjectiveModalComponent } from '@components/modals/objective-modal';
 
         <app-objective-item-drop-area
           *cdkDragPlaceholder
+          marginBottom="mid"
         ></app-objective-item-drop-area>
       </app-objective-item>
     </ui-div>
@@ -54,6 +59,7 @@ export class BoardHomeComponent implements OnInit {
 
   touchDelay$!: Observable<number>;
   draggingDisabled$!: Observable<boolean>;
+  mouseOverObjectiveId?: string;
 
   boardId$!: Observable<string>;
   lastBoardPosition$!: Observable<number | undefined>;
@@ -104,30 +110,9 @@ export class BoardHomeComponent implements OnInit {
     }
 
     const objectives = await firstValueFrom(this.objectives$);
+    const movingObjective = objectives[event.previousIndex];
 
-    const newPosition = event.currentIndex;
-    const oldPosition = event.previousIndex;
-
-    const movingObjective = objectives[oldPosition];
-    const isStart = newPosition === 0;
-    const isEnd = newPosition === objectives.length - 1;
-
-    let pos;
-    if (!isStart && !isEnd) {
-      let beforePosition, afterPosition: Objective;
-      if (newPosition > oldPosition) {
-        beforePosition = objectives[event.currentIndex];
-        afterPosition = objectives[event.currentIndex + 1];
-      } else {
-        beforePosition = objectives[event.currentIndex - 1];
-        afterPosition = objectives[event.currentIndex];
-      }
-      pos = (beforePosition.position + afterPosition.position) / 2;
-    } else if (isEnd) {
-      pos = (objectives[objectives.length - 1].position ?? 0) + 10000;
-    } else if (isStart) {
-      pos = objectives[0].position / 2;
-    }
+    const pos = GetNewDragDropPosition(event, objectives);
 
     const updateResult = this.store.update<ObjectivesCollection>(
       'objectives',

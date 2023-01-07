@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { TextComponent } from '@ui/text';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ScreenSizeService } from '@services/screen-size';
 import { Observable } from 'rxjs';
@@ -21,7 +21,6 @@ import { AlignItems, FlexDirection, JustifyContent } from '@ui/flex/flex.types';
     TextComponent,
     NgIf,
     MatTabsModule,
-    NgForOf,
     PipesModule,
     DivComponent,
     FlexComponent,

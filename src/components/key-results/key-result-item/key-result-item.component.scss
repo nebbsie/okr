@@ -1,19 +1,21 @@
 @use "../../../variables";
+@use "../../../mixins";
 
 :host {
   display: flex;
   align-items: center;
-  margin-top: variables.$spacing-small;
+  width: 100%;
+
+  &[data-dragging="true"] {
+    width: 50%;
+  }
 }
 
 .Container {
-  border-radius: variables.$border-radius;
-  border: variables.$border;
-  min-height: variables.$key-result-item-height;
+  @include mixins.BoxBorder();
+  @include mixins.Clickable(darken(variables.$colour-white, 4%));
+
+  height: variables.$key-result-item-height;
   padding: variables.$spacing-small variables.$spacing-mid;
   background-color: darken(variables.$colour-white, 3%);
-
-  &:hover {
-    background-color: darken(variables.$colour-white, 4%) !important;
-  }
 }

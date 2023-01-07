@@ -1,9 +1,8 @@
 @use "../../../variables";
+@use "../../../mixins";
 
 :host {
-  border-radius: variables.$border-radius;
-  border: variables.$border;
+  @include mixins.BoxBorder();
   display: block;
   height: variables.$objective-item-height;
-  margin-bottom: variables.$spacing-small;
 }

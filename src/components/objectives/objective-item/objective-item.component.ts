@@ -2,10 +2,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  HostBinding,
   Input,
   Output,
 } from '@angular/core';
-import { Objective } from '@services/store';
+import {
+  MinimalKeyResult,
+  Objective,
+  ObjectivesCollection,
+  Store,
+} from '@services/store';
 import { TextComponent } from '@ui/text';
 import { DivComponent } from '@ui/div';
 import { JsonPipe, NgForOf, NgIf } from '@angular/common';
@@ -16,7 +22,10 @@ import { MoreOptionsComponent } from '@components/more-options/more-options.comp
 import { MoreOptionsItemComponent } from '@components/more-options-item/more-options-item.component';
 import { KeyResultItemComponent } from '@components/key-results/key-result-item/key-result-item.component';
 import { KeyResultCreateFormComponent } from '@components/key-results/key-result-create-form/key-result-create-form.component';
-import { trackById } from '@services/utils';
+import { GetNewDragDropPosition, trackById } from '@services/utils';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
+import { KeyResultItemDropAreaComponent } from '@components/key-results/key-result-item-drop-area/key-result-item-drop-area.component';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-objective-item',
@@ -34,13 +43,18 @@ import { trackById } from '@services/utils';
     NgForOf,
     NgIf,
     TextComponent,
+    DragDropModule,
+    KeyResultItemDropAreaComponent,
   ],
   template: `
     <ui-flex
       class="Objective"
       justify="space-between"
       align="center"
+      [marginBottom]="objective.keyResults.length > 0 ? 'xsmall' : 'none'"
       [clickable]="true"
+      (mouseenter)="mouseOver.emit()"
+      (mouseleave)="mouseOut.emit()"
       (click)="clicked.emit()"
     >
       <ui-text>{{ objective.title }}</ui-text>
@@ -59,16 +73,35 @@ import { trackById } from '@services/utils';
     </ui-flex>
 
     <ng-container *ngIf="!dragging">
-      <app-key-result-item
-        *ngFor="
-          let minimalKeyResult of objective.keyResults;
-          trackBy: trackById;
-          let last = last
-        "
-        [minimalKeyResult]="minimalKeyResult"
-        [objective]="objective"
-        [marginBottom]="last ? 'mid' : 'none'"
-      ></app-key-result-item>
+      <ui-div
+        cdkDropList
+        [cdkDropListData]="objective.keyResults"
+        (cdkDropListDropped)="handleMovedObjective($event)"
+      >
+        <app-key-result-item
+          *ngFor="
+            let minimalKeyResult of objective.keyResults;
+            trackBy: trackById;
+            let last = last
+          "
+          cdkDrag
+          [minimalKeyResult]="minimalKeyResult"
+          [objective]="objective"
+          [marginBottom]="last ? 'none' : 'xsmall'"
+        >
+          <app-key-result-item
+            *cdkDragPreview
+            [objective]="objective"
+            [minimalKeyResult]="minimalKeyResult"
+            [dragging]="true"
+          ></app-key-result-item>
+
+          <app-key-result-item-drop-area
+            *cdkDragPlaceholder
+            [marginBottom]="last ? 'none' : 'xsmall'"
+          ></app-key-result-item-drop-area>
+        </app-key-result-item>
+      </ui-div>
 
       <app-key-result-create-form
         *ngIf="showCreateKeyResult"
@@ -84,9 +117,45 @@ export class ObjectiveItemComponent {
   trackById = trackById;
 
   @Input() objective!: Objective;
-  @Input() dragging = false;
+
+  @Input()
+  @HostBinding('attr.data-dragging')
+  dragging = false;
 
   @Output() clicked = new EventEmitter<void>();
+  @Output() mouseOver = new EventEmitter<void>();
+  @Output() mouseOut = new EventEmitter<void>();
 
   showCreateKeyResult = false;
+
+  constructor(private store: Store) {}
+
+  async handleMovedObjective(event: CdkDragDrop<MinimalKeyResult[]>) {
+    // The item wasn't moved.
+    if (event.currentIndex === event.previousIndex) {
+      return;
+    }
+
+    const keyResults = this.objective.keyResults;
+    const movingKeyResult = keyResults[event.previousIndex];
+    const pos = GetNewDragDropPosition(event, keyResults);
+
+    // 1 - removes the key result from the list
+    // 2 - adds the new item
+    // 3 - sorts them
+    const newKeyResults = [
+      ...keyResults.filter((kr) => kr.id !== movingKeyResult.id),
+      { ...movingKeyResult, position: pos },
+    ].sort((a, b) => a.position - b.position);
+
+    const updateResult = this.store.update<ObjectivesCollection>(
+      'objectives',
+      this.objective.id,
+      {
+        keyResults: newKeyResults,
+      }
+    );
+
+    await firstValueFrom(updateResult.value$);
+  }
 }

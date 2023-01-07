@@ -1,4 +1,5 @@
 @use "../../../variables";
+@use "../../../mixins";
 
 :host {
   display: block;
@@ -6,13 +7,9 @@
 }
 
 .TeamSelectTrigger {
+  @include mixins.Clickable(variables.$colour-hover);
   border-bottom: variables.$border;
   padding: variables.$spacing-xsmall;
-  cursor: pointer;
-}
-
-.TeamSelectTrigger:hover {
-  background-color: variables.$colour-hover;
 }
 
 .MatMenuHeader {
@@ -27,7 +24,6 @@
 .AddButton {
   padding-right: variables.$spacing-xsmall;
 }
-
 
 .EmptyTeams {
   max-width: 150px;

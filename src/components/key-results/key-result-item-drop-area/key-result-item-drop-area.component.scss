@@ -1,0 +1,11 @@
+@use "../../../variables";
+@use "../../../mixins";
+
+:host {
+  display: flex;
+}
+
+.Container {
+  @include mixins.BoxBorder();
+  height: variables.$key-result-item-height;
+}

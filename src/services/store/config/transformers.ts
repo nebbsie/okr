@@ -95,6 +95,7 @@ function TransformObjective(data: any): Objective {
   return {
     title: data.title,
     boardId: data.boardId,
+    // TODO: make this typed.
     keyResults: data.keyResults,
     desc: data.desc,
     position: data.position,
@@ -105,6 +106,7 @@ function TransformObjective(data: any): Objective {
 function TransformKeyResult(data: any): KeyResult {
   return {
     title: data.title,
+    objectiveId: data.objectiveId,
     ...transformStoreDocumentFields(data),
   };
 }

@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostBinding,
+  Input,
+} from '@angular/core';
 import {
   DocumentState,
   KeyResultCollection,
@@ -7,7 +12,7 @@ import {
   ObjectivesCollection,
   Store,
 } from '@services/store';
-import { JsonPipe } from '@angular/common';
+import { JsonPipe, NgIf } from '@angular/common';
 import { FlexComponent } from '@ui/flex';
 import { IconComponent } from '@ui/icon';
 import { MoreOptionsComponent } from '@components/more-options/more-options.component';
@@ -26,9 +31,10 @@ import { PromiseToObservable } from '@services/utils';
     IconComponent,
     MoreOptionsComponent,
     MoreOptionsItemComponent,
+    NgIf,
   ],
   template: `
-    <ui-icon size="xmid">subdirectory_arrow_right</ui-icon>
+    <ui-icon *ngIf="!dragging" size="xmid">subdirectory_arrow_right</ui-icon>
 
     <ui-flex
       class="Container"
@@ -53,6 +59,9 @@ import { PromiseToObservable } from '@services/utils';
 export class KeyResultItemComponent {
   @Input() minimalKeyResult!: MinimalKeyResult;
   @Input() objective!: Objective;
+  @Input()
+  @HostBinding('attr.data-dragging')
+  dragging!: boolean;
 
   constructor(private store: Store, private modal: ModalService) {}
 

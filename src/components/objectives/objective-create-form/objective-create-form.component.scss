@@ -1,10 +1,11 @@
 @use "../../../variables";
+@use "../../../mixins";
 
 :host {
+  @include mixins.BoxBorder();
+  @include mixins.Clickable(variables.$colour-hover);
+
   align-items: center;
-  border-radius: variables.$border-radius;
-  border: variables.$border;
-  cursor: pointer;
   display: flex;
   height: variables.$objective-item-height;
   padding: variables.$spacing-mid;
@@ -14,9 +15,5 @@
     background-color: variables.$colour-white !important;
     cursor: default;
     height: auto;
-  }
-
-  &:hover {
-    background-color: variables.$colour-hover
   }
 }

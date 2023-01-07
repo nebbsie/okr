@@ -1,19 +1,17 @@
 @use "../../../variables";
+@use "../../../mixins";
 
 :host {
   display: block;
 }
 
 .Item {
+  @include mixins.Clickable(variables.$colour-hover);
+
   display: flex;
   align-items: center;
   width: 100%;
-  cursor: pointer;
   padding: variables.$spacing-xsmall variables.$spacing-small;
-
-  &:hover {
-    background-color: variables.$colour-hover;
-  }
 }
 
 .Active {

@@ -34,7 +34,7 @@ export type MinimalBoard = MinimalObject;
 export type MinimalObjective = MinimalObject;
 
 // Key Result
-export type MinimalKeyResult = MinimalObject;
+export type MinimalKeyResult = MinimalObject & { position: number };
 
 // Logs
 export enum LogType {

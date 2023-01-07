@@ -100,6 +100,7 @@ export class KeyResultCreateFormComponent {
       'keyResults',
       {
         title: this.titleControl.value,
+        objectiveId: this.objective.id,
       }
     );
 
@@ -110,10 +111,18 @@ export class KeyResultCreateFormComponent {
       return;
     }
 
+    const lastKeyResultPosition =
+      this.objective.keyResults[this.objective.keyResults.length - 1]
+        ?.position ?? 0;
+
     const currentKeyResults = this.objective.keyResults;
     const newKeyResults: MinimalKeyResult[] = [
       ...currentKeyResults,
-      { id: keyResultId, name: this.titleControl.value },
+      {
+        id: keyResultId,
+        name: this.titleControl.value,
+        position: lastKeyResultPosition + 1000,
+      },
     ];
 
     const objectiveUpdateResult = this.store.update<ObjectivesCollection>(

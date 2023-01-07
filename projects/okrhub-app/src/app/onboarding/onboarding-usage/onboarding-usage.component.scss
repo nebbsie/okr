@@ -1,4 +1,5 @@
 @use "variables";
+@use "mixins";
 
 :host {
   display: flex;
@@ -7,17 +8,17 @@
 }
 
 .Choice {
+  @include mixins.Clickable();
   border-radius: variables.$border-radius;
   border: variables.$colour-light-grey solid 1px;
   padding: variables.$spacing-small;
   max-width: 300px;
-  cursor: pointer;
 
+  &:hover {
+    border: variables.$colour-primary solid 1px;
+  }
 }
 
-.Choice:hover {
-  border: variables.$colour-primary solid 1px;
-}
 
 
 .Selected {

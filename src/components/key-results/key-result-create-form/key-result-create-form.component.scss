@@ -1,14 +1,15 @@
 @use "../../../variables";
+@use "../../../mixins";
 
 :host {
   display: flex;
-  margin-top: variables.$spacing-small;
+  margin-top: variables.$spacing-xsmall;
   align-items: center;
 }
 
 .Container {
-  border-radius: variables.$border-radius;
-  border: variables.$border;
+  @include mixins.BoxBorder();
+
   min-height: variables.$objective-item-height;
   padding: variables.$spacing-mid;
   background-color: variables.$colour-white;

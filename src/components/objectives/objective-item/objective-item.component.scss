@@ -1,19 +1,21 @@
 @use "../../../variables";
+@use "../../../mixins";
 
 :host {
   display: flex;
   flex-direction: column;
   width: 100%;
+
+  &[data-dragging="true"] {
+    width: 50%;
+  }
 }
 
 .Objective {
   background-color: variables.$colour-white !important;
-  border-radius: variables.$border-radius;
-  border: variables.$border;
   height: variables.$objective-item-height;
   padding: variables.$spacing-mid;
 
-  &:hover {
-    background-color: darken(variables.$colour-white, 1%) !important;
-  }
+  @include mixins.BoxBorder();
+  @include mixins.Clickable(darken(variables.$colour-white, 1%));
 }
