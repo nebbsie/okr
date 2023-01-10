@@ -17,7 +17,7 @@ export enum UserType {
 // Enterprises
 export type MinimalWorkspace = MinimalObject;
 
-export enum WorkspaceMemberRole {
+export const enum WorkspaceMemberRole {
   OWNER = 'owner',
   ADMIN = 'admin',
   MODERATOR = 'moderator',
@@ -37,6 +37,6 @@ export type MinimalObjective = MinimalObject;
 export type MinimalKeyResult = MinimalObject & { position: number };
 
 // Logs
-export enum LogType {
+export const enum LogType {
   TEAM_DELETE = 'team_delete',
 }

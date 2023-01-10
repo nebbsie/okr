@@ -36,12 +36,6 @@ export type DualParam<T> = T | Observable<T>;
 
 export type UntypedUpdateData = { [field: string]: any };
 
-export type UntypedSetData = {
-  readonly [field: string]: any;
-  readonly createdTime: any;
-  readonly id: string;
-};
-
 export type UntypedCreateData = {
   readonly [field: string]: any;
   readonly createdTime: any;
@@ -87,7 +81,7 @@ export type ErrorRequestResult = {
 
 export type RequestResult = ErrorRequestResult | SuccessCreateResult;
 
-export enum ErrorCode {
+export const enum ErrorCode {
   WORKSPACE_NOT_FOUND,
   TEAM_NOT_FOUND,
   CREATE_FAILED,
@@ -95,7 +89,7 @@ export enum ErrorCode {
   BOARD_NOT_FOUND,
 }
 
-export enum DocumentState {
+export const enum DocumentState {
   ACTIVE = 'active',
   REMOVED = 'removed',
 }

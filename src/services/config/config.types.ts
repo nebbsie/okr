@@ -4,7 +4,7 @@ export type Config = {
   isBoard?: boolean;
 };
 
-export enum BackgroundColour {
+export const enum BackgroundColour {
   WHITE = 'white',
   GREY = 'grey',
 }

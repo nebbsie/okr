@@ -22,6 +22,7 @@ import { Margin } from '@directives/margin';
       [cdkDropListData]="objectives"
       [cdkDropListAutoScrollDisabled]="false"
       [cdkDropListAutoScrollStep]="35"
+      (cdkDropListSorted)="handleDraggedObjective()"
       (cdkDropListDropped)="handleMovedObjective($event)"
     >
       <app-objective-item
@@ -88,6 +89,10 @@ export class BoardHomeComponent implements OnInit {
     private screenSize: ScreenSizeService,
     private modal: ModalService
   ) {}
+
+  handleDraggedObjective() {
+    // TODO: do a vibrate.
+  }
 
   ngOnInit() {
     this.boardId$ = this.route.paramMap.pipe(
