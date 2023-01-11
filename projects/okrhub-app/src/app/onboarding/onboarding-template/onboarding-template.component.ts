@@ -9,7 +9,7 @@ import {
 @Component({
   selector: 'app-onboarding-template',
   template: `
-    <ui-text weight="bold" size="xlarge" marginBottom="xxxsmall">
+    <ui-text weight="medium" size="xlarge" marginBottom="xxxsmall">
       {{ title }}
     </ui-text>
 

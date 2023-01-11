@@ -28,7 +28,7 @@ import { Router } from '@angular/router';
       justify="space-between"
       marginBottom="xxxsmall"
     >
-      <ui-text weight="medium">Team Boards</ui-text>
+      <ui-text weight="medium">Boards</ui-text>
       <ui-icon
         matTooltip="Create board"
         size="xmid"

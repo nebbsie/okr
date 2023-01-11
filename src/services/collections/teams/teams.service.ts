@@ -56,9 +56,9 @@ export class TeamsService {
       );
     }
 
-    console.log(workspaceId);
+    console.log('got team');
 
-    // Get the enterprise that the team will be added to.
+    // Get the workspace that the team will be added to.
     const workspaceToAddTo = await firstValueFrom(
       this.store.get<WorkspacesCollection>('workspaces', workspaceId).value$
     );
@@ -68,6 +68,8 @@ export class TeamsService {
         ErrorCode.WORKSPACE_NOT_FOUND
       );
     }
+
+    console.log('got workspaces');
 
     // Update the teams array on the enterprise.
     workspaceToAddTo.teams.set(teamId, { name, id: teamId });
@@ -87,12 +89,16 @@ export class TeamsService {
       );
     }
 
+    console.log('updated team array');
+
     // Add the joined team to the user collection.
     currentUser.joinedTeams.set(teamId, { name, id: teamId });
     await firstValueFrom(
       this.users.updateCurrentUser({ joinedTeams: currentUser.joinedTeams })
         .value$
     );
+
+    console.log('updated user');
 
     return {
       status: 'success',

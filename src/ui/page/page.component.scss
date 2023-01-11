@@ -6,36 +6,34 @@
 }
 
 .PageContainer {
-  display: flex;
   padding: variables.$spacing-xsmall variables.$spacing-xsmall variables.$spacing-xxlarge;
-
-  &[data-flex-direction='column'] {
-    flex-direction: column;
-
-    &[data-center-content='true'] {
-      align-items: center;
-    }
-  }
-
-  &[data-flex-direction='row'] {
-    flex-direction: row;
-
-    &[data-center-content='true'] {
-      justify-content: center;
-    }
-  }
 
   @include breakpoints.tablet() {
     padding: variables.$spacing-small;
   }
 }
 
-.PageTitle {
+.PageTopBar {
   position: sticky;
   background-color: variables.$colour-white;
   border-bottom: variables.$border;
-  min-height: 60px;
-  padding: variables.$spacing-small;
+  min-height: variables.$top-bar-height;
+  padding-left: variables.$spacing-small;
+  padding-right: variables.$spacing-small;
   top: 0;
   z-index: variables.$mobile-top-bar-z-index;
+
+  &-content {
+    position: relative;
+    top: 2px;
+  }
+}
+
+.NavButton {
+  display: flex;
+  align-items: center;
+}
+
+.IsActive {
+  background-color: variables.$colour-active !important;
 }

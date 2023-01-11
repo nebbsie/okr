@@ -17,7 +17,6 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   template: `
     <ui-icon
-      class="Trigger"
       matTooltip="More options"
       colour="grey"
       [matMenuTriggerFor]="menu"

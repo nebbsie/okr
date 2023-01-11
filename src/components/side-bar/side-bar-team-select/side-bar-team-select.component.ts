@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
       class="TeamSelectTrigger"
       align="center"
       justify="space-between"
+      [fullWidth]="true"
       (click)="menuTrigger.openMenu()"
     >
       <ui-text weight="medium">{{ teamName$ | Async }}</ui-text>
@@ -55,18 +56,13 @@ import { Router } from '@angular/router';
             You are only part of 1 team.
           </ui-alert>
 
-          <div
-            *ngFor="
-              let team of unselectedTeams;
-              let isLast = last;
-              trackBy: trackById
-            "
+          <button
+            *ngFor="let team of unselectedTeams; trackBy: trackById"
             mat-menu-item
-            [marginBottom]="isLast ? 'none' : 'xxsmall'"
             (click)="handleSelectTeam(team.id)"
           >
-            <ui-text>{{ team.name }}</ui-text>
-          </div>
+            {{ team.name }}
+          </button>
         </div>
       </ng-container>
     </mat-menu>

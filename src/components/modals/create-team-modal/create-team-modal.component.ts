@@ -62,10 +62,9 @@ export class CreateTeamModalComponent extends ModalComponent<
     super();
   }
 
-  ngOnInit(): void {}
-
   async handleCreateTeam() {
     this.loadingCreatingTeamSubject$.next(true);
+    console.log('starting');
 
     const workspaceId = await firstValueFrom(
       this.localStorage.get('selectedWorkspace')

@@ -357,3 +357,10 @@ input:-webkit-autofill:active {
 .cdk-overlay-container {
   z-index: variables.$modal-z-index !important;
 }
+
+.mat-menu-item {
+  height: 38px !important;
+  line-height: 38px !important;
+  padding-left: variables.$spacing-xxsmall !important;
+  padding-right: variables.$spacing-xxsmall !important;
+}

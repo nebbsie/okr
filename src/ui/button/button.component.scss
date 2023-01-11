@@ -6,11 +6,9 @@
   display: inline-block;
   position: relative;
 
-  @include breakpoints.mobile() {
-    &[data-full-width='true'] {
-      display: block;
-      width: 100%;
-    }
+  &[data-full-width='true'] {
+    display: block;
+    width: 100%;
   }
 
   @include breakpoints.tablet() {

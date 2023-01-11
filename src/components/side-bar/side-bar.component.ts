@@ -11,28 +11,7 @@ import { LocalStorageService } from '@services/local-storage/local-storage.servi
     <app-side-bar-team-select></app-side-bar-team-select>
 
     <ui-flex class="Content" direction="column">
-      <app-side-bar-board-menu
-        *ngIf="onBoardPage$ | Async"
-        class="BoardsMenu"
-        [currentBoardId]="currentBoardId$ | Async"
-      ></app-side-bar-board-menu>
-
-      <ui-flex class="MoveItems" direction="column">
-        <span
-          [class.PushToBottom]="onBoardPage$ | Async"
-          [class.PushToTop]="!(onBoardPage$ | Async)"
-        ></span>
-
-        <app-side-bar-team-nav
-          [currentTeamId]="currentTeamId$ | Async"
-          [borderTop]="onBoardPage$ | Async"
-        ></app-side-bar-team-nav>
-
-        <app-side-bar-boards
-          [borderTop]="true"
-          [borderBottom]="!(onBoardPage$ | Async)"
-        ></app-side-bar-boards>
-      </ui-flex>
+      <app-side-bar-boards></app-side-bar-boards>
     </ui-flex>
 
     <app-side-bar-account class="AccountSection"></app-side-bar-account>

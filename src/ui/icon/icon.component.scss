@@ -11,11 +11,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: variables.$spacing-small;
   margin: 0;
   border-radius: 50%;
 
   &-Link {
+    padding: variables.$spacing-small;
+
     &:hover {
       cursor: pointer;
       filter: brightness(20%);

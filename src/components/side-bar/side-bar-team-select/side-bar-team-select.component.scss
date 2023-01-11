@@ -2,14 +2,16 @@
 @use "../../../mixins";
 
 :host {
-  display: block;
+  display: flex;
   width: 100%;
 }
 
 .TeamSelectTrigger {
   @include mixins.Clickable(variables.$colour-hover);
   border-bottom: variables.$border;
-  padding: variables.$spacing-xsmall;
+  padding-left: variables.$spacing-xsmall;
+  padding-right: variables.$spacing-xxxsmall;
+  height: variables.$top-bar-height;
 }
 
 .MatMenuHeader {

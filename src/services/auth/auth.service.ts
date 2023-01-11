@@ -9,25 +9,23 @@ import {
   signInWithPopup,
   User,
 } from '@angular/fire/auth';
-import {
-  filter,
-  firstValueFrom,
-  from,
-  map,
-  Observable,
-  shareReplay,
-} from 'rxjs';
+import { filter, from, map, Observable, shareReplay } from 'rxjs';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { LoginResponse } from './auth.types';
 import { isDefined } from '@utils/utils';
 import { environment } from '@env/environment';
 import { Store } from '../store';
+import { LocalStorageService } from '@services/local-storage';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private auth: Auth, private store: Store) {}
+  constructor(
+    private auth: Auth,
+    private store: Store,
+    private localStorage: LocalStorageService
+  ) {}
 
   sendPasswordResetEmail(email: string): Observable<boolean> {
     return fromPromise(
@@ -73,6 +71,9 @@ export class AuthService {
    * Logs the user out  of Firebase auth.
    */
   logout(): Observable<void> {
+    this.localStorage.delete('selectedWorkspace');
+    this.localStorage.delete('selectedTeam');
+
     return from(this.auth.signOut());
   }
 
@@ -103,6 +104,9 @@ export class AuthService {
     return fromPromise(
       (async (): Promise<LoginResponse> => {
         try {
+          this.localStorage.delete('selectedWorkspace');
+          this.localStorage.delete('selectedTeam');
+
           await signInWithEmailAndPassword(this.auth, email, password);
 
           return {
@@ -128,6 +132,9 @@ export class AuthService {
     return fromPromise(
       (async (): Promise<LoginResponse> => {
         try {
+          this.localStorage.delete('selectedWorkspace');
+          this.localStorage.delete('selectedTeam');
+
           await signInWithPopup(this.auth, new GoogleAuthProvider());
 
           return {
@@ -141,14 +148,6 @@ export class AuthService {
           };
         }
       })()
-    );
-  }
-
-  checkForUser(): Observable<boolean> {
-    return fromPromise(
-      firstValueFrom(this.store.get('users', this.getUserId()).value$).then(
-        (user) => !!user
-      )
     );
   }
 }

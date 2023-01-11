@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageTypes } from '@services/local-storage/local-storage.types';
 import {
-  BehaviorSubject,
   distinctUntilChanged,
   Observable,
+  ReplaySubject,
   shareReplay,
 } from 'rxjs';
 
@@ -12,19 +12,19 @@ import {
 })
 export class LocalStorageService {
   private subjects: {
-    [key in keyof LocalStorageTypes]: BehaviorSubject<
+    [key in keyof LocalStorageTypes]: ReplaySubject<
       LocalStorageTypes[key] | undefined
     >;
   };
 
   constructor() {
     this.subjects = {
-      selectedTeam: new BehaviorSubject<
+      selectedTeam: new ReplaySubject<
         LocalStorageTypes['selectedTeam'] | undefined
-      >(undefined),
-      selectedWorkspace: new BehaviorSubject<
+      >(1),
+      selectedWorkspace: new ReplaySubject<
         LocalStorageTypes['selectedWorkspace'] | undefined
-      >(undefined),
+      >(1),
     };
 
     const selectedTeam = localStorage.getItem('selectedTeam');
@@ -46,9 +46,17 @@ export class LocalStorageService {
     }
   }
 
-  set<T extends keyof LocalStorageTypes>(key: T, obj: LocalStorageTypes[T]) {
+  set<T extends keyof LocalStorageTypes>(
+    key: T,
+    obj: LocalStorageTypes[T] | undefined
+  ) {
     localStorage.setItem(key, JSON.stringify(obj));
     this.subjects[key].next(obj);
+  }
+
+  delete<T extends keyof LocalStorageTypes>(key: T) {
+    // localStorage.removeItem(key);
+    // this.subjects[key].next(undefined);
   }
 
   get<T extends keyof LocalStorageTypes>(

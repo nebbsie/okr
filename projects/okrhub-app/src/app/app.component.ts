@@ -90,18 +90,16 @@ export class AppComponent implements OnInit {
         this.users.getCurrentUser().value$,
       ]).pipe(
         map(([selectedWorkspace, selectedTeam, user]) => {
+          console.log(selectedWorkspace, selectedTeam, user);
+
           // Users selected workspace has been lost, select the default one.
-          if (
-            selectedWorkspace !== false &&
-            selectedWorkspace === undefined &&
-            user
-          ) {
+          if (!selectedWorkspace && user) {
             const [firstWorkspace] = user.joinedWorkspaces.values();
             this.localStorage.set('selectedWorkspace', firstWorkspace.id);
           }
 
           // Users selected team has been lost, select the default one.
-          if (selectedTeam !== false && selectedTeam === undefined && user) {
+          if (!selectedTeam && user) {
             const [firstTeam] = user.joinedTeams.values();
             this.localStorage.set('selectedTeam', firstTeam.id);
           }
