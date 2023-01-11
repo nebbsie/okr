@@ -68,13 +68,9 @@ import { Margin } from '@directives/margin';
       <ui-text>{{ objective.title }}</ui-text>
 
       <app-more-options>
-        <app-more-options-item icon="add" (click)="showCreateKeyResult = true">
-          Add Key Result
-        </app-more-options-item>
-        <app-more-options-item icon="edit" (click)="clicked.emit()">
-          Edit
-        </app-more-options-item>
-        <app-more-options-item icon="delete"> Delete </app-more-options-item>
+        <app-more-options-item icon="add" title='Add Key Result' (click)="showCreateKeyResult = true"/>
+        <app-more-options-item icon="edit" title='Edit' (click)="clicked.emit()" />
+        <app-more-options-item icon="delete" title='Delete' />
       </app-more-options>
     </ui-flex>
 
@@ -107,22 +103,20 @@ import { Margin } from '@directives/margin';
             [objective]="objective"
             [minimalKeyResult]="minimalKeyResult"
             [dragging]="true"
-          ></app-key-result-item>
+          />
         </ng-template>
 
         <ng-template cdkDragPlaceholder>
-          <app-key-result-item-drop-area
-            [marginBottom]="last ? 'none' : KEY_RESULT_MARGIN"
-          ></app-key-result-item-drop-area>
+          <app-key-result-item-drop-area [marginBottom]="last ? 'none' : KEY_RESULT_MARGIN" />
         </ng-template>
       </app-key-result-item>
     </ui-div>
 
     <app-key-result-create-form
-      *ngIf="showCreateKeyResult && !dragging"
+      *ngIf="showCreateKeyResult && !dragging" 
       [objective]="objective"
       (closed)="showCreateKeyResult = false"
-    ></app-key-result-create-form>
+    />
   `,
   styleUrls: ['./objective-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

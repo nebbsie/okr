@@ -39,7 +39,12 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     RouterLinkActive,
   ],
   template: `
-    <ui-flex class="PageTopBar" align="center" justify="space-between">
+    <ui-flex
+      *ngIf="title"
+      class="PageTopBar"
+      align="center"
+      justify="space-between"
+    >
       <ui-text class="PageTopBar-content" weight="medium">{{ title }}</ui-text>
 
       <ui-icon
@@ -58,17 +63,13 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
         <button
           *ngFor="let navItem of navItems"
           class="NavButton"
-          [routerLink]="navItem.url"
           routerLinkActive="IsActive"
+          [routerLink]="navItem.url"
           [routerLinkActiveOptions]="{ exact: true }"
           mat-menu-item
         >
-          <ui-icon marginRight="xxxsmall" size="mid">
-            {{ navItem.icon }}
-          </ui-icon>
-          <ui-text size="small" colour="dark">
-            {{ navItem.title }}
-          </ui-text>
+          <mat-icon>{{ navItem.icon }}</mat-icon>
+          <span>{{ navItem.title }}</span>
         </button>
       </mat-menu>
     </ui-flex>

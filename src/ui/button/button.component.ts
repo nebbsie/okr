@@ -3,7 +3,6 @@ import {
   Component,
   HostBinding,
   Input,
-  OnInit,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
@@ -48,11 +47,7 @@ import { TextColour } from '@ui/text';
         <ng-container [ngTemplateOutlet]="content"></ng-container>
       </ng-container>
 
-      <span
-        *ngIf="loading"
-        [class.LightStyle]="lightStyle"
-        [class.DarkStyle]="!lightStyle"
-      ></span>
+      <span *ngIf="loading"></span>
     </button>
 
     <button
@@ -72,7 +67,7 @@ import { TextColour } from '@ui/text';
   styleUrls: ['./button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ButtonComponent implements OnInit {
+export class ButtonComponent {
   @Input() type: 'normal' | 'icon' | 'stroked' = 'normal';
   @Input() icon?: string;
   @Input() loading? = false;
@@ -81,21 +76,15 @@ export class ButtonComponent implements OnInit {
 
   @Input()
   @HostBinding('attr.data-full-width')
-  fullWidth = false;
+  fullWidth?: boolean;
 
   @Input()
   @HostBinding('attr.data-full-width-tablet')
-  fullWidthTablet = false;
+  fullWidthTablet?: boolean;
 
   @Input()
   @HostBinding('attr.data-full-width-desktop')
-  fullWidthDesktop = false;
+  fullWidthDesktop?: boolean;
 
   @Input() colour: TextColour | 'transparent' = 'transparent';
-
-  lightStyle = false;
-
-  ngOnInit() {
-    this.lightStyle = this.colour !== 'transparent';
-  }
 }

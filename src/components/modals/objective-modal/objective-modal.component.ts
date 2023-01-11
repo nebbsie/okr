@@ -28,9 +28,7 @@ import {
   template: `
     <app-modal-header (close)="close()">
       <app-more-options>
-        <app-more-options-item icon="delete" (click)="handleDeleteItem()">
-          Delete
-        </app-more-options-item>
+        <app-more-options-item icon="delete" title='Delete' (click)="handleDeleteItem()" />
       </app-more-options>
     </app-modal-header>
 

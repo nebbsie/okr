@@ -15,10 +15,10 @@ import { ButtonComponent } from '@ui/button';
   template: `
     <ui-button [loading]="loading" [fullWidth]="true" (click)="submit.emit()">
       <img
+        [src]="'assets/google-logo.svg'"
         marginRight="small"
-        width="24"
-        height="24"
-        src="assets/google-logo.svg"
+        [width]="24"
+        [height]="24"
         alt="Google logo"
       />
       <ng-content></ng-content>

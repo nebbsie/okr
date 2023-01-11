@@ -52,13 +52,14 @@ import { ObjectiveDescriptionEditComponent } from '@components/objectives/object
         [control]="descControl"
       ></app-objective-description-edit>
 
-      <ui-flex justify="flex-end" [fullWidth]="true">
+      <ui-flex justify="flex-end">
         <ui-button
           type="stroked"
           marginRight="small"
           [fullWidth]="true"
+          [fullWidthTablet]="true"
+          [fullWidthDesktop]="false"
           [disabled]="loading$ | Async"
-          [fullWidthTablet]="false"
           (click)="cancelClicked()"
         >
           Cancel
@@ -66,8 +67,9 @@ import { ObjectiveDescriptionEditComponent } from '@components/objectives/object
         <ui-button
           colour="primary"
           [fullWidth]="true"
+          [fullWidthTablet]="true"
+          [fullWidthDesktop]="false"
           [loading]="loading$ | Async"
-          [fullWidthTablet]="false"
           (click)="saveClicked()"
         >
           Save

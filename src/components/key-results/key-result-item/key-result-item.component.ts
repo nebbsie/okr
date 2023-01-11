@@ -12,9 +12,7 @@ import {
   ObjectivesCollection,
   Store,
 } from '@services/store';
-import { NgIf } from '@angular/common';
 import { FlexComponent } from '@ui/flex';
-import { IconComponent } from '@ui/icon';
 import { MoreOptionsComponent } from '@components/more-options/more-options.component';
 import { MoreOptionsItemComponent } from '@components/more-options-item/more-options-item.component';
 import { ModalService } from '@services/modal';
@@ -25,16 +23,8 @@ import { PromiseToObservable } from '@services/utils';
 @Component({
   selector: 'app-key-result-item',
   standalone: true,
-  imports: [
-    FlexComponent,
-    IconComponent,
-    MoreOptionsComponent,
-    MoreOptionsItemComponent,
-    NgIf,
-  ],
+  imports: [FlexComponent, MoreOptionsComponent, MoreOptionsItemComponent],
   template: `
-    <!--    <ui-icon *ngIf="!dragging" size="xmid">subdirectory_arrow_right</ui-icon>-->
-
     <ui-flex
       class="Container"
       justify="space-between"
@@ -46,10 +36,8 @@ import { PromiseToObservable } from '@services/utils';
       {{ minimalKeyResult.name }}
 
       <app-more-options>
-        <app-more-options-item icon="edit"> Edit </app-more-options-item>
-        <app-more-options-item icon="delete" (click)="delete()">
-          Delete
-        </app-more-options-item>
+        <app-more-options-item icon="edit" title='Edit'/>
+        <app-more-options-item icon="delete" title='Delete' (click)="delete()"/>
       </app-more-options>
     </ui-flex>
   `,

@@ -9,11 +9,9 @@ import { TextComponent } from '@ui/text';
   standalone: true,
   imports: [MatMenuModule, MatIconModule, IconComponent, TextComponent],
   template: `
-    <button class="Button" mat-menu-item>
-      <ui-icon size="xmid">{{ icon }}</ui-icon>
-      <ui-text colour="dark">
-        <ng-content></ng-content>
-      </ui-text>
+    <button mat-menu-item>
+      <mat-icon>{{ icon }}</mat-icon>
+      <span>{{ title }}</span>
     </button>
   `,
   styleUrls: ['./more-options-item.component.scss'],
@@ -21,4 +19,5 @@ import { TextComponent } from '@ui/text';
 })
 export class MoreOptionsItemComponent {
   @Input() icon!: string;
+  @Input() title!: string;
 }

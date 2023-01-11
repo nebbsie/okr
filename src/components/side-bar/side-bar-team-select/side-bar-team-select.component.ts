@@ -61,7 +61,7 @@ import { Router } from '@angular/router';
             mat-menu-item
             (click)="handleSelectTeam(team.id)"
           >
-            {{ team.name }}
+            <span>{{ team.name }}</span>
           </button>
         </div>
       </ng-container>
